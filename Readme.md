@@ -42,10 +42,6 @@ Boxer and Boxer Standalone both run on macOS 10.14.4 and above, while Boxer Bund
 
 OSX 10.5 and PowerPC support has been removed from the Boxer master branch: if you need these, use the older "leopard_legacy" maintenance branch from http://github.com/alunbestor/Boxer/tree/leopard_legacy/.
 
-#### Having trouble?
-
-If you have any problems building the Boxer project, or questions about Boxer's code, please get in touch with me at abestor@boxerapp.com and I'll help out as best I can.
-
 #### License
 
 The project is licensed using [GPLv2](./LICENSE). Originally developed
