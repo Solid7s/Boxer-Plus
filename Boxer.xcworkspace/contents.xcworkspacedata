@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Boxer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Vendor/OpenEmuShaders/OpenEmuShaders.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Vendor/DDHidLib/DDHidLib.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Vendor/MT32Emu/Boxer-MT32Emu.xcodeproj">
+   </FileRef>
+</Workspace>
