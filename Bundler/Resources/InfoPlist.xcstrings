@@ -1,0 +1,30 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleName" : {
+      "comment" : "(No Commment)",
+      "extractionState" : "migrated",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boxer Bundler"
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "(No Commment)",
+      "extractionState" : "migrated",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copyright © 2012 Alun Bestor. Všechna práva vyhrazena."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

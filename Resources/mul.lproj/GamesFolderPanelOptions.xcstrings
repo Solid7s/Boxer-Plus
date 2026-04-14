@@ -1,0 +1,66 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "4.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Add sample DOS games to this folder\"; ObjectID = \"4\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add sample DOS games to this folder"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir juegos DOS de muestra a esta carpeta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter des exemples de jeux DOS"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adic. exemplo de Jogos do DOS nesta Pasta"
+          }
+        }
+      }
+    },
+    "8.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Use shelf appearance for this folder in Finder’s icon view\"; ObjectID = \"8\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Use shelf appearance for this folder in Finder’s icon view"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar apariencia de estantería para esta carpeta en vista de icono de Finder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser l’apparence étagère pour ce dossier dans le Finder"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar aparência de estante para esta pasta como ícone do Finder"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

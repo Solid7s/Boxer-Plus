@@ -1,0 +1,37 @@
+/*
+This translation file contains strings used by Boxer's extensions to the DOS shell.
+These have the same format and usage restrictions as the strings in DOSBox.strings: they can contain DOSBox colour codes and need to be written with a 80-column terminal screen in mind.
+*/
+
+"Shell Command Help" = "
+[33;1mObtenir de l'aide :[0m
+[34;1mHELP[0m               Affiche cette liste de commandes DOS.
+[34;1mDRIVES[0m             Liste les lecteurs DOS en cours.
+[34;1mPROGRAMS[0m           Liste les programmes exécutables du répertoire en cours.
+
+[33;1mSe déplacer dans DOS :[0m
+[34;1m[lecteur]:[0m         Modifie le lecteur en cours vers celui spécifié (ex. C:, D:)
+[34;1mCD [répertoire][0m    Modifie le répertoire en cours vers celui spécifié.
+[34;1mDIR[0m                Liste le contenu du répertoire en cours.
+[34;1mREVEAL[0m             Affiche le répertoire en cours dans le Finder macOS.
+[34;1mREVEAL [rép][0m       Affiche le répertoire DOS spécifié dans le Finder macOS.
+
+[33;1mUtiliser les fichiers :[0m
+[34;1mLAUNCH [programme][0m Recherche et exécute le programme (emplacement ignoré.)
+[34;1mEDIT [document][0m    Ouvre le document spécifié dans un éditeur de texte.
+[34;1mPRINT [document][0m   Imprime le document spécifié vers l'imprimante émulée.
+
+[33;1mContrôler DOS :[0m
+[34;1mNETWORK[0m            Héberge ou rejoint une session réseau IPX.
+[34;1mRESTART[0m            Redémarre DOS et relance le jeu démarré.
+[34;1mQUIT[0m               Ferme la fenêtre DOS.
+";
+
+"Mounting the %@ folder is not permitted." = "[31;1mLe montage du dossier [32;1m%@[31;1m n'est pas permis.[0m";
+
+"Currently mounted drives:" = "[33;1mLecteurs actuellement montés :[0m
+";
+
+"Windows-only game warning" = "[31;1m[32;1m%@[31;1m est un programme Windows. Ils ne sont pas supportés par Boxer.
+Vous pourrez lancer ce programme dans un émulateur Windows.[0m
+";

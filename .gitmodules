@@ -1,0 +1,12 @@
+[submodule "Vendor/Boxer-DDHidLib"]
+	path = Vendor/DDHidLib
+	url = https://github.com/MaddTheSane/Boxer-DDHidLib.git
+[submodule "Vendor/Boxer-MT32Emu"]
+	path = Vendor/MT32Emu
+	url = https://github.com/MaddTheSane/Boxer-MT32Emu.git
+[submodule "Vendor/OpenEmuShaders"]
+	path = Vendor/OpenEmuShaders
+	url = https://github.com/OpenEmu/OpenEmu-Shaders.git
+[submodule "DOSBox-Staging"]
+	path = DOSBox-Staging
+	url = https://github.com/MaddTheSane/dosbox-staging.git

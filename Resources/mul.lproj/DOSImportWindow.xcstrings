@@ -1,0 +1,126 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "908.ibShadowedToolTips[0]" : {
+      "comment" : "Class = \"NSSegmentedCell\"; 908.ibShadowedToolTips[0] = \"Toggle the Inspector Panel\"; ObjectID = \"908\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Toggle the Inspector Panel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar a panel inspector"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher/masquer le panneau Inspecteur"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterna o Painel de Inspeção"
+          }
+        }
+      }
+    },
+    "908.ibShadowedToolTips[1]" : {
+      "comment" : "Class = \"NSSegmentedCell\"; 908.ibShadowedToolTips[1] = \"Toggle the Programs Panel\"; ObjectID = \"908\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Toggle the Programs Panel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar a panel programas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher/masquer le panneau des programmes"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alterna Painel de Programas"
+          }
+        }
+      }
+    },
+    "908.ibShadowedToolTips[2]" : {
+      "comment" : "Class = \"NSSegmentedCell\"; 908.ibShadowedToolTips[2] = \"Lock the mouse to the window\"; ObjectID = \"908\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lock the mouse to the window"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloquear ratón en ventana"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verrouiller la souris sur la fenêtre"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloquear o mouse na janela"
+          }
+        }
+      }
+    },
+    "910.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Cmd-click to lock the mouse to the window.\"; ObjectID = \"910\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cmd-click to lock the mouse to the window."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cmd-clic para bloquear el ratón en la ventana."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cmd-clic pour verrouiller la souris sur la fenêtre."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cmd+click para bloquear o mouse."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

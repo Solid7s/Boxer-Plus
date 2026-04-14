@@ -1,0 +1,32 @@
+/* Styles used by the decorating page. */
+
+#cover-art-wrapper
+{
+	padding: 0.5em 0 1em;
+	margin: 0;
+	list-style: none;
+}
+
+#cover-art-wrapper:after
+{
+	clear: both;
+	content: " ";
+	display: block;
+}
+
+#cover-art-via-import,
+#cover-art-via-inspector
+{
+	width: 48%;
+	text-align: center;
+}
+
+#cover-art-via-import
+{
+	float: left;
+}
+
+#cover-art-via-inspector
+{
+	float: right;
+}

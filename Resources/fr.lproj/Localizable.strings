@@ -1,0 +1,826 @@
+/* The filename format under which to save exported game states. %1$@ is the name of the current game. %2$@ is the current date and time. */
+"%1$@ %2$@" = "%1$@ %2$@";
+
+/* Import progress description for importing source files stage. %1 is the basic description of the stage as a string (followed by ellipses), %2is the number of MB transferred so far as a float, %3 is the total number of MB to be transferred as a float. */
+"%1$@ (%2$.01f MB of %3$.01f MB)" = "%1$@ (%2$.01f Mo de %3$.01f Mo)";
+
+/* Bold message shown in alert when an unrecoverable emulation error is encountered while running a process. %1$@ is the name of the currently-active program */
+"%1$@ has encountered a serious error and must be relaunched." = "%1$@ a rencontré une erreur sérieuse et doit être relancé.";
+
+/* Filename pattern for captures: %1$@ is the display name of the DOS session, %2$@ is the type of capture being created, %3$@ is the current date and time in a notation suitable for chronologically-ordered filenames. */
+"%1$@%2$@ %3$@" = "%1$@%2$@ %3$@";
+
+/* Drive import progress meter label. %1 is the current progress as an unsigned integer percentage, %2 is the total size of the transfer as an unsigned integer in megabytes */
+"%1$i%% of %2$i MB" = "%1$i%% de %2$i Mo";
+
+/* Window title format when session is paused. %@ is the regular title of the window. */
+"%@ (Paused)" = "%@ (en pause)";
+
+/* Description format for inactive drives. %@ is the original description of the drive (e.g. 'CD-ROM', 'hard disk' etc.) */
+"%@ (ejected)" = "%@ (éjecté)";
+
+/* Title for documentation list popover. %@ is the display name of the current session. */
+"%@ Documentation" = "Documentation %@";
+
+/* Heading for game documentation in help menu. %@ is the display name of the current DOS session. */
+"%@ Documentation:" = "Documentation %@ :";
+
+/* Format for the label of the initial cancel button when finalizing import, which should indicate that the action will not take effect immediately. %@ is the original button label. */
+"%@…" = "%@…";
+
+/* Status text shown in print status panel when multiple pages have been prepared. %u is the number of pages prepared so far. */
+"%u pages are ready to print." = "%u pages prêtes pour l’impression.";
+
+/* Label for flightstick throttle-adjusted bezel notification. %u is the current throttle value expressed as a percentage from 0 to 100%. */
+"%u%% throttle" = "%u%% manette des gaz";
+
+/* Additional help displayed below hotkey capture toggle on Keyboard Preferences pane. */
+"(If an F1, F2 etc. key still behaves as an OS X hotkey, then hold down Fn while pressing the key.)" = "(si une touche F1, F2 etc. agit en tant que raccourci clavier macOS, maintenez enfoncé Fn lorque la touche est appuyée.)";
+
+/* Status text shown in print status panel when a single page has been prepared. */
+"1 page is ready to print." = "1 page est prête pour l’impression.";
+
+/* Localized informative text for 2-axis racing wheel. */
+"2 buttons and gas/brake pedals on a single axis." = "2 boutons et pédales accélérateur/frein sur un axe simple.";
+
+/* Localized informative text for 4-axis racing wheel. */
+"4 buttons and gas/brake pedals\non separate axes." = "4 boutons et pédales\naccélérateur/frein sur des axes séparés.";
+
+/* Localized informative text for generic 4-axis joystick type. */
+"4 buttons and up to 4 generic axes." = "4 boutons et jusqu’à 4 axes génériques.";
+
+/* Localized informative text for Thrustmaster FCS joystick type. */
+"4 buttons, POV hat and rudder pedals." = "4 boutons, bouton PDV et palonnier.";
+
+/* Localized informative text for CH Flightstick Pro joystick type. */
+"4 buttons, POV hat, rudder and throttle." = "4 boutons, bouton PDV, palonnier et manette des gaz.";
+
+/* Localized informative text for CH F-16 Combatstick joystick type. */
+"6 buttons, 2 POV hats, rudder and throttle." = "6 boutons, 2 boutons PDV, palonnier et manette des gaz.";
+
+/* Description for 80386 speed class. %u is cycles setting. */
+"386 speed (%u cycles)" = "386 (%u cycles)";
+
+/* Description for 80486 speed class. %u is cycles setting. */
+"486 speed (%u cycles)" = "486 (%u cycles)";
+
+/* Explanatory text shown when Boxer could not find any valid MT-32 ROMs to import. */
+"A control ROM and PCM ROM are needed to emulate the MT-32. These files are normally named “MT32_CONTROL.ROM” and “MT32_PCM.ROM”." = "Une ROM de contrôle et une ROM PCM sont nécessaires pour émuler le MT-32. Ces fichiers se nomment habituellement « MT32_CONTROL.ROM » et « MT32_PCM.ROM ».";
+
+/* Title of confirmation sheet when closing a session that has active drive import operations. %@ is the display name of the current DOS session. */
+"A drive is still being imported into %@." = "Un lecteur est toujours en cours d’importation dans %@.";
+
+/* Description for PC-AT 80286 speed class. %u is cycles setting. */
+"AT speed (%u cycles)" = "AT (%u cycles)";
+
+/* Title of menu item for choosing MT-32 ROMs to add when no ROMs are already present. */
+"Add MT-32 ROMs…" = "Ajouter des ROM MT-32…";
+
+/* Label shown on accept button in mount-a-new-drive panel. */
+"Add drive" = "Ajouter un lecteur";
+
+/* Heading for all programs search results in launcher panel. */
+"All Programs" = "Tous les programmes";
+
+/* Informative text of confirmation sheet when closing an active DOS session. */
+"Any unsaved data will be lost." = "Les données non enregistrées seront perdues.";
+
+/* Informative text of confirmation sheet when quitting a standalone game app while the game is still running.
+   Informative text of confirmation sheet when restarting a standalone game app to return to the launch panel.
+   Informative text of confirmation sheet when restarting a standalone game app. */
+"Any unsaved progress will be lost." = "Les progressions non sauvegardées seront perdues.";
+
+/* Title format for automatic drive type/letter option. Shown in popup buttons on mount-a-new-drive sheet. %@ is the title of the real option whose value will be used if auto is chosen. */
+"Auto (%@)" = "Auto (%@)";
+
+/* Descriptive name for Boxer’s MIDI client when communicating with external MIDI devices. */
+"Boxer" = "Boxer";
+
+/* Descriptive name for Boxer’s MIDI output port when communicating with external MIDI devices. */
+"Boxer MIDI Out" = "Sortie MIDI Boxer";
+
+/* Bold message shown in alert when Boxer cannot find the user’s games folder. */
+"Boxer can no longer find your games folder." = "Boxer ne peut plus trouver votre dossier de jeux.";
+
+/* Error shown when chosen games folder was read-only. %1$@ is the name of the folder. */
+"Boxer cannot write to the “%1$@” folder." = "Boxer ne peut pas écrire dans le dossier « %1$@ ».";
+
+/* Title of confirmation sheet when closing a game import session. %@ is the display name of the gamebox. */
+"Boxer has not finished importing %@." = "Boxer n’a pas terminé l’importation de %@.";
+
+/* Bold message in skip confirmation alert when importing from a CD or CD image. */
+"Boxer is importing the game’s CD so that you can play without it." = "Boxer importe le CD du jeu pour pouvoir jouer sans celui-ci.";
+
+/* Bold message in skip confirmation alert when importing from a floppy disk or floppy image while playing. */
+"Boxer is importing the game’s floppy disk so that the game can find files on it later." = "Boxer importe la disquette du jeu pour permettre au jeu de trouver les fichiers contenus sur celle-ci plus tard.";
+
+/* Bold message in skip confirmation alert when importing from a folder or other source with no more specific message. */
+"Boxer is importing the game’s source files so that the game can find them later." = "Boxer importe les fichiers source du jeu pour permettre au jeu de les trouver plus tard.";
+
+/* Label for CD-ROM drive mounts. */
+"CD-ROM" = "CD-ROM";
+
+/* Error shown when the chosen drive letter for a CD-ROM drive would be non-contiguous. */
+"CD-ROM drives must be on sequential drive letters, with no gaps between them." = "Les lettres attribuées aux lecteurs CD-ROM doivent se suivre.";
+
+/* Localized name for CH F-16 Combatstick joystick type. */
+"CH F-16 Combatstick" = "CH F-16 Combatstick";
+
+/* Localized name for CH Flightstick Pro joystick type. */
+"CH Flightstick Pro" = "CH Flightstick Pro";
+
+/* Cancel the current action and return to what the user was doing */
+"Cancel" = "Annuler";
+
+/* Drive import progress meter label when import operation is cancelled. */
+"Cancelling…" = "Annulation…";
+
+/* Help text shown at the top of choose-a-folder-to-import panel. */
+"Choose a DOS game folder, CD-ROM or disc image to import:" = "Choisissez un dossier de jeu DOS, un CD-ROM ou une image disque à importer :";
+
+/* Help text shown at the top of mount-a-new-drive panel. */
+"Choose a folder, CD-ROM or disc image to add as a DOS drive." = "Choisissez un dossier, un CD-ROM ou une image disque à ajouter en tant que lecteur DOS.";
+
+/* Help text shown at the top of the open panel. */
+"Choose a gamebox, folder or DOS program to open in DOS." = "Choisissez une gamebox, un dossier ou un programme DOS à ouvrir dans DOS.";
+
+/* Help text shown at the top of choose-an-installer panel. */
+"Choose the DOS installer program for this game:" = "Choisissez le programme d’installation DOS pour ce jeu :";
+
+/* Help text shown at the top of choose-a-target-program panel. */
+"Choose the target program for this gamebox:" = "Choisissez le programme cible pour cette gamebox :";
+
+/* Import progress description for gamebox cleanup stage. */
+"Cleaning up after ourselves…" = "Nettoyage de finalisation…";
+
+/* Statusbar message when mouse is unlocked and over DOS viewport and unlocked mouse-tracking is disabled. */
+"Click inside the window to lock the mouse pointer." = "Cliquez à l’intérieur de la fenêtre pour verrouiller le curseur de souris.";
+
+/* Button to close the current session, shown in alert when Boxer encounters an unrecoverable emulation error.
+   Used in confirmation sheets to close the current window */
+"Close" = "Fermer";
+
+/* Explanatory message shown when CD-image ripping fails because the disc is in use. */
+"Close Finder windows or other applications that are using the disc, then try importing again." = "Fermez les fenêtre du Finder ou les autres applications qui utilisent le disque et réessayez d’importer.";
+
+/* Statusbar message when mouse is unlocked and over DOS viewport. */
+"Cmd+click inside the window to lock the mouse pointer." = "Cmd+clic à l’intérieur de la fenêtre pour verrouiller le curseur de souris.";
+
+/* Statusbar message when mouse is locked. */
+"Cmd+click to release the mouse pointer." = "Cmd+clic pour libérer le pointeur de souris.";
+
+/* Menu item title for when selected drive is already the current DOS drive. */
+"Current Drive" = "Lecteur en cours";
+
+/* The default name for the games folder. */
+"DOS Games" = "DOS Games";
+
+/* The display title for Boxer’s toolkit drive. */
+"DOS Toolkit" = "Boîte à outils DOS";
+
+/* The display title for the gamebox’s C drive when importing a game. */
+"Destination Drive" = "Lecteur de destination";
+
+/* Localized descriptive text for joystick-disabled option. */
+"Disable joystick emulation." = "Désactiver l’émulation du joystick.";
+
+/* Title of confirmation sheet when closing an active DOS session. %@ is the display name of the current DOS session. */
+"Do you want to close %@ while it is still running?" = "Voulez-vous fermer %@ qui est toujours en cours d’exécution ?";
+
+/* Title of confirmation sheet when closing a game import session while an installer is still running. %@ is the display name of the gamebox. */
+"Do you want to finish importing %@ first?" = "Voulez-vous d’abord terminer l’importation de %@ ?";
+
+/* Bold text of confirmation when merging shadowed changes for the current session. %@ is the display name of the session. */
+"Do you want to merge your changes into %@?" = "Voulez-vous fusionner vos modifications dans %@ ?";
+
+/* Title of confirmation sheet when quitting a standalone game app while the game is still running. %@ is the display name of the app. */
+"Do you want to quit %@?" = "Voulez-vous quitter %@ ?";
+
+/* Bold text of confirmation when reverting a standalone game app to its original state. %@ is the name of the app. */
+"Do you want to reset %@ to its original state?" = "Voulez-vous réinitialiser %@ à son état original ?";
+
+/* Title of confirmation sheet when restarting an active DOS session. %@ is the display name of the current DOS session. */
+"Do you want to restart %@ while it is still running?" = "Voulez-vous redémarrer %@ qui est toujours en cours d’exécution ?";
+
+/* Title of confirmation sheet when restarting a standalone game app. %@ is the display name of the app. */
+"Do you want to restart %@?" = "Voulez-vous redémarrer %@ ?";
+
+/* Bold text of confirmation when reverting the current session to its original state. %@ is the display name of the session. */
+"Do you want to revert %@ to its original state?" = "Voulez-vous annuler les modifications de %@ ?";
+
+/* Help text shown in documentation browser when the gamebox does not get contain any documentation. */
+"Drag documentation here to add it to this game." = "Déposez une documentation ici pour l’ajouter à ce jeu.";
+
+/* Format for drive headings in the launcher list. %1$@ is the drive letter, and %2$@ is the drive's title. */
+"Drive %1$@ (%2$@)" = "Lecteur %1$@ (%2$@)";
+
+/* Error shown when a drive was in use and cannot be ejected. %1$@ is the drive's letter, and %2$@ its user-visible label. */
+"Drive %1$@ (%2$@) is currently busy and cannot be ejected." = "Le lecteur %1$@ (%2$@) est actuellement occupé et ne peut pas être éjecté.";
+
+/* Label for drive-added bezel notification. %1$@ is the drive letter. */
+"Drive %1$@ added" = "Lecteur %1$@ ajouté";
+
+/* Label for drive-removed bezel notification. %1$@ is the drive letter. */
+"Drive %1$@ ejected" = "Lecteur %1$@ éjecté";
+
+/* Title for confirmation sheet when unmounting a single drive that is in use. %1$@ is the uppercase letter of the drive, %@ is the display-ready name of the current DOS process. */
+"Drive %1$@ is in use by %2$@. Are you sure you want to eject it?" = "Le lecteur %1$@ est en cours d’utilisation par %2$@. Voulez-vous vraiment l’éjecter ?";
+
+/* Error shown when a drive was locked and cannot be ejected. %1$@ is the drive's letter. */
+"Drive %1$@ is required by Boxer and cannot be ejected." = "Le lecteur %1$@ est requis par Boxer et ne peut pas être éjecté.";
+
+/* Label for drive-swapped bezel notification. %1$@ is the drive letter. */
+"Drive %1$@ swapped" = "Lecteur %1$@ échangé";
+
+/* Label for drive-imported bezel notification. %1$@ is the drive letter. */
+"Drive %1$@ imported" = "Lecteur %1$@ importé";
+
+/* Subtitle of notification shown when a drive has finished importing. %@ is the letter of the drive. */
+"Drive %@ imported" = "Lecteur %@ importé";
+
+/* Title shown in MT-32 ROM dropzone when no ROMs are present. */
+"Drop MT-32 ROMs here to enable MT-32 emulation." = "Déposez des ROM MT-32 ici pour activer l’émulation MT-32.";
+
+/* The display title for Boxer’s dummy CD-ROM drive. */
+"Dummy CD" = "CD factice";
+
+/* Label for drive panel menu item to remove selected drives entirely from the drive list. Shown when one or more selected drives is currently mounted. */
+"Eject and Remove from List" = "Éjecter et supprimer de la liste";
+
+/* Label/tooltip for ejecting mounted drives. */
+"Eject drive" = "Éjecter le lecteur";
+
+/* Recovery suggestion shown when all drive letters are already occupied.
+   Recovery suggestion shown when the user tries to add more than the maximum number of CD-ROM drives. */
+"Eject one or more existing drives and try again." = "Éjectez un ou plusieurs lecteurs existants et réessayez.";
+
+/* Recovery suggestion shown when a drive's letter is already occupied. */
+"Eject the existing drive and try again." = "Éjectez le lecteur existant et réessayez.";
+
+/* Explanatory text for confirmation sheet when unmounting one or more drives that are in use. */
+"Ejecting a drive while it is in use may cause programs that depend on the drive to crash." = "L’éjection d’un lecteur en cours d’utilisation risque de planter les programmes en cours d’exécution qui dépendent de ce lecteur.";
+
+/* A reason supplied to the power management system for why Boxer is preventing the Mac's display from sleeping. Must be 128 characters or less */
+"Emulating DOS application" = "Émulation d’application DOS";
+
+/* Recovery suggestion shown when a drive's source does not exist or could not be accessed. */
+"Ensure that you have permission to access this file and that the volume containing it is still available." = "Assurez-vous d’avoir l’autorisation d’accéder à ce fichier et que le volume contenant ce fichier est toujours disponible.";
+
+/* Label for confirmation button on save panel when exporting the current game state. */
+"Export" = "Exporter";
+
+/* Label for filename field on save panel when exporting the current game state. */
+"Export as:" = "Exporter sous :";
+
+/* Title for save panel when exporting the current game state */
+"Export game data" = "Exporter les données de jeu";
+
+/* Emulation menu option for fast-forwarding the emulator. */
+"Fast Forward" = "Accélérer";
+
+/* Heading for favorites in launcher panel. */
+"Favorites" = "Favoris";
+
+/* Help menu item for searching Mobygames: %@ is the display name of the current DOS session. */
+"Find %@ at Mobygames" = "Rechercher %@ sur Mobygames";
+
+/* Help menu item for searching ReplacementDocs: %@ is the display name of the current DOS session. */
+"Find %@ at ReplacementDocs" = "Rechercher %@ sur ReplacementDocs";
+
+/* Close button for confirmation sheet when closing a game import session while an installer is running. */
+"Finish Importing" = "Importation terminée";
+
+/* Bold text of alert shown if the application is not yet trusted for accessibility access on 10.9 and above. %1$@ is the name of the application; %2$@ is the localized title of the Security & Privacy preferences pane. */
+"For the best experience, %1$@ needs accessibility control in OS X's %2$@ preferences." = "Pour une meilleure expérience, %1$@ nécessite un accès d’accessibilité dans les préférences %2$@ de macOS.";
+
+/* Bold text of alert shown if the user does not have 'Allow access for assistive devices' enabled in OS X 10.8 and below. %1$@ is the localized name of the Accessibility preferences pane. */
+"For the best experience, turn on \"Enable access for assistive devices\" in macOS's %1$@ preferences." = "Pour une meilleure expérience, activez « Activer l’accès pour les périphériques d’aide » dans les préférences %1$@ de macOS.";
+
+/* Heading for game documentation in help menu for standalone game bundles. */
+"Game Documentation:" = "Documentation du jeu :";
+
+/* The display title for the gamebox’s C drive. */
+"Game Drive" = "Lecteur du jeu";
+
+/* Subtitle of user notification shown when a game finishes importing. */
+"Game imported successfully" = "Jeu importé avec succès";
+
+/* View menu option for hiding the launch panel. */
+"Hide Launch Panel" = "Masquer le panneau de lancement";
+
+/* View menu option for hiding the program panel. */
+"Hide Programs Panel" = "Masquer le panneau des programmes";
+
+/* View menu option for hiding the status bar. */
+"Hide Status Bar" = "Masquer la barre d’état";
+
+/* Suggestion text shown in alert when an unrecoverable emulation error is encountered. */
+"If this continues to occur after relaunching, please send us an error report." = "Si la même erreur se reproduit après avoir relancé le jeu, envoyez-nous un rapport d’erreur.";
+
+/* Informative text of warning sheet after importing a Mac application. */
+"If you cannot play this game in OS X, you may be able to play it in a Classic Mac OS emulator instead. For more help, click the ? button." = "Si vous ne pouvez pas jouer à ce jeu sous macOS, vous pourrez peut-être y jouer avec un émulateur Mac OS Classic. Pour plus d’aide, cliquez sur le bouton ?.";
+
+/* Informative text of confirmation sheet when closing a session that has active drive import operations. */
+"If you close now, the import will be cancelled." = "Si vous fermez maintenant, l’importation sera annulée.";
+
+/* Informative text of confirmation sheet when restarting a session that has active drive import operations. */
+"If you restart now, the import will be cancelled." = "Si vous redémarrez maintenant, l’importation sera annulée.";
+
+/* Explanatory text in skip confirmation alert when importing from a CD or CD image. */
+"If you skip this step now, you can import the CD later from the Drives Inspector panel while playing." = "Si vous ignorez cette étape maintenant, vous pourrez importer plus tard le CD à partir du panneau de l’inspecteur de lecteurs.";
+
+/* Explanatory text in skip confirmation alert when importing from a floppy disk or floppy image. */
+"If you skip this step now, you can import the disk later from the Drives Inspector panel." = "Si vous ignorez cette étape maintenant,vous pourrez importer plus tard le disque à partir du panneau de l’inspecteur de lecteurs.";
+
+/* Informative text of confirmation sheet when closing a game import session. */
+"If you stop importing, any already-imported game files will be discarded." = "Si vous arrêtez l’importation, tous les fichiers de jeu déjà importés seront effacés.";
+
+/* Label for confirm button shown in MT-32 ROM file chooser panel.
+   Label shown on accept button in choose-a-folder-to-import panel. */
+"Import" = "Importer";
+
+/* The standard import window title before an import source has been chosen. */
+"Import a Game" = "Importer un jeu";
+
+/* Label for confirmation button on open panel when importing a game state. */
+"Import and Relaunch" = "Importer et relancer";
+
+/* Import window title once an import has finished. */
+"Import complete" = "Importation terminée";
+
+/* Title for open panel when importing a game state */
+"Import game data" = "Importer les données de jeu";
+
+/* Menu item title/tooltip for importing drive into gamebox. */
+"Import into Gamebox" = "Importer dans la gamebox";
+
+/* Title for game import window. %@ is the name of the gamebox/source path being imported. */
+"Importing %@" = "Importation de %@";
+
+/* Progress description when importing source files from floppy disk. */
+"Importing game CD…" = "Importation du CD de jeu…";
+
+/* Progress description when importing source files from floppy disk. */
+"Importing game disk…" = "Importation du disque de jeu…";
+
+/* Generic progress description for importing source files stage. */
+"Importing game files…" = "Importation des fichiers de jeu…";
+
+/* Drive import menu item title, when selected drive(s) are already in the gamebox. */
+"Importing into Gamebox…" = "Importation dans la gamebox…";
+
+/* Undo menu action title when importing multiple documentation items. %u is the number of items imported as an unsigned integer. */
+"Importing of %u manuals" = "Importation de %u manuels";
+
+/* Undo menu action title when importing a documentation item. %@ is the display name of the documentation item as it appears in the UI. */
+"Importing of “%@”" = "Importation de « %@ »";
+
+/* Progress description when importing source files from a folder into a fake CD. */
+"Importing source files as a CD…" = "Importation des fichiers source en tant que CD…";
+
+/* Progress description when importing source files from a folder into a fake floppy disk. */
+"Importing source files as a floppy disk…" = "Importation des fichiers source en tant que disquette…";
+
+/* Progress description when importing source files from a folder or disk image into a secondary hard disk. */
+"Importing source files as a hard disk…" = "Importation des fichiers source en tant que disque dur…";
+
+/* Explanatory text on open panel when importing a game state. */
+"Importing will replace your current savegames and player data. The game will relaunch to complete the import." = "L’importation remplacera vos sauvegardes et données de jeu en cours. Le jeu se relancera pour terminer l’importation.";
+
+/* Initial drive import progress meter label, before transfer size is known. */
+"Importing…" = "Importation…";
+
+/* Drive import menu item title, when selected drive(s) are already in the gamebox. */
+"Included in Gamebox" = "Inclus dans la gamebox";
+
+/* Recovery suggestion shown when user tries to mount a system folder as a DOS drive. */
+"Instead, choose one of your own folders, or a disc mounted in OS X." = "Choisissez plutôt un de vos propres dossiers, ou un disque monté dans macOS.";
+
+/* Explanatory text shown while the printer is idle. %1$@ is the localized name of the port the user should choose in DOS (e.g. “LPT1”.) %2$@ is the localized name of the paper type they should choose in DOS (e.g. “A4”, “Letter”.) */
+"Instruct your DOS program to print to %1$@ using %2$@ paper." = "Indiquez à votre programme DOS d’imprimer vers %1$@ avec du papier %2$@.";
+
+/* Localized informative text for generic 2-axis joystick type. */
+"Joystick with 2 buttons and 2 axes." = "Joystick avec 2 boutons et 2 axes.";
+
+/* Format for error message when choosing an unsupported joystick type. %1$@ is the localized name of the chosen joystick type. */
+"Joysticks of type “%1$@” are not supported by the current session." = "Les joysticks de type « %1$@ » ne sont pas supportés par la session en cours.";
+
+/* Localized name for parallel port 1 */
+"LPT1" = "LPT1";
+
+/* Localized name for parallel port 2 */
+"LPT2" = "LPT2";
+
+/* Localized name for parallel port 3 */
+"LPT3" = "LPT3";
+
+/* Placeholder title for a game launcher autogenerated from a gamebox's previous default program. %@ will be the name of the gamebox itself. */
+"Launch %@" = "Lancer %@";
+
+/* Label for default program checkbox in program panel. %@ is the lowercase filename of the currently-active program. */
+"Launch %@ every time I open this gamebox." = "Lancer %@ chaque fois que j’ouvre cette gamebox.";
+
+/* Label for initial default-program question in program panel. %@ is the lowercase filename of the currently-active program. */
+"Launch %@ every time?" = "Lancer %@ à chaque fois ?";
+
+/* Button to display a file open panel to choose a new location for the games folder. */
+"Locate folder…" = "Localiser le dossier…";
+
+/* The standard window title when the session is at the DOS prompt. */
+"MS-DOS Prompt" = "Invite MS-DOS";
+
+/* Error shown when the user tries to add more than the maximum number of CD-ROM drives. %1$d is the maximum number allowed. */
+"MS-DOS is limited to a maximum of %1$d CD-ROM drives." = "MS-DOS est limité à un maximum de %1$d lecteurs CD-ROM.";
+
+/* Error message shown when user tries to mount a system folder as a DOS drive. %@ is the requested folder path. */
+"MS-DOS is not permitted to access OS X system folders like \"%@\"." = "MS-DOS n’a pas les droits d’accès aux dossiers système macOS tels que « %@ ».";
+
+/* Menu item title for switching to the selected drive in DOS. */
+"Make Current Drive" = "Choisir comme lecteur en cours";
+
+/* Explanatory text shown in alert when Boxer cannot find the user’s games folder at startup. */
+"Make sure the disk containing your games folder is connected." = "Assurez-vous que le disque contenant votre dossier de jeux est connecté.";
+
+/* Description for current CPU speed when in automatic CPU throttling mode. */
+"Maximum speed" = "Vitesse maximale";
+
+/* Label for button to confirm that the user wants to merge their shadowed changes for the current session. */
+"Merge and Relaunch" = "Fusionner et relancer";
+
+/* Help menu item for Mobygames website. */
+"Mobygames Website" = "Site web Mobygames";
+
+/* Label/tooltip for mounting unmounted drives. */
+"Mount drive" = "Mounter un lecteur";
+
+/* Menu item for cycling to the next queued CD-ROM. */
+"Next Disc" = "Disque suivant";
+
+/* Menu item for cycling to the next queued floppy or hard disk. */
+"Next Disk" = "Disque précédent";
+
+/* Localized name for joystick-disabled option. */
+"No joystick" = "Pas de joystick";
+
+/* Main error text shown when Boxer could not find any valid MT-32 ROMs to import out of a set of several files. */
+"No suitable MT-32 ROMs were found." = "Aucune ROM MT-32 adaptée n’a été trouvée.";
+
+/* Emulation menu option for returning from fast-forward. */
+"Normal Speed" = "Vitesse normale";
+
+/* Title shown in MT-32 ROM dropzone when a control ROM is present without a PCM ROM. %1$@ is the expected name of the matching ROM. */
+"Now drop in the matching PCM ROM\n(e.g. “%1$@”.)" = "Déposez maintenant la ROM PCM correspondante\n(ex. « %1$@ ».)";
+
+/* Title shown in MT-32 ROM dropzone when a PCM ROM is present without a control ROM. %1$@ is the expected name of the matching ROM. */
+"Now drop in the matching control ROM\n(e.g. “%1$@”.)" = "Déposez maintenant la ROM de contrôle correspondante\n(ex. « %1$@ ».)";
+
+/* Title of button in Keyboard Preferences pane to open OS X's accessibility controls. %1$@ is the localized name of the appropriate System Preferences pane. */
+"Open %1$@ Preferences" = "Ouvrir préférences %1$@";
+
+/* Label of default button in hotkey warning alert. %@ is the localized name of the preferences pane that contains the relevant accessibility controls. */
+"Open %@ Preferences" = "Ouvrir préférences %@";
+
+/* The term to use for MT-32 PCM ROMs in error messages. */
+"PCM ROM" = "ROM PCM";
+
+/* Emulation menu option for pausing the emulator. */
+"Pause" = "Pause";
+
+/* Description for Pentium speed class. %u is cycles setting. */
+"Pentium speed (%u cycles)" = "Pentium (%u cycles)";
+
+/* Label shown in File Menu for Player Data submenu. %@ is the display name of the current session. */
+"Player Data for “%@”" = "Données joueur pour « %@ »";
+
+/* Descriptive text for >0 frameskipping */
+"Playing 1 in %u frames" = "Lire 1 image sur %u";
+
+/* Descriptive text for 0 frameskipping */
+"Playing every frame" = "Lire toutes les images";
+
+/* Explanatory text shown when chosen games folder was read-only. */
+"Please check the file permissions, or choose a different folder." = "Vérifier les droits d’accès au fichier ou choississez un dossier différent";
+
+/* Explanatory text for error message shown after failing to mount an image. */
+"Please create a subfolder, or choose a different folder you have created yourself." = "Veuillez créer un sous-dossier, ou choisissez un dossier différent que vous avez créé.";
+
+/* Informative text of warning shown when importing a folder that has missing drives. %1$@ is the missing drive path. */
+"Please ensure that the resource “%1$@” is available, then retry the import." = "Assurez-vous que la ressource « %1$@ » soit disponible, réessayez ensuite l’importation.";
+
+/* Informative text of warning shown when importing a folder that has missing drives. %1$@ is the missing drive path. */
+"Please provide a game data file that was exported from %1$@." = "Veuillez fournir un fichier de données de jeu qui a été exporté de %1$@.";
+
+/* Status text shown in print status panel when the emulated printer is in the middle of printing a page. %u is the current page number being printed. */
+"Preparing page %u…" = "Préparation de la page %u…";
+
+/* Menu item for cycling to the previous queued CD-ROM. */
+"Previous Disc" = "Disque précédent";
+
+/* Menu item for cycling to the previous queued floppy or hard disk. */
+"Previous Disk" = "Disque précédent";
+
+/* Button shown on user notifications when pages are ready to print. */
+"Print" = "Imprimer";
+
+/* Close button for confirmation sheet when quitting a standalone game app. */
+"Quit" = "Quitter";
+
+/* Localized name for 2-axis racing wheel joystick type.
+   Localized name for 4-axis racing wheel joystick type. */
+"Racing wheel" = "Volant de course";
+
+/* Heading for recent programs list in launcher panel. */
+"Recent" = "Récent";
+
+/* Button to restart the current session, shown in alert when Boxer encounters an unrecoverable emulation error. */
+"Relaunch" = "Relancer";
+
+/* Label of button displayed in Keyboard Preferences when Boxer needs to restart in order for extra accessibility permissions to take effect. */
+"Relaunch Boxer Now" = "Relancer Boxer maintenant";
+
+/* Undo menu action title when removing multiple documentation items. %u is the number of items removed as an unsigned integer. */
+"Removal of %u manuals" = "Suppression de %u manuels";
+
+/* Undo menu action title when removing a documentation item. %@ is the display name of the documentation item as it appears in the UI. */
+"Removal of “%@”" = "Suppression de « %@ »";
+
+/* Used in confirmation sheets to confirm unmounting one or more drives */
+"Remove" = "Supprimer";
+
+/* Label for drive panel menu item to remove selected drives entirely from the drive list. Shown when all selected drives are inactive. */
+"Remove from List" = "Supprimer de la liste";
+
+/* Title of menu item for choosing MT-32 ROMs to replace the existing set. */
+"Replace MT-32 ROMs…" = "Remplacer les ROM MT-32…";
+
+/* Help menu item for ReplacementDocs website. */
+"ReplacementDocs Website" = "Site web ReplacementDocs";
+
+/* Label for button to confirm that the user wants to revert a standalone game app to its original state. */
+"Reset and Relaunch" = "Réinitialiser et relancer";
+
+/* Close button for confirmation sheet when restarting a game session. */
+"Restart" = "Redémarrer";
+
+/* Emulation menu option for resuming from pause. */
+"Resume" = "Reprendre";
+
+/* Cancel button for warning sheet after running a Windows-only executable: will return user to the DOS prompt. */
+"Return to DOS" = "Retourner au DOS";
+
+/* Close button for confirmation sheet when restarting a game session. */
+"Return to Launch Options" = "Retourner aux options de lancement";
+
+/* Title of confirmation sheet when restarting a standalone game app to return to the launch panel. %@ is the display name of the app. */
+"Returning to the launch options will end your current game." = "En retournant aux options de lancements, vous terminerez votre jeu en cours.";
+
+/* Label for button to confirm that the user wants to revert the current session to its original state. */
+"Revert and Relaunch" = "Annuler les modifications et relancer";
+
+/* Title shown in MT-32 ROM dropzone when CM-32L ROMs are installed. */
+"Roland CM-32L emulation is installed." = "L’émulation Roland CM-32L est installée.";
+
+/* Title shown in MT-32 ROM dropzone when MT-32 ROMs are installed. */
+"Roland MT-32 emulation is installed." = "L’émulation Roland MT-32 est installée.";
+
+/* Button label for Open panels when selecting a folder. */
+"Select" = "Sélectionner";
+
+/* Help text shown at the top of choose-a-games-folder panel. */
+"Select a folder in which to keep your DOS games:" = "Sélectionnez un dossier où stocker vos jeux DOS :";
+
+/* Help text shown at the top of MT-32 ROM file chooser panel. */
+"Select the MT-32 control ROM and PCM ROM to use." = "Sélectionnez la ROM de contrôle MT-32 et la ROM PCM à utiliser.";
+
+/* Button to open the issue tracker, shown in alert when Boxer encounters an unrecoverable emulation error. */
+"Send Report…" = "Envoyer un rapport…";
+
+/* View menu option for showing the launch panel. */
+"Show Launch Panel" = "Afficher le panneau de lancement";
+
+/* View menu option for showing the program panel. */
+"Show Programs Panel" = "Afficher le panneau des programmes";
+
+/* Title of menu item for revealing the MT-32 ROM folder in Finder, when no ROMs are present. */
+"Show ROM folder in Finder" = "Afficher le dossier ROM dans le Finder";
+
+/* Title of menu item for revealing the MT-32 ROM folder in Finder, when ROMs are already present. */
+"Show ROMs in Finder" = "Afficher les ROM dans le Finder";
+
+/* View menu option for showing the status bar. */
+"Show Status Bar" = "Afficher la barre d’état";
+
+/* Label of button in hotkey warning alert to dismiss the alert without showing accessibility preferences. */
+"Skip" = "Ignorer";
+
+/* Button label to skip importing source files as a fake CD-ROM or CD image. */
+"Skip CD import" = "Ignorer l’importation du CD";
+
+/* Button label to skip importing source files as a fake floppy disk.
+   Button label to skip importing source files as a hard disk. */
+"Skip disk import" = "Ignorer l’importation du disque";
+
+/* Button label to skip importing source files when the import type is not known. */
+"Skip this step" = "Ignorer cette étape";
+
+/* Explanatory text in skip confirmation alert when importing from a folder or other source with no more specific message. */
+"Skipping this step may prevent the game from working if it needs those source files." = "En ignorant cette étape, vous risquez d’empêcher le jeu de fonctionner s’il nécessite ces fichiers source.";
+
+/* The display title for the source drive when importing. */
+"Source Drive" = "Lecteur source";
+
+/* Localized name for generic 2-axis joystick type. */
+"Standard joystick" = "Joystick standard";
+
+/* Localized name for generic 4-axis joystick type. */
+"Standard joystick/gamepad" = "Joystick/manette standard";
+
+/* Close button for confirmation sheet when closing a game import session. */
+"Stop Importing" = "Arrêter l’importation";
+
+/* Button label to cancel the entire game import. */
+"Stop importing" = "Arrêter l’importation";
+
+/* The display title for Boxer’s temp drive. */
+"Temporary Files" = "Fichiers temporaires";
+
+/* Bold message shown in alert when an unrecoverable emulation error while no process is running. */
+"The MS-DOS prompt has encountered a serious error and must be relaunched." = "L’invite MS-DOS a rencontré une erreur sérieuse et doit être relancé.";
+
+/* Title shown in MT-32 ROM dropzone when user has manually added invalid or unreadable ROMs. */
+"The current MT-32 ROMs are invalid.\nPlease drop in new ROMs to replace them." = "Les ROM MT-32 actuelles sont invalides.\nDéposez de nouvelles ROM pour les remplacer.";
+
+/* Error shown when CD-image ripping fails for an unknown reason. %1$@ is the display title of the drive. */
+"The disc “%1$@” could not be converted into a disc image." = "Le disque « %1$@ » n’a pas pu être converti en image disque.";
+
+/* Error shown when CD-image ripping fails because the disc is in use. %1$@ is the display title of the drive. */
+"The disc “%1$@” could not be converted to a disc image because it is in use by another application." = "Le disque « %1$@ » n’a pas pu être converti vers une image disque car il est en cours d’utilisation par une autre application.";
+
+/* Explanatory text for error message shown after failing to mount an image.
+   Recovery suggestion shown when a drive's source image could not be loaded by DOSBox. */
+"The disk image file may be corrupted or incomplete." = "Le fichier d’image disque est peut-être corrompu ou incomplet.";
+
+/* Error shown when a drive's source image could not be loaded by DOSBox. %1$@ is the filename of the image. */
+"The disk image “%1$@” could not be opened." = "L’image disque « %1$@ » n’a pas pu être ouverte.";
+
+/* Error message shown after failing to mount an image. %@ is the display name of the disk image. */
+"The disk image “%@” could not be opened." = "L’image disque « %@ » n’a pas pu être ouverte.";
+
+/* Error shown when a drive cannot be mounted because it is busy being imported. */
+"The drive “%1$@” is unavailable while it is being imported." = "Le lecteur « %1$@ » est indisponible lorsqu’il est en cours d’importation.";
+
+/* Status text shown in print status panel when the emulated printer has not printed anything yet in the current print session. */
+"The emulated printer is currently idle." = "L’imprimante émulée est actuellement inactive.";
+
+/* Error shown when a drive's source does not exist or could not be accessed. %1$@ is the filename of the drive's source. */
+"The file “%1$@” could not be read." = "Le fichier « %1$@ » n’a pas pu être lu.";
+
+/* Error message shown when trying to add a launcher pointing to a URL outside the gamebox. %@ is the display filename of the URL in question.
+   Error message shown when trying to set the target path of a gamebox to a file outside the gamebox. %@ is the display filename of the file in question. */
+"The file “%@” was not located inside this gamebox." = "Le fichier « %@ » ne se situe pas à l’intérieur de cette gamebox.";
+
+/* Error shown when drive bundle importing fails because the CUE file could not be parsed. %1$@ is the display title of the drive. */
+"The image “%1$@” could not be imported because Boxer was unable to determine its source files." = "L’image « %1$@ » n’a pas pu être importée parce que Boxer a été incapable de déterminer ses fichiers source.";
+
+/* Error shown when user renames a gamebox to a name that already exists. %1$@ is the intended filename. */
+"The name “%1$@” is already taken. Please choose another." = "Le nom « %1$@ » est déjà utilisé. Veuillez en choisir un autre.";
+
+/* Title for confirmation sheet when unmounting multiple drives that are in use. %@ is the display-ready name of the current DOS process. */
+"The selected drives are in use by %@. Are you sure you want to eject them?" = "Les lecteurs sélectionnés sont en cours d’utilisation par %@. Voulez-vous vraiment les éjecter ?";
+
+/* Error shown when all drive letters are already occupied. */
+"There are no free DOS drive letters remaining." = "Il n’y a plus de lettre de lecteur DOS libre.";
+
+/* Error shown when a drive's letter is already occupied. %1$@ is the occupied drive letter. */
+"There is already another drive at the DOS drive letter %1$@." = "Il y a déjà un autre lecteur associé à la lettre de lecteur DOS %1$@.";
+
+/* Informative text of alert shown if the application is not yet trusted for accessibility access on 10.9 and above. %1$@ is the name of the application. */
+"This ensures that OS X hotkeys won't interfere with %1$@'s game controls." = "Empêche les raccourcis clavier de macOS d’interférer avec les commandes du jeu %1$@.";
+
+/* Explanatory message shown in Keyboard Preferences if Boxer is not able to install its hotkey capture event tap on OS X 10.9 and up. %1$@ is the localized name of the Security & Privacy preferences pane. */
+"This feature requires Boxer to be given accessibility control in %1$@ Preferences." = "Nécessite que Boxer ait un accès d’accessibilité dans les préférences %1$@.";
+
+/* Explanation text shown when importing a folder with no executables in it. */
+"This folder may contain a game for another platform which is not supported by Boxer." = "Ce dossier contient peut-être un jeu pour une autre plateforme qui n’est pas supportée par Boxer.";
+
+/* Explanatory message shown when drive bundle importing fails because the CUE file could not be parsed. */
+"This image may be in a format that Boxer does not support." = "Cette image est peut-être dans un format que Boxer ne supporte pas.";
+
+/* Localized name for Thrustmaster FCS joystick type. */
+"Thrustmaster FCS" = "Thrustmaster FCS";
+
+/* Recovery suggestion shown when the chosen drive letter for a CD-ROM drive would be non-contiguous. */
+"Try removing later drives before adding or removing any other CD-ROM drives." = "Essayez de supprimer les derniers lecteurs avant d’ajouter ou supprimer d’autres lecteurs CD-ROM.";
+
+/* Title of issue when reporting an unrecoverable emulator error that occurred at the DOS prompt. */
+"Unrecoverable emulation error at MS-DOS prompt" = "Erreur d’émulation irrécupérable à l’invite MS-DOS";
+
+/* Title of issue when reporting an unrecoverable emulator error. %@ is the name of the gamebox (or current program, if unavailable.) */
+"Unrecoverable emulation error when running %@" = "Erreur d’émulation irrécupérable lors de l’exécution de %@";
+
+/* Version string for display in About panel. %1$@ is human-readable version (e.g. 1.0beta), %2$@ is build number (e.g. 20090323-1.) */
+"Version %1$@ | build %2$@" = "Version %1$@ | numéro %2$@";
+
+/* Description for PC-XT 8088 speed class. %u is cycles setting. */
+"XT speed (%u cycles)" = "XT (%u cycles)";
+
+/* Informative text of warning sheet when importing a hybrid Mac/PC CD. */
+"You can insert the disc into a Windows PC instead, and copy the DOS version of the game from there to your Mac. For more help, click the ? button." = "Insérez plutôt le disque dans un PC Windows et copiez la version DOS du jeu de ce PC vers votre Mac. Pour plus d’aide, cliquez sur le bouton ?.";
+
+/* Informative text of warning sheet after importing a Windows-only game. */
+"You can run this game in a Windows emulator instead. For more help, click the ? button." = "Exécutez plutôt ce jeu dans un émulateur Windows. Pour plus d’aide, cliquez sur le bouton ?.";
+
+/* Informative text of warning sheet after running a Windows-only executable or importing a Windows-only game. */
+"You can run this program in a Windows emulator instead. For more help, click the ? button." = "Exécutez plutôt ce programme dans un émulateur Windows. Pour plus d’aide, cliquez sur le bouton ?.";
+
+/* Recovery suggestion shown when a drive cannot be mounted because it is busy being imported. */
+"You can use the drive once the import has completed or been cancelled." = "Vous pourrez utiliser le lecteur lorsque l’importation sera terminée ou annulée.";
+
+/* Explanatory text shown when user attempts to add a PCM ROM that doesn’t match an already-imported control ROM, or vice-versa. %1$@ is the proper term for that kind of ROM. */
+"You will need to a find a matching %1$@, or else replace both ROMs with ones from the same model." = "Vous devez trouver une %1$@ qui correspond, ou bien remplacer les deux ROM par celles d’un même modèle.";
+
+/* Help message shown on Keyboard Preferences panel when Boxer has been given extra accessibility permission but must restart for it to take effect. */
+"Your changes to accessibility permissions will take effect next time Boxer is launched." = "Vos modifications concernant les accès d’accessibilité prendront effet au prochain lancement de Boxer.";
+
+/* Informative text of confirmation when reverting the current session to its original state. */
+"Your player data and changes to game files will be lost. This operation cannot be undone." = "Vos données joueur et modifications aux fichiers de jeu seront perdues. Cette opération ne peut pas être annulée.";
+
+/* Informative text of confirmation when merging shadowed changes for the current session. */
+"Your player data and changes to game files will become a permanent part of the gamebox. This operation cannot be undone." = "Vos données joueur et modifications aux fichiers de jeu vont définitivement faire partie de votre gamebox. Cette opération ne peut pas être annulée.";
+
+/* Title shown in MT-32 ROM dropzone when user has a real MT-32 connected to their Mac. */
+"Your real Roland MT-32 is connected." = "Votre Roland MT-32 réel est connecté.";
+
+/* Informative text of confirmation when reverting a standalone game app to its original state. */
+"Your savegames and player data will be lost." = "Vos sauvegardes et données joueur seront perdues.";
+
+/* The term to use for MT-32 control ROMs in error messages. */
+"control ROM" = "ROM de contrôle";
+
+/* Label for floppy-disk mounts. */
+"floppy disk" = "Disquette";
+
+/* Description format for bundled drives. %@ is the original description of the drive (e.g. 'CD-ROM', 'hard disk' etc.) */
+"gamebox %@" = "%@ de la gamebox";
+
+/* Label for hard disk mounts. */
+"hard disk" = "Disque dur";
+
+/* Label for DOSBox virtual drives (i.e. Z). */
+"internal system disk" = "Disque système interne";
+
+/* The date and time format to use for screenshot filenames. Literal strings (such as the 'at') should be enclosed in single quotes. The date order should not be changed when localizing unless really necessary, as this is important to maintain chronological ordering in alphabetical file listings. Note that some characters such as / and : are not permissible in filenames and will be stripped out or replaced. */
+"yyyy-MM-dd 'at' h.mm.ss a" = "yyyy-MM-dd 'à' H.mm.ss";
+
+/* Error message shown when importing a folder that has missing drives. %1$@ is the display filename of the imported path. */
+"“%1$@” contains game data for a different game." = "« %1$@ » contient des données de jeu pour un jeu différent.";
+
+/* Error message shown when Boxer could not find any valid MT-32 ROMs to import from the folder the user chose. %1$@ is the filename of the folder. */
+"“%1$@” does not contain any suitable MT-32 ROMs." = "« %1$@ » ne contient pas de ROM MT-32 appropriée.";
+
+/* Error message shown after choosing a reserved folder as the location for the DOS Games folder. %1$@ is the display name of the folder. */
+"\"%1$@\" is a special OS X folder and not suitable for storing your DOS games." = "« %1$@ » est un dossier spécial macOS et n’est pas approprié au stockage de vos jeux DOS.";
+
+/* Bold error message shown when user attempts to add a PCM ROM that doesn't match an already-imported control ROM or vice-versa. %1$@ is the filename of the new ROM, and %2$@ is the proper term for that kind of ROM (control or PCM). */
+"“%1$@” is from a different MT-32 model than the existing %2$@." = "« %1$@ » provient d’un modèle de MT-32 différent que le ROM %2$@ existante.";
+
+/* Error message shown when the file the user selected was not a valid MT-32 ROM. %1$@ is the filename of the file. */
+"“%1$@” is not a valid MT-32 ROM." = "« %1$@ » n’est pas une ROM MT-32 valide.";
+
+/* Error message shown when importing a folder that has missing drives. %1$@ is the display filename of the imported path. */
+"“%1$@” requires extra files that are currently unavailable." = "« %1$@ » nécessite des fichiers supplémentaires qui sont actuellement indisponibles.";
+
+/* Error message shown when importing a folder with no executables in it. %@ is the display filename of the imported folder. */
+"\"%@\" does not contain any MS-DOS programs." = "« %@ » ne contient pas de programme MS-DOS.";
+
+/* Error message shown when importing a folder that contains a Mac game. %@ is the display filename of the imported path. */
+"\"%@\" is a Mac OS game. Boxer only supports MS-DOS games." = "« %@ » est un jeu Mac OS Classic. Boxer supporte uniquement les jeux MS-DOS.";
+
+/* Error message shown when importing a hybrid Mac/PC CD. %@ is the display filename of the imported path. */
+"\"%@\" is a Mac+PC hybrid disc, which Boxer cannot import." = "« %@ » est un disque hybride Mac+PC. Boxer ne peut pas l’importer.";
+
+/* Error message shown when importing a folder that contains a Windows-only game or Windows installer. %@ is the display filename of the imported path. */
+"\"%@\" is a Windows game. Boxer only supports MS-DOS games." = "« %@ » est un jeu Windows. Boxer supporte uniquement les jeux MS-DOS.";
+
+/* Title of warning sheet after running a Windows-only executable. %@ is the original filename of the executable. */
+"“%@” is a Windows program. Boxer only supports MS-DOS programs." = "« %@ » est un programme Windows. Boxer supporte uniquement les programmes MS-DOS.";
+
+/* Format for error message when choosing an unrecognised joystick type. %@ is the classname of the chosen joystick type. */
+"“%@” is not a valid joystick type." = "« %@ » n’est pas un type de joystick valide.";
+
+/* Explanatory message shown in Keyboard Preferences if Boxer is not able to install its hotkey capture event tap on OS X 10.8 and below. %1$@ is the localized name of the Accessibility preferences pane. */
+"\"Enable access for assistive devices\" must also\n be enabled in OS X's %1$@ preferences." = "« Activer l’accès pour les périphériques d’aide » doit également\n être activé dans les préférences %1$@ de macOS.";
+
+/* A DOSBox configuration file was provided that defines drives with paths that cannot be found. */
+"A DOSBox configuration file was provided that defines drives with paths that cannot be found." = "Un fichier de configuration DOSBox fourni définit des lecteurs avec des chemins introuvables.";
+
+/* Unsupported state */
+"Unsupported state" = "État non supporté";
+
+/* Explanatory message when an unsupported state was requested. */
+"The current session does not support game states. (e.g. no gamebox is present.)" = "La session actuelle ne supporte pas les états de jeu (ex. aucune gamebox n’est présente).";
+
+/* Localized description for when a requested URL cannot be opened from within DOS. */
+"URL not reachable in DOS" = "URL non accessible dans DOS";
+
+"Unable to decode drive: encoding version %ld is higher than supported version %ld." = "Impossible de décoder le lecteur : la version %1$ld de l’encodage est supérieure à la version %2$ld supportée.";

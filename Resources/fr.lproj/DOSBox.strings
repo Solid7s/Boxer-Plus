@@ -1,0 +1,899 @@
+/*
+This translation file is based on Boxer 0.88's default DOSBox translation file. A bunch of redundant strings have been removed for ease of translation, and many descriptions have been rewritten with expanded examples.
+
+When translating, ensure that the strings wrap nicely to an 80-column display. DOS does not perform automatic word-wrapping, only character-wrapping.
+
+Strings should also end in a linebreak, unless they are used as a segment of another command.
+*/
+
+
+
+//CONFIG-related strings
+//----------------------
+
+"PROGRAM_CONFIG_USAGE" = "Usage :    [34;1mconfig -get [section] [propriété][0m
+		   [34;1mconfig -set [section] [propriété] [valeur][0m
+		 
+Exemples : [32;1mconfig -get cpu cycles[0m affiche le paramètre actuel des cycles CPU.
+		   [32;1mconfig -set cpu core dynamic[0m active l'émulation de coeur dynamique.
+		  
+Vous pouvez également omettre [34;1mconfig -get/set [section][0m complètement :
+		   [32;1mcycles[0m affiche le paramètre actuel des cycles CPU.
+		   [32;1mcore dynamic[0m active l'émulation de coeur dynamique.
+
+Remarque : certains paramètres de configuration ne peuvent pas être modifiés
+lorsque la session DOS est en cours d'exécution.
+";
+
+"PROGRAM_CONFIG_GET_SYNTAX" = "Usage :   [34;1mconfig -get [section] [propriété][0m
+
+Exemple : [32;1mconfig -get cpu cycles[0m affiche le paramètre actuel des cycles CPU.
+
+Vous pouvez également omettre [34;1mconfig -get [section][0m complètement :
+		  [32;1mcycles[0m affiche le paramètre actuel des cycles CPU.
+";
+
+"PROGRAM_CONFIG_FILE_ERROR" = "Impossible de charger le fichier de configuration %s.
+";
+
+"PROGRAM_CONFIG_SECTION_ERROR" = "La section %s n'existe pas.
+";
+
+"PROGRAM_CONFIG_PROPERTY_ERROR" = "Section ou propriété incorrecte.
+";
+
+"PROGRAM_CONFIG_NO_PROPERTY" = "Il n'y a pas de propriété %s dans la section %s.
+";
+
+"PROGRAM_CONFIG_SECURE_ON" = "Bascule vers le mode sécurisé ([34;1mmount[0m et [34;1mboot[0m ne sont plus autorisés).
+";
+
+"PROGRAM_CONFIG_SECURE_DISALLOW" = "Cette opération n'est pas autorisée en mode sécurisé.
+";
+
+"PROGRAM_CONFIG_MISSINGPARAM" = "Paramètre manquant.
+";
+
+"PROGRAM_CONFIG_FILE_WHICH" = "Écriture du fichier de configuration %s
+";
+
+"PROGRAM_CONFIG_HLP_PROPHLP" = "Rôle de la propriété \"%s\" (contenue dans la section \"%s\"):
+%s
+
+Valeurs possibles : %s
+Valeur par défaut : %s
+Valeur actuelle : %s
+
+";
+
+"PROGRAM_CONFIG_HLP_LINEHLP" = "Rôle de la section \"%s\":
+%s
+Valeur actuelle :
+%s
+";
+
+"PROGRAM_CONFIG_HLP_NOCHANGE" = "Cette propriété ne peut être modifiée pendant le temps d'exécution.
+";
+
+"PROGRAM_CONFIG_HLP_POSINT" = "entier positif
+";
+
+"PROGRAM_CONFIG_HLP_SECTHLP" = "La section %s contient les propriétés suivantes :
+";
+
+"PROGRAM_CONFIG_HLP_SECTLIST" = "La configuration DOSBox contient les sections suivantes :
+";
+
+"PROGRAM_CONFIG_SET_SYNTAX" = "Syntaxe correcte : config -set \"section propriété\".
+";
+
+"PROGRAM_CONFIG_PRINT_STARTUP" = "DOSBox a été démarré avec les paramètres de ligne de commande suivants :
+%s
+";
+
+//MOUNT-related strings
+//---------------------
+
+"PROGRAM_MOUNT_USAGE" = "Rend accessible un dossier réel de votre Mac en tant que lecteur DOS.
+
+Usage :    [34;1mmount [lettre DOS] [\"Chemin/du/dossier/réel\"][0m
+
+Exemples : [32;1mmount d \"/Users/votrenom/Desktop/\"[0m rendra accessible
+		   à DOS votre dossier du bureau macOS en tant que lecteur D.
+		   [32;1mmount -u d[0m supprimera le lecteur D.
+
+Par défaut, le dossier sera monté en tant que disque dur émulé.
+Pour monter le dossier en tant que lecteur CD-ROM, ajoutez [32;1m-t cdrom[0m
+à la commande.
+Pour monter en tant que lecteur de disquettes, ajoutez [32;1m-t floppy[0m.
+";
+
+"PROGRAM_MOUNT_CDROMS_FOUND" = "Périphériques CD-ROM trouvés : %d
+";
+
+"PROGRAM_MOUNT_STATUS_1" = "
+[34;1mLes lecteurs suivants sont actuellement montés :[0m
+";
+
+"PROGRAM_MOUNT_STATUS_2" = "%c: est monté en tant que %s
+";
+
+"PROGRAM_MOUNT_STATUS_FORMAT" = "%-5s  %-58s %-12s\n";
+
+"PROGRAM_MOUNT_ERROR_1" = "Le dossier %s n'existe pas.
+";
+
+"PROGRAM_MOUNT_ERROR_2" = "%s n'est pas un dossier.
+";
+
+"PROGRAM_MOUNT_ILL_TYPE" = "Le type de montage %s n'a pas été reconnu.
+Les types supportés sont [32;1mhdd[0m, [32;1mfloppy[0m et [32;1mcdrom[0m.
+";
+
+"PROGRAM_MOUNT_ALREADY_MOUNTED" = "Le lecteur %c est déjà monté comme %s.
+";
+
+"PROGRAM_MOUNT_UMOUNT_NOT_MOUNTED" = "Le lecteur %c n'est pas monté.
+";
+
+"PROGRAM_MOUNT_UMOUNT_SUCCESS" = "Le lecteur %c a été supprimé avec succès.
+";
+
+"PROGRAM_MOUNT_UMOUNT_NO_VIRTUAL" = "Les lecteurs virtuels ne peuvent pas être démontés.
+";
+
+
+"PROGRAM_MOUNT_WARNING_OTHER" = "[31;1mIl est fortement déconseillé de monter ce dossier !
+Des programmes DOS pourraient par inadvertance endommager
+d'importants fichiers du système d'exploitation.[0m
+
+";
+
+"PROGRAM_RESCAN_SUCCESS" = "Le cache du système de fichiers DOS a été effacé.
+";
+
+
+//CD-ROM emulation status strings
+//-------------------------------
+
+"MSCDEX_SUCCESS" = "Pilote MSCDEX émulé installé.
+";
+
+"MSCDEX_ERROR_MULTIPLE_CDROMS" = "Échec émulation CD-ROM : Les lettres des lecteurs CD-ROM doivent se suivre.
+";
+
+"MSCDEX_ERROR_OPEN" = "Échec émulation CD-ROM : Impossible d'ouvrir le fichier image.
+";
+
+"MSCDEX_ERROR_NOT_SUPPORTED" = "Échec émulation CD-ROM : Pas encore supporté.
+";
+
+"MSCDEX_ERROR_PATH" = "Échec émulation CD-ROM : Le chemin n'est pas valide.
+";
+
+"MSCDEX_TOO_MANY_DRIVES" = "Échec émulation CD-ROM : Trop de lecteurs CD-ROM (maximum 5).
+Le pilote MSCDEX n'a pas été installé.
+";
+
+"MSCDEX_LIMITED_SUPPORT" = "Émulation CD-ROM : Monter un dossier en tant que lecteur CD-ROM fournit
+un support d'émulation limité.
+";
+
+"MSCDEX_INVALID_FILEFORMAT" = "Échec émulation CD-ROM : Le fichier d'image disque n'est pas au format ISO/CUE,
+ou est corrompu.
+";
+
+"MSCDEX_UNKNOWN_ERROR" = "Échec émulation CD-ROM : Erreur inconnue.
+";
+
+
+
+//MEM-related strings
+//-------------------
+
+"PROGRAM_MEM_CONVEN" = "%10d Ko de mémoire conventionnelle libres
+";
+
+"PROGRAM_MEM_EXTEND" = "%10d Ko de mémoire étendue libres
+";
+
+"PROGRAM_MEM_EXPAND" = "%10d Ko de mémoire paginée libres
+";
+
+"PROGRAM_MEM_UPPER" = "%10d Ko de mémoire haute libres dans %d blocs (bloc maximal %d Ko)
+";
+
+
+//LOADFIX-related strings
+//-----------------------
+
+"PROGRAM_LOADFIX_ALLOC" = "%d Ko alloués.
+";
+
+"PROGRAM_LOADFIX_DEALLOC" = "%d Ko libres.
+";
+
+"PROGRAM_LOADFIX_DEALLOCALL" = "Toute la mémoire allouée est libérée.
+";
+
+"PROGRAM_LOADFIX_ERROR" = "Erreur d'allocation de mémoire.
+";
+
+
+
+//BOOT-related strings
+//--------------------
+"PROGRAM_BOOT_NOT_EXIST" = "Échec disque de démarrage : Le fichier image n'existe pas.
+";
+
+"PROGRAM_BOOT_NOT_OPEN" = "Échec disque de démarrage : Impossible d'ouvrir le fichier image.
+";
+
+"PROGRAM_BOOT_WRITE_PROTECTED" = "Le fichier d'image disque de démarrage est en lecture seule !
+Ceci peut causer des problèmes.
+";
+
+"PROGRAM_BOOT_PRINT_ERROR" = "Démarre la session DOS à partir d'une image de disquette ou de disque dur,
+au format IMG Bochs.
+
+Usage : [34;1mboot [\"Image 1.img\" \"Image 2.img\" ...] -L [A/C/D][0m
+
+Accepte une ou plusieurs images de disquette (permutez en appuyant sur Cmd-R)
+ou une image de disque dur simple.
+
+[32;1m-L[0m spécifie la lettre de lecteur à utiliser pour démarrer : [32;1mA[0m, [32;1mC[0m ou [32;1mD[0m
+(par défaut : [32;1mA[0m).
+Pour démarrer à partir d'une image de disque dur, elle doit d'abord être montée
+avec la commande [34;1mimgmount[0m.
+
+";
+
+"PROGRAM_BOOT_IMAGE_OPEN" = "Ouverture du fichier d'image disque de démarrage : %s
+";
+
+"PROGRAM_BOOT_BOOT" = "Démarrage à partir du lecteur %c...
+";
+
+"PROGRAM_BOOT_UNABLE" = "Impossible de démarrer à partir du lecteur %c.
+";
+
+"PROGRAM_BOOT_IMAGE_NOT_OPEN" = "Impossible d'ouvrir %s.
+";
+
+"PROGRAM_BOOT_CART_WO_PCJR" = "Cartouche PCjr trouvée, mais le mode d'émulation machine n'est pas PCjr.
+";
+
+"PROGRAM_BOOT_CART_LIST_CMDS" = "Commandes de cartouche PCjr disponibles : %s.
+";
+
+"PROGRAM_BOOT_CART_NO_CMDS" = "Les commandes de cartouche PCjr sont introuvables.
+";
+
+//IMGMOUNT-related strings
+//------------------------
+
+"PROGRAM_IMGMOUNT_SPECIFY_DRIVE" = "Place le contenu d'une image disque ISO/CUE/IMG dans un lecteur DOS.
+
+Usage :   [34;1mimgmount [lettre DOS] [\"Chemin/de/image.iso\"] -t [hdd/floppy/iso][0m
+Exemple : [32;1mimgmount d \"/Users/votrenom/Desktop/Jeu.iso\" -t iso[0m montera
+		  l'image disque Jeu.iso en tant que lecteur D:.
+
+Vous pouvez spécifier le type de lecteur à utiliser avec le paramètre [34;1m-t[0m :
+[32;1m-t hdd[0m monte en tant que disque dur.
+[32;1m-t iso[0m monte en tant que CD-ROM.
+[32;1m-t floppy[0m monte en tant que disquette.
+";
+
+"PROGRAM_IMGMOUNT_SPECIFY2" = "Veuillez spécifier le numéro de lecteur pour monter l'image :
+0 = Lecteur de disquettes 1
+1 = Lecteur de disquettes 2
+2 = Disque dur 1
+3 = Dsque dur 2
+";
+
+"PROGRAM_IMGMOUNT_SPECIFY_GEOMETRY" = "Pour les images de [33mCD-ROM[0m : [34;1mimgmount [lettre DOS] [\"Chemin/de/image.iso\"] -t cdrom[0m
+
+Pour les images de [33mdisque dur[0m : Spécifiez la géométrie du lecteur :
+[34;1mimgmount [lettre DOS] [\"Chemin/de/image.img\"] -size [ops,spc,tpc,cyl][0m
+ops = Octets par secteur
+spc = Secteurs par cylindre
+tpc = Têtes par cylindre
+cyl = Nombre de cylindres
+";
+
+"PROGRAM_IMGMOUNT_INVALID_IMAGE" = "Impossible de charger le fichier d'image disque.
+Vérifiez que le chemin soit correct et l'image accessible.
+";
+
+"PROGRAM_IMGMOUNT_INVALID_GEOMETRY" = "Impossible d'extraire la géométrie à partir de l'image.
+Utilisez le paramètre [34;1m-size ops,spc,tpc,cyl[0m pour spécifier la géométrie :
+ops = Octets par secteur
+spc = Secteurs par cylindre
+tpc = Têtes par cylindre
+cyl = Nombre de cylindres
+";
+
+"PROGRAM_IMGMOUNT_TYPE_UNSUPPORTED" = "Le type d'image %s n'a pas été reconnu.
+Les types supportés sont [32;1mhdd[0m, [32;1mfloppy[0m et [32;1miso[0m.
+";
+
+"PROGRAM_IMGMOUNT_FORMAT_UNSUPPORTED" = "Le format %s n'a pas été reconnu.
+Les formats supportés sont [32;1mfat[0m, [32;1iso[0m et [32;1none[0m.
+";
+
+"PROGRAM_IMGMOUNT_SPECIFY_FILE" = "Veuillez spécifier le fichier image à monter.
+
+Usage :   [34;1mimgmount [lettre DOS] [\"Chemin/de/image.iso\"] -t [hdd/floppy/iso][0m
+Exemple : [32;1mimgmount d \"/Users/votrenom/Jeu.iso\" -t iso[0m montera
+		  l'image disque Jeu.iso en tant que lecteur D:.
+";
+
+"PROGRAM_IMGMOUNT_FILE_NOT_FOUND" = "Le fichier d'image disque n'a pas pu être trouvé.
+Vérifiez que le chemin soit correct et l'image accessible.
+";
+
+"PROGRAM_IMGMOUNT_MOUNT" = "La commande [34;1mimgmount[0m sert uniquement à monter fichiers d'image disque.
+Pour monter des dossiers, utilisez la commande [34;1mmount[0m.
+";
+
+"PROGRAM_IMGMOUNT_ALREADY_MOUNTED" = "Un autre lecteur est déjà monté avec cette lettre.
+";
+
+"PROGRAM_IMGMOUNT_CANT_CREATE" = "Impossible de créer le lecteur à partir d'un fichier.
+";
+
+"PROGRAM_IMGMOUNT_MOUNT_NUMBER" = "Le lecteur numéro %d est monté en tant que %s.
+";
+
+"PROGRAM_IMGMOUNT_NON_LOCAL_DRIVE" = "L'image doit être sur un lecteur local, pas un lecteur réseau.
+";
+
+"PROGRAM_IMGMOUNT_MULTIPLE_NON_CUEISO_FILES" = "Vous pouvez uniquement monter des fichiers d'image multiples si les images sont
+au format CUE/ISO.
+";
+
+
+//KEYB-related strings
+//--------------------
+
+"PROGRAM_KEYB_INFO" = "La page de codes %i a été chargée.
+";
+
+"PROGRAM_KEYB_INFO_LAYOUT" = "La page de codes %i a été chargée pour la disposition %s.
+";
+
+"PROGRAM_KEYB_SHOWHELP" = "[34;1mkeyb [ID disposition clavier] [numéro page de codes] [fichier page de codes][0m
+
+Exemples :
+  [32;1mkeyb[0m : Affiche la disposition actuellement chargée.
+  [32;1mkeyb[0m fr : Charge la disposition française avec une page de codes automatique.
+  [32;1mkeyb[0m fr 850 : Charge la disposition française avec la page de codes 850.
+  [32;1mkeyb[0m fr 850 mycp.cpi : Charge la page de codes à partir du fichier mycp.cpi.
+";
+
+"PROGRAM_KEYB_NOERROR" = "Disposition de clavier %s chargée pour la page de codes %i.
+";
+
+"PROGRAM_KEYB_FILENOTFOUND" = "Le fichier de clavier %s est introuvable.
+
+";
+
+"PROGRAM_KEYB_INVALIDFILE" = "Le fichier de clavier %s était invalide.
+";
+
+"PROGRAM_KEYB_LAYOUTNOTFOUND" = "Aucune disposition dans %s pour la page de codes %i.
+";
+
+"PROGRAM_KEYB_INVCPFILE" = "Le fichier de page de codes est manquant ou invalide pour la disposition %s.
+
+";
+
+
+//Shell-related strings
+//---------------------
+
+"SHELL_ILLEGAL_PATH" = "Chemin incorrect.
+";
+
+"SHELL_CMD_HELP" = "Pour obtenir une liste de toutes les commandes, tapez [33;1mhelp /all[0m.
+Vous trouverez ici les commandes utilisées fréquemment :
+";
+
+"SHELL_CMD_ECHO_ON" = "ECHO est activé.
+";
+
+"SHELL_CMD_ECHO_OFF" = "ECHO est désactivé.
+";
+
+"SHELL_ILLEGAL_SWITCH" = "Commutateur incorrect : %s.
+";
+
+"SHELL_MISSING_PARAMETER" = "Paramètre requis manquant.
+";
+
+"SHELL_CMD_CHDIR_ERROR" = "Impossible de changer de dossier vers %s.
+Vérifiez que le dossier existe et que le chemin a été saisi correctement.
+";
+
+"SHELL_CMD_CHDIR_HINT" = "Pour changer de lecteur, tapez [1;32m%c:[0m
+";
+
+"SHELL_CMD_CHDIR_HINT_2" = "Le nom de dossier a une longueur > 8 caractères et/ou contient des espaces.
+Essayez [1;32mcd %s[0m
+";
+
+"SHELL_CMD_CHDIR_HINT_3" = "Vous êtes sur lecteur Z. Il ne contient pas de dossier.
+Changez de lecteur vers un des vôtres en tapant [1;32mC:[0m
+Pour ajouter un lecteur, [1;34mdéposez un dossier dans la fenêtre DOS[0m ou
+sélectionnez [1;32mAjouter un lecteur DOS[0m dans le menu [1;32mLecteurs[0m.
+";
+
+"SHELL_CMD_MKDIR_ERROR" = "Impossible de créer le dossier %s.
+";
+
+"SHELL_CMD_RMDIR_ERROR" = "Impossible de supprimer le dossier %s.
+";
+
+"SHELL_CMD_DEL_ERROR" = "Impossible de supprimer le fichier %s.
+";
+
+"SHELL_SYNTAXERROR" = "La syntaxe de la commande est incorrecte.
+";
+
+"SHELL_CMD_SET_NOT_SET" = "La variable d'environnement %s n'est pas définie.
+";
+
+"SHELL_CMD_SET_OUT_OF_SPACE" = "Espace d'environnement restant insuffisant.
+";
+
+"SHELL_CMD_IF_EXIST_MISSING_FILENAME" = "IF EXIST : Nom de fichier manquant.
+";
+
+"SHELL_CMD_IF_ERRORLEVEL_MISSING_NUMBER" = "IF ERRORLEVEL : Nombre manquant.
+";
+
+"SHELL_CMD_IF_ERRORLEVEL_INVALID_NUMBER" = "IF ERRORLEVEL : Nombre invalide.
+";
+
+"SHELL_CMD_GOTO_MISSING_LABEL" = "Aucun label fourni pour la commande GOTO.
+";
+
+"SHELL_CMD_GOTO_LABEL_NOT_FOUND" = "GOTO : Label %s introuvable.
+";
+
+"SHELL_CMD_FILE_NOT_FOUND" = "Le fichier %s est introuvable.
+";
+
+"SHELL_CMD_FILE_EXISTS" = "Le fichier %s existe déjà.
+";
+
+
+//DIR-related strings
+//-------------------
+
+"SHELL_CMD_DIR_VOLUME" = "Le volume dans le lecteur %c s'appelle %s
+";
+
+"SHELL_CMD_DIR_INTRO" = "Contenu du dossier %s
+";
+
+"SHELL_CMD_DIR_BYTES_USED" = "%5d fichier(s)  %17s octets
+";
+
+"SHELL_CMD_DIR_BYTES_FREE" = "%5d dossier(s)  %15s octets libres
+";
+
+"SHELL_EXECUTE_DRIVE_NOT_FOUND" = "Le lecteur %c n'existe pas !
+Pour ajouter un lecteur, [1;34mdéposez un dossier dans la fenêtre DOS[0m ou
+sélectionnez [1;32mAjouter un lecteur DOS[0m dans le menu [1;32mLecteurs[0m.
+";
+
+"SHELL_EXECUTE_ILLEGAL_COMMAND" = "Nom de commande ou de fichier incorrect : %s.
+";
+
+"SHELL_CMD_PAUSE" = "Appuyez sur une touche pour continuer.
+";
+
+"SHELL_CMD_PAUSE_HELP" = "Attend qu'une touche soit pressée avant de continuer.
+";
+
+"SHELL_CMD_COPY_FAILURE" = "Échec lors de la copie de %s.
+";
+
+"SHELL_CMD_COPY_SUCCESS" = "   %d fichier(s) copié(s).
+";
+
+
+//COMMAND startup message
+//-----------------------
+
+"SHELL_STARTUP_BEGIN" = "
+[30;1m═════════════════════════════ [0;37mBienvenue dans Boxer[30;1m ═════════════════════════════
+  [37m Si vous débutez avec DOS, tapez [33mhelp[37m pour voir quelques commandes DOS utiles.
+  Pour obtenir plus d'infos, visitez le [34msite web Boxer[37m à partir du menu Aide.
+
+";
+
+"SHELL_STARTUP_CGA" = "  Utilisez [31mF12[37m pour définir la sortie composite sur ON, OFF, ou AUTO (par défaut).
+  [31m(Alt-)F11[37m modifie la teinte ;
+  [31mCtrl-Alt-F11[37m sélectionne le modèle CGA début/fin.
+";
+
+"SHELL_STARTUP_HERC" = "  Utilisez [31mF11[37m pour permuter les couleurs monochromes blanche, ambrée et verte.
+";
+
+"SHELL_STARTUP_DEBUG" = "
+";
+
+"SHELL_STARTUP_END" = "[30m═══════════════════════════════════ [0;37mBon jeu ![30;1m ══════════════════════════════════[0m
+";
+
+"SHELL_STARTUP_SUB" = "[32;1mShell de commande DOSBox %s[0m
+";
+
+//Shell-command help messages
+//---------------------------
+//Note: each of these should have an accompanying _HELP_LONG text, which is shown when the command is executed with no arguments or with the /? switch. This should contain usage examples and relevant notes on command behaviour.
+
+"SHELL_CMD_CHDIR_HELP" = "Modifie le répertoire en cours.
+";
+
+"SHELL_CMD_CHDIR_HELP_LONG" = "Usage :    [34;1mcd [chemin/du/dossier][0m
+		   [34;1mcd ..[0m
+Exemples : [32;1mcd jeux[0m  Modifie le dossier en cours vers le dossier \"jeux\".
+		   [32;1mcd ..[0m    Modifie le dossier en cours vers le dossier parent.
+";
+
+
+"SHELL_CMD_CLS_HELP" = "Efface l'écran.
+";
+
+"SHELL_CMD_DIR_HELP" = "Liste le contenu d'un dossier.
+";
+
+"SHELL_CMD_DIR_HELP_LONG" = "Usage :    [34;1mdir [/p][0m
+		   [34;1mdir [nomdossier] [/p][0m
+Exemples : [32;1mdir[0m       Affiche le contenu du dossier en cours.
+		   [32;1mdir jeux[0m  Affiche le contenu du sous-dossier \"jeux\".
+		  
+Pour marquer une pause entre chaque écran, ajoutez [32;1m/p[0m à la commande.
+";
+
+"SHELL_CMD_ECHO_HELP" = "Affiche un message ; active/désactive l'affichage des commandes.
+";
+
+"SHELL_CMD_EXIT_HELP" = "Ferme la fenêtre DOS.
+";
+
+"SHELL_CMD_HELP_HELP" = "Affiche la liste des commandes.
+";
+
+"SHELL_CMD_MKDIR_HELP" = "Crée un dossier au chemin spécifié.
+";
+
+"SHELL_CMD_MKDIR_HELP_LONG" = "Usage :   [34;1mmkdir [nomdossier][0m
+Exemple : [32;1mmkdir jeux[0m Crée un nouveau dossier nommé \"jeux\" dans le dossier en cours.
+";
+
+"SHELL_CMD_RMDIR_HELP" = "Supprime le dossier spécifié.
+";
+
+"SHELL_CMD_RMDIR_HELP_LONG" = "Usage :   [34;1mrmdir [nomdossier][0m
+Exemple : [32;1mrmdir jeux[0m Supprime le dossier nommé \"jeux\" du dossier en cours.
+
+Remarque : par sécurité, cette commande ne supprimera pas les dossiers qui
+contiennent des fichiers.
+";
+
+"SHELL_CMD_SET_HELP" = "Modifie les variables d'environnement.
+";
+
+"SHELL_CMD_IF_HELP" = "Effectue un traitement conditionnel dans un fichier de commandes.
+";
+
+"SHELL_CMD_GOTO_HELP" = "Branche l'exécution à une ligne étiquetée dans le fichier de commandes.
+";
+
+"SHELL_CMD_SHIFT_HELP" = "Change la position des paramètres remplaçables dans un fichier de commandes.
+";
+
+"SHELL_CMD_TYPE_HELP" = "Affiche le contenu d'un fichier texte.
+";
+
+"SHELL_CMD_TYPE_HELP_LONG" = "Usage :   [34;1mtype [chemin/du/fichier.txt][0m
+Exemple : [32;1mtype z:/autoexec.bat[0m affichera le fichier autoexec.bat.
+";
+
+"SHELL_CMD_REM_HELP" = "Ajoute une ligne de commentaire dans un fichier de commandes.
+";
+
+"SHELL_CMD_REM_HELP_LONG" = "Usage :   [34;1mrem [texte commentaire][0m
+Exemple : [32;1mrem Ceci est un commentaire de fichier de commandes.
+		  rem Il ne sera ni affiché, ni exécuté.[0m
+";
+
+"SHELL_CMD_NO_WILD" = "Les caractères génériques (* et ?) ne sont actuellement pas supportés.
+";
+
+"SHELL_CMD_RENAME_HELP" = "Déplace ou renomme des fichiers et des dossiers.
+";
+
+"SHELL_CMD_RENAME_HELP_LONG" = "Usage :    [34;1mmove [chemin/du/fichier] [chemin/de/destination][0m
+		   -ou-
+		   [34;1mmove/rename [nomfichier] [nouveaunom][0m
+
+Exemples : [32;1mmove d:/jeu.exe c:/jeux/[0m déplacera \"jeu.exe\" du lecteur D
+		   vers le dossier \"jeux\" du lecteur C.
+
+		   [32;1mmove[0m (ou [32;1mrename[0m) [32;1mancien.exe nouveau.exe[0m renommera \"ancien.exe\"
+		   en \"nouveau.exe\".
+
+		   [32;1mmove d:/ancien.exe c:/jeux/nouveau.exe[0m déplacera \"ancien.exe\"
+		   du lecteur D vers le dossier \"jeux\" du lecteur C et le renommera
+		   en \"nouveau.exe\".
+";
+
+"SHELL_CMD_DELETE_HELP" = "Supprime un ou plusieurs fichiers.
+";
+
+"SHELL_CMD_DELETE_HELP_LONG" = "Usage : [34;1mdelete [chemin/du/fichier][0m
+
+[31;1mAttention : cette commande supprimera les fichiers sans confirmation.
+Ces fichiers n'apparaîtront pas dans la corbeille et seront irrécupérables.[0m
+";
+
+
+"SHELL_CMD_COPY_HELP" = "Copie des fichiers vers l'emplacement spécifié.
+";
+
+"SHELL_CMD_COPY_HELP_LONG" = "Usage :    [34;1mcopy [chemin/du/fichier] [chemin/de/destination][0m
+
+Exemples : [32;1mcopy d:/jeu.exe c:/jeux/[0m copiera \"jeu.exe\" du lecteur D
+		   vers le dossier \"jeux\" du lecteur C.
+		  
+		   [32;1mcopy d:/ancien.exe c:/jeux/nouveau.exe[0m copiera \"ancien.exe\" du
+		   lecteur D vers le dossier \"jeux\" du lecteur C, en nommant la
+		   nouvelle copie \"nouveau.exe\".
+";
+
+"SHELL_CMD_CALL_HELP" = "Appelle un fichier de commandes depuis un autre.
+";
+
+"SHELL_CMD_CALL_HELP_LONG" = "Usage : [34;1mcall [chemin/de/commandes.bat] [arguments][0m
+
+Cette commande est utile uniquement dans les fichiers de commandes : elle
+exécutera le fichier de commandes spécifié et ensuite autorisera le fichier de
+commandes original à continuer.
+
+Si vous exécutez un fichier de commandes à partir d'un autre fichier de
+commandes sans utiliser [32;1mcall[0m, le fichier de commandes original se
+fermera sans terminer le reste de ses commandes.
+";
+
+"SHELL_CMD_LOADHIGH_HELP" = "Charge un programme en mémoire haute.
+";
+
+"SHELL_CMD_CHOICE_HELP" = "Définit ERRORLEVEL en réponse à la pression d'une touche de l'utilisateur.
+";
+
+"SHELL_CMD_CHOICE_HELP_LONG" = "Usage :   [34;1mchoice [/C:touches] [/N] [/S] [texte][0m
+
+Options :
+  [32;1m/C:touches[0m  Spécifie les touches configurables. Par défaut : YN.
+  [32;1m/N[0m          N'affiche pas les touches à la fin de l'invite.
+  [32;1m/S[0m          Permet de distinguer majuscules et minuscules.
+  [32;1mtexte[0m       Texte à afficher avant l'invite à l'utilisateur.
+
+L'ordre dans la liste des touches détermine la valeur de [34;1ERRORLEVEL[0m produit
+par chaque touche, en partant de 1.
+";
+
+"SHELL_CMD_ATTRIB_HELP" = "Ne fait rien. Fourni pour des raisons de compatibilité.
+";
+
+"SHELL_CMD_PATH_HELP" = "Définit les chemins de recherche des fichiers exécutables.
+";
+
+"SHELL_CMD_VER_HELP" = "Affiche et définit la version de DOS rapportée.
+";
+
+"SHELL_CMD_VER_VER" = "DOSBox version %s. Version DOS rapportée %d.%d.
+";
+
+"SHELL_CMD_DATE_HELP" = "Affiche ou modifie la date interne.
+";
+
+"SHELL_CMD_DATE_HELP_LONG" = "DATE [[/T] [/H] [/S] | MM-JJ-AAAA]
+  MM-JJ-AAAA: Nouvelle date à configurer
+  /S:         Utilise l'heure et la date de l'hôte pour l'heure de DOS
+  /F:         Retourne à l'heure interne de DOSBox (opposé de /S)
+  /T:         Affiche uniquement la date
+  /H:         Synchronise avec l'hôte
+";
+
+"SHELL_CMD_TIME_HELP" = "Affiche l'heure interne.
+";
+
+"SHELL_CMD_TIME_HELP_LONG" = "TIME [/T] [/H]
+  /T:         Affiche l'heure simple
+  /H:         Synchronise avec l'hôte
+";
+
+// SUBST-related messages
+// ----------------------
+
+"SHELL_CMD_SUBST_HELP" = "Associe un dossier interne à une lettre de lecteur.
+";
+
+"SHELL_CMD_SUBST_HELP_LONG" = "Usage :   [34;1msubst [lettre lecteur DOS] [chemin/du/dossier][0m
+
+Exemple : [32;1msubst d c:/jeux[0m permettra au lecteur D d'afficher
+		  le contenu du dossier \"jeux\" du lecteur C.
+";
+
+"SHELL_CMD_SUBST_FAILURE" = "Usage :   [34;1msubst [lettre lecteur DOS] [chemin/du/dossier][0m
+
+Exemple : [32;1msubst d c:/jeux[0m permettra au lecteur D d'afficher
+		 le contenu du dossier \"jeux\" du lecteur C.
+";
+
+"SHELL_CMD_SUBST_NO_REMOVE" = "La suppression d'un lecteur n'est pas supportée.
+";
+
+// TIME-related messages
+// ---------------------
+
+"SHELL_CMD_TIME_NOW" = "Heure actuelle :
+";
+
+// DATE-related messages
+// ---------------------
+
+"SHELL_CMD_DATE_ERROR" = "La date spécifiée n'est pas correcte.
+";
+
+"SHELL_CMD_DATE_DAYS" = "3SunMonTueWedThuFriSat
+";
+
+"SHELL_CMD_DATE_NOW" = "Date actuelle :
+";
+
+"SHELL_CMD_DATE_SETHLP" = "Tapez 'date MM-JJ-AAAA' pour modifier la date.
+";
+
+"SHELL_CMD_DATE_FORMAT" = "M/D/Y
+";
+
+// LOADROM-related messages
+// ------------------------
+
+"PROGRAM_LOADROM_BASIC_LOADED" = "ROM BASIC chargée.
+";
+
+"PROGRAM_LOADROM_UNRECOGNIZED" = "Fichier ROM non reconnu.
+";
+
+"PROGRAM_LOADROM_INCOMPATIBLE" = "BIOS vidéo non supporté par le type de machine.
+";
+
+"PROGRAM_LOADROM_TOO_LARGE" = "Fichier ROM trop grand.
+";
+
+"PROGRAM_LOADROM_CANT_OPEN" = "Fichier ROM non accessible.
+";
+
+"PROGRAM_LOADROM_SPECIFY_FILE" = "Vous devez spécifier un fichier ROM à charger.
+";
+
+// LOADROM-related messages
+// ------------------------
+
+"PROGRAM_INTRO" = "[2J[32;1mBienvenue dans DOSBox[0m, un émulateur x86 avec son et graphismes.
+DOSBox crée pour vous un shell qui ressemble à un ancien DOS ordinaire.
+
+Pour des informations sur le montage de base, tapez [34;1mintro mount[0m
+Pour des informations sur le support CD-ROM, tapez [34;1mintro cdrom[0m
+Pour des informations sur les touches spéciales, tapez [34;1mintro special[0m
+Pour plus d'informations sur DOSBox, visitez [34;1mhttp://www.dosbox.com/wiki[0m
+
+[31;1mDOSBox se fermera sans afficher d'avertissement si une erreur se produit ![0m
+";
+
+"PROGRAM_INTRO_MOUNT_START" = "[32;1mVoici quelques commandes pour vous aider à démarrer :[0m
+Avant de pouvoir utiliser les fichiers situés sur vos propres systèmes de
+fichiers, vous devez monter le répertoire contenant les fichiers.
+";
+
+"PROGRAM_INTRO_MOUNT_OTHER" = "[44;1m╔══════════════════════════════════════════════════════════════════════╗
+║ [32mmount c ~/jeuxdos[37m créera un lecteur C avec le contenu de ~/jeuxdos   ║
+║                                                                      ║
+║ [32m~/jeuxdos[37m est un exemple. Remplacez-le par votre propre répertoire.[37m  ║
+╚══════════════════════════════════════════════════════════════════════╝[0m
+";
+
+"PROGRAM_INTRO_MOUNT_END" = "Une fois le montage effectué avec succès, vous pouvez taper [34;1mc:[0m pour atteindre
+votre lecteur C nouvellement monté. En tapant [34;1mdir[0m, vous afficherez son contenu.
+La commande [34;1mcd[0m vous permettra d'entrer dans un répertoire (reconnaissable dans
+la liste d'un répertoire par [33;1m[][0m). Vous pouvez exécuter des programmes/fichiers
+dont le nom se termine par [31m.exe .bat[0m et [31m.com[0m.
+";
+
+"PROGRAM_INTRO_CDROM" = "[2J[32;1mComment monter un lecteur CD-ROM réel/virtuel dans DOSBox :[0m
+DOSBox fournit plusieurs niveaux d'émulation CD-ROM.
+
+Le niveau [33mbasic[0m fonctionne sur tous les lecteurs CD-ROM et répertoires normaux.
+Il installe MSCDEX et marque les fichiers en lecture seule.
+Habituellement, cela suffit pour la plupart des jeux :
+[34;1mmount d [0;31mD:\[34;1m -t cdrom[0m   ou   [34;1mmount d C:\exemple -t cdrom[0m
+Si cela ne fonctionne pas, vous dever indiquer à DOSBox le label du CD-ROM :
+[34;1mmount d C:\exemple -t cdrom -label LABELCD[0m
+
+Le niveau [33msuivant[0m supporte des fonctions supplémentaires de bas niveau.
+Cela fonctionne donc uniquement sur les lecteurs CD-ROM :
+[34;1mmount d [0;31mD:\[34;1m -t cdrom -usecd [33m0[0m
+
+Le [33mdernier[0m niveau de support dépend de votre système d'exploitation :
+Pour [1mWindows 2000[0m, [1mWindows XP[0m et [1mLinux[0m :
+[34;1mmount d [0;31mD:\[34;1m -t cdrom -usecd [33m0 [34m-ioctl[0m
+Pour [1mWindows 9x[0m avec la couche ASPI installée :
+[34;1mmount d [0;31mD:\[34;1m -t cdrom -usecd [33m0 [34m-aspi[0m
+
+Remplacez [0;31mD:\[0m par l'emplacement de votre CD-ROM.
+Remplacez le [33;1m0[0m dans [34;1m-usecd [33m0[0m par le numéro rapporté pour votre CD-ROM
+en tapant : [34;1mmount -cd[0m
+";
+
+"PROGRAM_INTRO_SPECIAL" = "[2J[32;1mTouches spéciales :[0m
+Voici les raccourcis clavier par défaut.
+Ils peuvent être modifiés dans le [33mmappeur de touches[0m.
+
+[33;1mALT-ENTRÉE[0m  : Permute le mode plein écran.
+[33;1mALT-PAUSE[0m   : Met en pause DOSBox.
+[33;1mCTRL-F1[0m     : Démarre le [33mmappeur de touches[0m.
+[33;1mCTRL-F4[0m     : Met à jour cache des répertoires ! Échange l'image disque montée.
+[33;1mCTRL-ALT-F5[0m : Démarre/arrête la création d'une séquence vidéo de l'écran.
+[33;1mCTRL-F5[0m     : Enregistre une capture d'écran.
+[33;1mCTRL-F6[0m     : Démarre/arrête l'enreg. des sorties sonores vers un fichier wave.
+[33;1mCTRL-ALT-F7[0m : Démarre/arrête l'enregistrement des commandes OPL.
+[33;1mCTRL-ALT-F8[0m : Démarre/arrête l'enregistrement des commandes MIDI brutes.
+[33;1mCTRL-F7[0m     : Diminue le saut d'images.
+[33;1mCTRL-F8[0m     : Augmente le saut d'images.
+[33;1mCTRL-F9[0m     : Tue DOSBox.
+[33;1mCTRL-F10[0m    : Capture/libère la souris.
+[33;1mCTRL-F11[0m    : Ralentit l'émulation (diminue les cycles DOSBox).
+[33;1mCTRL-F12[0m    : Accélère l'émulation (augmente les cycles DOSBox).
+[33;1mALT-F12[0m     : Débloque la vitesse (bouton turbo/avance rapide).
+
+[31;1mREMARQUE[0m : Ils peuvent être différents sous Boxer !
+";
+
+"SHELL_CMD_MOUNT_HELP_LONG" = "Monte un répertoire de l'OS hôte vers une lettre de lecteur.
+
+Usage :
+  [32;1mmount[0m [37;1mLECTEUR[0m [36;1mRÉP[0m [-t TYPE] [-freesize TAILLE] [-label LABEL]
+  [32;1mmount[0m -u [37;1mLECTEUR[0m  (démonte le répertoire de LECTEUR)
+
+Où :
+  [37;1mLECTEUR[0m la lettre de lecteur où le répertoire sera monté : A, C, D...
+  [36;1mRÉP[0m     est le répertoire de l'OS à monter
+  TYPE    type du répertoire à monter : dir, floppy, cdrom, ou overlay
+  TAILLE  espace libre du disque virtuel (Kio pour les disquettes, Mio sinon)
+  LABEL   nom du label de lecteur à utiliser
+
+Remarques :
+  - '-t overlay' redirige les écritures sur le lecteur monté vers un autre rép.
+  - Plus d'options sont décrites dans le manuel (fichier LISEZMOI, chapitre 4).
+
+Exemples :
+  \033[32;1mmount\033[0m \033[37;1mC\033[0m \033[36;1m~/jeuxdos\033[0m
+  \033[32;1mmount\033[0m \033[37;1mD\033[0m \033[36;1m\"/Volumes/CD jeu\"\033[0m -t cdrom
+  \033[32;1mmount\033[0m \033[37;1mC\033[0m \033[36;1mmes_sauvegardes\033[0m -t overlay
+";
+
+"SHELL_CMD_MOUNT_HELP" = "Associe des dossiers physiques ou des lecteurs à une lettre de lecteur virtuel.
+";
+
+
+"PROGRAM_MOUNT_STATUS_DRIVE" = "Lecteur";
+"PROGRAM_MOUNT_STATUS_TYPE" = "Type";
+"PROGRAM_MOUNT_STATUS_LABEL" = "Label";

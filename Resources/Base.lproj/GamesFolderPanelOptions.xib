@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BXGamesFolderPanelController">
+            <connections>
+                <outlet property="sampleGamesToggle" destination="3" id="11"/>
+                <outlet property="useShelfAppearanceToggle" destination="7" id="9"/>
+                <outlet property="view" destination="2" id="5"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="2" userLabel="Games-folder selector accessory view">
+            <rect key="frame" x="0.0" y="0.0" width="413" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                    <rect key="frame" x="18" y="39" width="253" height="18"/>
+                    <buttonCell key="cell" type="check" title="Add sample DOS games to this folder" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="4">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <rect key="frame" x="18" y="17" width="369" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use shelf appearance for this folder in Finder’s icon view" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="8">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3" secondAttribute="trailing" constant="20" symbolic="YES" id="8Fe-kP-tRj"/>
+                <constraint firstItem="7" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="6" symbolic="YES" id="Dmr-u4-ZsG"/>
+                <constraint firstItem="3" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="cuJ-9A-rAU"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7" secondAttribute="trailing" constant="20" symbolic="YES" id="j0z-Nr-uVj"/>
+                <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="mbz-ry-Gih"/>
+                <constraint firstItem="3" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="tBE-8v-hvl"/>
+            </constraints>
+            <point key="canvasLocation" x="48" y="-36"/>
+        </customView>
+    </objects>
+</document>

@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BXImportWindowController">
+            <connections>
+                <outlet property="dropzonePanel" destination="5" id="24"/>
+                <outlet property="finalizingPanel" destination="168" id="190"/>
+                <outlet property="finishedPanel" destination="123" id="191"/>
+                <outlet property="installerPanel" destination="33" id="94"/>
+                <outlet property="loadingPanel" destination="315" id="334"/>
+                <outlet property="panelContainer" destination="4" id="280"/>
+                <outlet property="window" destination="3" id="17"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Import a Game" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="3" userLabel="Window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <rect key="contentRect" x="400" y="240" width="480" height="340"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <view key="contentView" id="4">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="340"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <contentBorderThickness minY="41"/>
+            <connections>
+                <outlet property="delegate" destination="-2" id="16"/>
+            </connections>
+        </window>
+        <view id="5" userLabel="Dropzone panel" customClass="ADBDelegatedView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="19" customClass="BXBlueprintPanel">
+                    <rect key="frame" x="0.0" y="40" width="480" height="280"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <button id="28" customClass="BXImportDropzone">
+                            <rect key="frame" x="158" y="104" width="160" height="160"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="29">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showImportPathPicker:" target="63" id="65"/>
+                                <outlet property="menu" destination="69" id="75"/>
+                            </connections>
+                        </button>
+                        <textField verticalHuggingPriority="750" id="451" customClass="BXBlueprintLabel">
+                            <rect key="frame" x="17" y="61" width="446" height="39"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Drop your game here." id="452">
+                                <font key="font" metaFont="system" size="32"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="453" customClass="BXBlueprintHelpTextLabel">
+                            <rect key="frame" x="17" y="19" width="446" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="454">
+                                <font key="font" metaFont="system"/>
+                                <string key="title">Drop a CD-ROM, game folder or disc image
+and Boxer will import it into a new gamebox. </string>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <connections>
+                        <outlet property="menu" destination="69" id="74"/>
+                    </connections>
+                </customView>
+                <customView id="6">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" id="14">
+                            <rect key="frame" x="384" y="6" width="82" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="15">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="performClose:" target="3" id="26"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="359">
+                            <rect key="frame" x="15" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="360">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showImportDropzoneHelp:" target="63" id="361"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
+            </subviews>
+            <connections>
+                <outlet property="delegate" destination="63" id="67"/>
+                <outlet property="nextKeyView" destination="28" id="109"/>
+            </connections>
+        </view>
+        <view id="315" userLabel="Loading panel" customClass="ADBDelegatedView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="316" customClass="BXBlueprintPanel">
+                    <rect key="frame" x="0.0" y="40" width="480" height="280"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <customView id="340" customClass="BXBlueprintProgressIndicator">
+                            <rect key="frame" x="190" y="136" width="96" height="96"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        </customView>
+                        <textField verticalHuggingPriority="750" id="449" customClass="BXBlueprintLabel">
+                            <rect key="frame" x="17" y="49" width="446" height="58"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="450">
+                                <font key="font" metaFont="system" size="24"/>
+                                <string key="title">Please wait while Boxer
+scans your game.</string>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <connections>
+                        <outlet property="menu" destination="69" id="331"/>
+                    </connections>
+                </customView>
+                <customView id="317">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" id="319">
+                            <rect key="frame" x="384" y="6" width="82" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="320">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="performClose:" target="3" id="328"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="376">
+                            <rect key="frame" x="15" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="377">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showImportDropzoneHelp:" target="63" id="378"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
+            </subviews>
+        </view>
+        <view id="33" userLabel="Installer panel">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="34" customClass="BXBlueprintPanel">
+                    <rect key="frame" x="0.0" y="40" width="480" height="280"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <popUpButton focusRingType="none" verticalHuggingPriority="750" id="52">
+                            <rect key="frame" x="176" y="114" width="253" height="26"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingHead" state="on" borderStyle="borderAndBezel" focusRingType="none" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="58" id="53">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" title="OtherViews" id="54">
+                                    <items>
+                                        <menuItem isSeparatorItem="YES" state="on" tag="1" id="58"/>
+                                        <menuItem title="Other…" id="57">
+                                            <connections>
+                                                <action selector="showInstallerPicker:" target="76" id="83"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                        </popUpButton>
+                        <textField verticalHuggingPriority="750" id="455" customClass="BXBlueprintLabel">
+                            <rect key="frame" x="17" y="158" width="446" height="58"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="456">
+                                <font key="font" metaFont="system" size="24"/>
+                                <string key="title">Boxer will now launch an
+installer to set up this game.</string>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="457" customClass="BXBlueprintLabel">
+                            <rect key="frame" x="52" y="120" width="116" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose installer:" id="458">
+                                <font key="font" metaFont="systemBold"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="459" customClass="BXBlueprintHelpTextLabel">
+                            <rect key="frame" x="17" y="64" width="446" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="460">
+                                <font key="font" metaFont="system"/>
+                                <string key="title">You can skip the installer if the game is
+already installed and ready to play.</string>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                </customView>
+                <customView id="35">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" id="36">
+                            <rect key="frame" x="328" y="6" width="138" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Launch installer" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="37">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="launchSelectedInstaller:" target="76" id="81"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" id="49">
+                            <rect key="frame" x="44" y="6" width="116" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Skip installer" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="50">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="skipInstaller:" target="76" id="82"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" id="46">
+                            <rect key="frame" x="258" y="6" width="72" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Back" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="47">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="cancelInstallerChoice:" target="76" id="99"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="367">
+                            <rect key="frame" x="15" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="368">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showImportInstallerHelp:" target="76" id="369"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
+            </subviews>
+            <connections>
+                <outlet property="nextKeyView" destination="36" id="362"/>
+            </connections>
+        </view>
+        <view id="168" userLabel="Finalizing panel">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="169" customClass="BXBlueprintPanel">
+                    <rect key="frame" x="0.0" y="40" width="480" height="280"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <textField verticalHuggingPriority="750" id="470" customClass="BXBlueprintLabel">
+                            <rect key="frame" x="55" y="160" width="369" height="58"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="471">
+                                <font key="font" metaFont="system" size="24"/>
+                                <string key="title">Please wait while Boxer
+finishes importing your game.</string>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <progressIndicator verticalHuggingPriority="750" maxValue="1" bezeled="NO" indeterminate="YES" style="bar" id="174">
+                            <rect key="frame" x="56" y="116" width="367" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <connections>
+                                <binding destination="388" name="value" keyPath="selection.stageProgress" id="400"/>
+                                <binding destination="388" name="animate" keyPath="selection.stageProgressIndeterminate" id="402"/>
+                                <binding destination="388" name="isIndeterminate" keyPath="selection.stageProgressIndeterminate" previousBinding="402" id="405"/>
+                            </connections>
+                        </progressIndicator>
+                        <textField verticalHuggingPriority="750" id="461" customClass="BXBlueprintHelpTextLabel">
+                            <rect key="frame" x="55" y="29" width="369" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="462">
+                                <font key="font" metaFont="system"/>
+                                <string key="title">If your game has more than one CD, you can import the
+others later from the Drives Inspector while you play.</string>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <binding destination="152" name="hidden" keyPath="showAdditionalCDTips" id="465">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </textField>
+                        <textField verticalHuggingPriority="750" id="466" customClass="BXBlueprintLabel">
+                            <rect key="frame" x="55" y="98" width="369" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="[Current import stage]" id="467">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <binding destination="152" name="value" keyPath="progressDescription" id="469"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                </customView>
+                <customView id="170">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" id="171">
+                            <rect key="frame" x="306" y="6" width="160" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="[Stop importing]" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="172">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="cancelSourceFileImport:" target="152" id="434"/>
+                                <binding destination="152" name="enabled" keyPath="cancelButtonEnabled" id="438"/>
+                                <binding destination="152" name="title" keyPath="cancelButtonLabel" id="440"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="370">
+                            <rect key="frame" x="15" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="371">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showImportFinalizingHelp:" target="152" id="372"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
+            </subviews>
+        </view>
+        <view id="123" userLabel="Finished panel" customClass="ADBDelegatedView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView id="125" customClass="BXBlueprintPanel">
+                    <rect key="frame" x="0.0" y="40" width="480" height="280"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <textField verticalHuggingPriority="750" id="228">
+                            <rect key="frame" x="112" y="36" width="256" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="[Gamebox name]" drawsBackground="YES" id="229" customClass="BXBlueprintTextFieldCell">
+                                <font key="font" metaFont="systemBold"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </textFieldCell>
+                            <connections>
+                                <binding destination="388" name="value" keyPath="selection.gameboxName" id="424">
+                                    <dictionary key="options">
+                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                                <outlet property="delegate" destination="206" id="239"/>
+                            </connections>
+                        </textField>
+                        <imageView id="259">
+                            <rect key="frame" x="312" y="59" width="128" height="64"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ImportRenameTip" id="260"/>
+                        </imageView>
+                        <imageView id="261">
+                            <rect key="frame" x="32" y="103" width="136" height="88"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ImportCoverArtTip" id="262"/>
+                        </imageView>
+                        <imageView focusRingType="none" id="272" customClass="BXImportIconDropzone">
+                            <rect key="frame" x="176" y="66" width="128" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" imageScaling="proportionallyUpOrDown" image="package" id="273"/>
+                            <connections>
+                                <action selector="addCoverArt:" target="206" id="277"/>
+                                <binding destination="206" name="value" keyPath="gameboxIcon" id="276">
+                                    <dictionary key="options">
+                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                                <outlet property="menu" destination="281" id="295"/>
+                                <outlet property="nextKeyView" destination="228" id="279"/>
+                            </connections>
+                        </imageView>
+                    </subviews>
+                </customView>
+                <customView id="124">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" id="138">
+                            <rect key="frame" x="339" y="6" width="126" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Launch game" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="141">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="launchGamebox:" target="206" id="210"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" id="184">
+                            <rect key="frame" x="44" y="6" width="134" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Show in Finder" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="185">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="revealGamebox:" target="206" id="211"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" id="187">
+                            <rect key="frame" x="269" y="6" width="72" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="188">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                            </buttonCell>
+                            <connections>
+                                <action selector="performClose:" target="3" id="189"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" id="373">
+                            <rect key="frame" x="15" y="7" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="374">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showImportFinishedHelp:" target="206" id="375"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
+                <textField verticalHuggingPriority="750" id="472" customClass="BXBlueprintLabel">
+                    <rect key="frame" x="55" y="242" width="369" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Congratulations! Your new gamebox is ready to play." id="473">
+                        <font key="font" metaFont="system" size="24"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <connections>
+                <outlet property="delegate" destination="206" id="271"/>
+                <outlet property="nextKeyView" destination="138" id="192"/>
+            </connections>
+        </view>
+        <menu id="69" userLabel="Dropzone panel menu">
+            <items>
+                <menuItem title="Choose game folder…" id="70">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showImportPathPicker:" target="63" id="73"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
+        <menu id="248" userLabel="Finished panel menu">
+            <items>
+                <menuItem title="Launch game" id="250">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="launchGamebox:" target="206" id="253"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show gamebox in Finder" id="249">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="revealGamebox:" target="206" id="252"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
+        <menu id="281" userLabel="Coverart Well Context Menu">
+            <items>
+                <menuItem title="Copy icon" id="286">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="copy:" target="-1" id="287"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Paste as icon" id="285">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="paste:" target="-1" id="288"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Clear icon" id="284">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-1" id="289"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="283"/>
+                <menuItem title="Search for cover art" id="442">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="searchForCoverArt:" target="206" id="443"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="441"/>
+                <menuItem title="Launch game" id="293">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="launchGamebox:" target="206" id="294"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show gamebox in Finder" id="282">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="revealGamebox:" target="206" id="290"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
+        <viewController id="63" userLabel="Dropzone panel controller" customClass="BXImportDropzonePanelController">
+            <connections>
+                <outlet property="controller" destination="-2" id="68"/>
+                <outlet property="dropzone" destination="28" id="66"/>
+                <outlet property="spinner" destination="340" id="354"/>
+                <outlet property="view" destination="5" id="64"/>
+            </connections>
+        </viewController>
+        <viewController id="76" userLabel="Installer panel controller" customClass="BXImportInstallerPanelController">
+            <connections>
+                <outlet property="controller" destination="-2" id="79"/>
+                <outlet property="installerSelector" destination="52" id="100"/>
+                <outlet property="view" destination="33" id="101"/>
+            </connections>
+        </viewController>
+        <viewController id="152" userLabel="Finalizing panel controller" customClass="BXImportFinalizingPanelController">
+            <connections>
+                <outlet property="controller" destination="-2" id="153"/>
+                <outlet property="view" destination="33" id="154"/>
+            </connections>
+        </viewController>
+        <viewController id="206" userLabel="Finished panel controller" customClass="BXImportFinishedPanelController">
+            <connections>
+                <outlet property="controller" destination="-2" id="207"/>
+                <outlet property="iconView" destination="272" id="356"/>
+                <outlet property="nameField" destination="228" id="355"/>
+                <outlet property="view" destination="123" id="209"/>
+            </connections>
+        </viewController>
+        <objectController objectClassName="BXSession" editable="NO" id="388" userLabel="Session mediator">
+            <declaredKeys>
+                <string>stageProgressIndeterminate</string>
+                <string>canSkipSourceFileImport</string>
+                <string>sourceFileImportOperation</string>
+                <mutableString>gameboxName</mutableString>
+            </declaredKeys>
+            <connections>
+                <binding destination="-2" name="contentObject" keyPath="document" id="425">
+                    <dictionary key="options">
+                        <bool key="NSConditionallySetsEditable" value="NO"/>
+                    </dictionary>
+                </binding>
+            </connections>
+        </objectController>
+    </objects>
+    <resources>
+        <image name="ImportCoverArtTip" width="136" height="88"/>
+        <image name="ImportRenameTip" width="128" height="64"/>
+        <image name="package" width="512" height="512"/>
+    </resources>
+</document>

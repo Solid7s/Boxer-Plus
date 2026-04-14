@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  k6_local_test:
+    name: Boxer test build macos
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Get dependencies
+        run: git submodule update --init --recursive
+
+      - name: list content
+        run: pwd; ls -l
+
+      - name: Build the project
+        run: xcodebuild -derivedDataPath ./build -workspace Boxer.xcworkspace -scheme "Boxer CI" -configuration "Release"

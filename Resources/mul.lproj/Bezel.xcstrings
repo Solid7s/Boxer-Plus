@@ -1,0 +1,768 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "6.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Press Cmd+F to exit fullscreen.\\nCmd+click to access the menu bar.\"; ObjectID = \"6\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stiskem Cmd+F ukončíte režim celé obrazovky.\nKombinací Cmd+kliknutí získáte přístup k řádku nabídek."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Press Cmd+F to exit fullscreen.\nCmd+click to access the menu bar."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pulse Cmd+F para salir de pantalla completa.\nCmd+clic para acceder a la barra de menús."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cmd+F pour quitter le mode plein écran.\nCmd+clic pour accéder à la barre de menu."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Press Cmd+F to exit fullscreen.\nCmd+click to access the menu bar."
+          }
+        }
+      }
+    },
+    "9.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[386 speed (3000 cycles)]\"; ObjectID = \"9\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[rychlost 386 (3000 cyklů)]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[386 speed (3000 cycles)]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[386 speed (3000 cycles)]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[386 speed (3000 cycles)]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[386 speed (3000 cycles)]"
+          }
+        }
+      }
+    },
+    "27.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[100% throttle]\"; ObjectID = \"27\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[100 % plynu]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[100% throttle]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[100% throttle]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[100% throttle]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[100% throttle]"
+          }
+        }
+      }
+    },
+    "31.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Drive D added]\"; ObjectID = \"31\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Disk D přidán]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Drive D added]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D added]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D added]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D added]"
+          }
+        }
+      }
+    },
+    "43.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Drive D ejected]\"; ObjectID = \"43\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Disk D vysunut]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Drive D ejected]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D ejected]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D ejected]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D ejected]"
+          }
+        }
+      }
+    },
+    "47.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Drive D imported]\"; ObjectID = \"47\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Disk D naimportován]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Drive D imported]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D imported]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D imported]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "[Drive D imported]"
+          }
+        }
+      }
+    },
+    "53.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"This game is not responding\\nto joystick input.\"; ObjectID = \"53\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tato hra nereaguje na\novládání joystickem."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This game is not responding\nto joystick input."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este juego no está respondiendo\na la entrada del joystick."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le jeu ne répond pas aux\nactions du joystick."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "This game is not responding\nto joystick input."
+          }
+        }
+      }
+    },
+    "56.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"You may need to turn on\\njoystick control within the game.\"; ObjectID = \"56\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Možná budete muset ovládání\njoystickem zapnout přímo ve hře."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You may need to turn on\njoystick control within the game."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede necesitar activar\nel control de joystick en el juego."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous devez activer le contrôle du\njoystick dans les paramètres du jeu."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "You may need to turn on\njoystick control within the game."
+          }
+        }
+      }
+    },
+    "68.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Need For Speed.iso]\"; ObjectID = \"68\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "70.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Need For Speed.iso]\"; ObjectID = \"70\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "72.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Need For Speed.iso]\"; ObjectID = \"72\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "78.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Drive D swapped]\"; ObjectID = \"78\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Disk D vyměněn]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Drive D swapped]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Drive D swapped]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Drive D swapped]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Drive D swapped]"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "79.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Need For Speed.iso]\"; ObjectID = \"79\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Need For Speed.iso]"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "87.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"INSERT BUCKAZOID\"; ObjectID = \"87\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VLOŽTE BUCKAZOID"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "INSERT BUCKAZOID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "INSERTAR BUCKAZOID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "INSERT BUCKAZOID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "INSERT BUCKAZOID"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "92.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"You can add MT-32 ROMs\\nin Boxer’s Audio preferences.\"; ObjectID = \"92\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ROM MT-32 můžete přidat\nv nastavení zvuku Boxeru."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You can add MT-32 ROMs\nin Boxer’s Audio preferences."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede añadir ROMs MT-32 ROMs\nen las preferencias de audio de Boxer."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez ajouter des ROM MT-32\ndans les préférences audio de Boxer."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "You can add MT-32 ROMs\nin Boxer’s Audio preferences."
+          }
+        }
+      }
+    },
+    "93.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"MT-32 ROMs are required to play this game’s music correctly.\"; ObjectID = \"93\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ke správnému přehrávání hudby v této hře jsou zapotřebí ROM MT-32."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "MT-32 ROMs are required to play this game’s music correctly."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las ROMs MT-32 son necesarias para reproducir la música del juego correctamente."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Des ROM MT-32 sont nécessaires pour lire correctement les musiques de ce jeu."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "MT-32 ROMs are required to play this game’s music correctly."
+          }
+        }
+      }
+    },
+    "100.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Simulated numpad active\"; ObjectID = \"100\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simulovaná numerická klávesnice je aktivní"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Simulated numpad active"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teclado numérico simulado activo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pavé numérique simulé activé"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Simulated numpad active"
+          }
+        }
+      }
+    },
+    "108.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Simulated numpad disabled\"; ObjectID = \"108\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simulovaná numerická klávesnice je neaktivní"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Simulated numpad disabled"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teclado numérico simulado desactivado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pavé numérique simulé désactivé"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Simulated numpad disabled"
+          }
+        }
+      }
+    },
+    "116.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Numlock active\"; ObjectID = \"116\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zámek numerické klávesnice je aktivní"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Numlock active"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloq num activo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verr. num. activé"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Numlock active"
+          }
+        }
+      }
+    },
+    "122.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Numlock disabled\"; ObjectID = \"122\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zámek numerické klávesnice je neaktivní"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Numlock disabled"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloq num desactivado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verr. num. désactivé"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Numlock disabled"
+          }
+        }
+      }
+    },
+    "147.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Cmd+click to release the mouse pointer.\"; ObjectID = \"147\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kombinací Cmd+kliknutí uvolníte kurzor myši."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cmd+click to release the mouse pointer."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cmd+clic para liberar el puntero de ratón."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cmd+clic pour libérer le pointeur de souris."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cmd+click to release the mouse pointer."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

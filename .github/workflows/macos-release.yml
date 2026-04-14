@@ -1,0 +1,33 @@
+on:
+  release:
+    types: [created]
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - '[0-9]+.*' # Push events to matching 1.0, 2.0, 1.0.1-alpha
+
+name: Upload Release Asset
+
+jobs:
+  release:
+    name: Upload Release Asset
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Get dependencies
+        run: git submodule update --init --recursive
+      - name: Update the version before building
+        run: agvtool new-marketing-version ${GITHUB_REF#refs/tags/}
+      - name: Build the project
+        run: xcodebuild -derivedDataPath ./build -workspace Boxer.xcworkspace -scheme "Boxer CI" -configuration "Release"
+      - name: Package the release artefacts
+        run: |
+          hdiutil create -volname Boxer -srcfolder build/Build/Products/Release/Boxer.app -ov -format UDZO Boxer.dmg
+      - name:  Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          file: ./Boxer.dmg
+          asset_name: Boxer.dmg
+          overwrite: true

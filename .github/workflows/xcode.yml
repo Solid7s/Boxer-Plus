@@ -1,0 +1,28 @@
+name: Xcode basic workflow
+
+on:
+  push:
+    branches: [ maddsV2 ]
+  pull_request:
+    branches: [ maddsV2 ]
+
+jobs:
+  build:
+    name: Build using Xcode
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Build Boxer
+        env:
+          platform: ${{ 'Mac OS X' }}
+        run: |
+          xcodebuild -derivedDataPath ./build -workspace Boxer.xcworkspace -scheme "Boxer CI" -configuration "Release"
+      - name: Build Boxer Bundler
+        env:
+          platform: ${{ 'Mac OS X' }}
+        run: |
+          xcodebuild -derivedDataPath ./build -workspace Boxer.xcworkspace -scheme "Boxer Bundler CI" -configuration "Release"

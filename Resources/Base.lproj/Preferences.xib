@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BXPreferencesController">
+            <connections>
+                <outlet property="MT32ROMDropzone" destination="308" id="311"/>
+                <outlet property="MT32ROMOptions" destination="289" id="328"/>
+                <outlet property="currentGamesFolderItem" destination="145" id="253"/>
+                <outlet property="filterGallery" destination="71" id="98"/>
+                <outlet property="gamesFolderSelector" destination="142" id="231"/>
+                <outlet property="hotkeyCaptureDescription" destination="368" id="HeE-iz-5DJ"/>
+                <outlet property="hotkeyCaptureExtraHelp" destination="372" id="CNp-40-tpI"/>
+                <outlet property="hotkeyCapturePermissionsButton" destination="376" id="Xmg-0Z-NYo"/>
+                <outlet property="hotkeyCaptureToggle" destination="366" id="Xvg-Sk-grj"/>
+                <outlet property="missingMT32ROMHelp" destination="287" id="329"/>
+                <outlet property="realMT32Help" destination="330" id="335"/>
+                <outlet property="tabView" destination="174" id="438"/>
+                <outlet property="toolbarForTabs" destination="100" id="262"/>
+                <outlet property="window" destination="1" id="52"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Boxer Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" toolbarStyle="preference" id="1">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="160" y="250" width="532" height="396"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
+            <view key="contentView" id="2">
+                <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <tabView fixedFrame="YES" drawsBackground="NO" allowsTruncatedLabels="NO" type="noTabsNoBorder" initialItem="175" translatesAutoresizingMaskIntoConstraints="NO" id="174">
+                        <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="General Preferences" identifier="" id="175" userLabel="General Preferences">
+                                <view key="view" id="178">
+                                    <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                                            <rect key="frame" x="0.0" y="0.0" width="532" height="224"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="140">
+                                                    <rect key="frame" x="32" y="174" width="155" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Keep my DOS games in:" id="141">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="142">
+                                                    <rect key="frame" x="189" y="168" width="304" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <popUpButtonCell key="cell" type="push" title="(No folder specified)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="145" id="143">
+                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="message"/>
+                                                        <menu key="menu" title="OtherViews" id="144">
+                                                            <items>
+                                                                <menuItem title="(No folder specified)" state="on" id="145"/>
+                                                                <menuItem isSeparatorItem="YES" id="148"/>
+                                                                <menuItem title="Other…" id="146">
+                                                                    <connections>
+                                                                        <action selector="showGamesFolderChooser:" target="-2" id="248"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                            </items>
+                                                        </menu>
+                                                    </popUpButtonCell>
+                                                    <connections>
+                                                        <outlet property="nextKeyView" destination="149" id="217"/>
+                                                    </connections>
+                                                </popUpButton>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="149">
+                                                    <rect key="frame" x="190" y="147" width="289" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Use shelf appearance in Finder’s icon view" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="150">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="toggleShelfAppearance:" target="-2" id="260"/>
+                                                        <binding destination="-3" name="value" keyPath="delegate.appliesShelfAppearanceToGamesFolder" id="239"/>
+                                                        <binding destination="-3" name="enabled" keyPath="delegate.gamesFolderURL" id="437">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </button>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="222">
+                                                    <rect key="frame" x="190" y="41" width="221" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="When a program is still running" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="223">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="62" name="value" keyPath="values.suppressCloseAlert" id="229">
+                                                            <dictionary key="options">
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </button>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="224">
+                                                    <rect key="frame" x="32" y="42" width="155" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Prompt before closing:" id="225">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="349">
+                                                    <rect key="frame" x="-1" y="75" width="534" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <view key="contentView" id="xn6-xK-VaY">
+                                                        <rect key="frame" x="1" y="1" width="532" height="52"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="351">
+                                                                <rect key="frame" x="189" y="13" width="304" height="26"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Show welcome panel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="355" id="352">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="message"/>
+                                                                    <menu key="menu" title="OtherViews" id="353">
+                                                                        <items>
+                                                                            <menuItem title="Do nothing" id="356"/>
+                                                                            <menuItem title="Show welcome panel" state="on" tag="1" id="355"/>
+                                                                            <menuItem title="Open a DOS prompt" tag="3" id="cba-8m-oxX"/>
+                                                                            <menuItem title="Open my games folder in Finder" tag="2" id="354"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                                <connections>
+                                                                    <binding destination="62" name="selectedTag" keyPath="values.startupAction" id="359"/>
+                                                                    <outlet property="nextKeyView" destination="222" id="358"/>
+                                                                </connections>
+                                                            </popUpButton>
+                                                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="350">
+                                                                <rect key="frame" x="63" y="19" width="123" height="17"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="When Boxer starts:" id="357">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                    </view>
+                                                    <color key="borderColor" white="0.0" alpha="0.1000000015" colorSpace="calibratedWhite"/>
+                                                    <color key="fillColor" white="0.0" alpha="0.050000000750000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </box>
+                                            </subviews>
+                                        </view>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="initialFirstResponder" destination="142" id="183"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Display Preferences" identifier="" id="176" userLabel="Display Preferences">
+                                <view key="view" id="177">
+                                    <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70">
+                                            <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71" customClass="BXFilterGallery">
+                                                    <rect key="frame" x="0.0" y="183" width="532" height="213"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <subviews>
+                                                        <button focusRingType="none" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83" customClass="BXFilterPortrait">
+                                                            <rect key="frame" x="59" y="1" width="128" height="212"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="square" title="Original" bezelStyle="shadowlessSquare" image="GalleryOriginal" imagePosition="overlaps" alignment="center" focusRingType="none" inset="2" id="86" customClass="BXFilterPortraitCell">
+                                                                <behavior key="behavior" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="toggleDefaultRenderingStyle:" target="-2" id="435"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button focusRingType="none" tag="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="82" customClass="BXFilterPortrait">
+                                                            <rect key="frame" x="202" y="1" width="128" height="212"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="square" title="Smooth" bezelStyle="shadowlessSquare" image="GalleryHQx" imagePosition="overlaps" alignment="center" focusRingType="none" inset="2" id="87" customClass="BXFilterPortraitCell">
+                                                                <behavior key="behavior" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="toggleDefaultRenderingStyle:" target="-2" id="436"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button focusRingType="none" tag="2" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="81" customClass="BXFilterPortrait">
+                                                            <rect key="frame" x="345" y="1" width="128" height="212"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="square" title="CRT Display" bezelStyle="shadowlessSquare" image="GalleryTVScanlines" imagePosition="overlaps" alignment="center" focusRingType="none" inset="2" id="88" customClass="BXFilterPortraitCell">
+                                                                <behavior key="behavior" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="toggleDefaultRenderingStyle:" target="-2" id="433"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="347" customClass="BXHUDLabel">
+                                                            <rect key="frame" x="117" y="181" width="295" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Choose a rendering style for DOS games:" id="348">
+                                                                <font key="font" metaFont="systemBold"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                </customView>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="75">
+                                                    <rect key="frame" x="118" y="143" width="296" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Start up games in Full Screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="76">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="62" name="value" keyPath="values.startUpInFullScreen" id="94"/>
+                                                        <outlet property="nextKeyView" destination="73" id="219"/>
+                                                    </connections>
+                                                </button>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="74">
+                                                    <rect key="frame" x="136" y="109" width="279" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="You can switch to and from Full Screen at any time from the View menu or by pressing Cmd-F." id="77">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73">
+                                                    <rect key="frame" x="118" y="68" width="296" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Always use 4:3 aspect ratio" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="78">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="62" name="value" keyPath="values.aspectCorrected" id="95"/>
+                                                    </connections>
+                                                </button>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="72">
+                                                    <rect key="frame" x="136" y="34" width="279" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="When enabled, games will be stretched to match their original aspect ratio on old PC monitors." id="79">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="263">
+                                                    <rect key="frame" x="490" y="16" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="264">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="showDisplayPreferencesHelp:" target="-2" id="265"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </view>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="initialFirstResponder" destination="75" id="186"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Audio Preferences" identifier="" id="268" userLabel="Audio Preferences">
+                                <view key="view" id="269" customClass="ADBDelegatedView">
+                                    <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="270" userLabel="View">
+                                            <rect key="frame" x="0.0" y="0.0" width="532" height="320"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="287">
+                                                    <rect key="frame" x="60" y="0.0" width="412" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="275">
+                                                            <rect key="frame" x="17" y="74" width="378" height="34"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="276">
+                                                                <font key="font" metaFont="systemBold"/>
+                                                                <string key="title">Boxer does not come with the ROMs needed to play
+MT-32 music, as these are not legal to distribute.</string>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="277">
+                                                            <rect key="frame" x="17" y="23" width="378" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" id="278">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <string key="title">But if one should stumble across MT-32 ROMs on the internet, then acccidentally download them, one could drag them onto this shelf to bring one’s MT-32 games to life.</string>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                </customView>
+                                                <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="330">
+                                                    <rect key="frame" x="60" y="0.0" width="412" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="332">
+                                                            <rect key="frame" x="17" y="74" width="378" height="34"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Music in supporting games will be played through your Roland MT-32 Sound Module." id="333">
+                                                                <font key="font" metaFont="systemBold"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="331">
+                                                            <rect key="frame" x="17" y="23" width="378" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="As an MT-32 owner, you are also a person of taste and distinction." id="334">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                </customView>
+                                                <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="289">
+                                                    <rect key="frame" x="60" y="0.0" width="412" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="316">
+                                                            <rect key="frame" x="58" y="89" width="296" height="18"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="check" title="Show messages from the MT-32’s LCD" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="317">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <binding destination="62" name="value" keyPath="values.showMT32LCDMessages" id="327"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="318">
+                                                            <rect key="frame" x="76" y="40" width="279" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Some games will print secret messages on the MT-32’s LCD panel. When enabled, Boxer will display these on-screen." id="319">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                </customView>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="303">
+                                                    <rect key="frame" x="490" y="16" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="304">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="showAudioPreferencesHelp:" target="-2" id="306"/>
+                                                    </connections>
+                                                </button>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="308" customClass="BXMT32ROMDropzone">
+                                                    <rect key="frame" x="0.0" y="128" width="532" height="192"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <buttonCell key="cell" type="square" title="[Drop MT-32 ROMs here to enable MT-32 emulation]" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="309">
+                                                        <behavior key="behavior" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <connections>
+                                                            <outlet property="menu" destination="295" id="313"/>
+                                                        </connections>
+                                                    </buttonCell>
+                                                </button>
+                                            </subviews>
+                                        </customView>
+                                    </subviews>
+                                    <connections>
+                                        <outlet property="delegate" destination="-2" id="361"/>
+                                    </connections>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Keyboard Preferences" identifier="" id="363" userLabel="Keyboard Preferences">
+                                <view key="view" id="364">
+                                    <rect key="frame" x="0.0" y="0.0" width="532" height="396"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="365">
+                                            <rect key="frame" x="0.0" y="0.0" width="532" height="192"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="366">
+                                                    <rect key="frame" x="96" y="142" width="343" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Capture function keys and arrow keys for games" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="367">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="62" name="value" keyPath="values.suppressSystemHotkeys" id="403"/>
+                                                    </connections>
+                                                </button>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="368">
+                                                    <rect key="frame" x="114" y="105" width="303" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Prevents macOS system hotkeys from interfering with the keyboard controls in your DOS games." id="369">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="370">
+                                                    <rect key="frame" x="489" y="17" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="371">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="showKeyboardPreferencesHelp:" target="-2" id="378"/>
+                                                    </connections>
+                                                </button>
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="372">
+                                                    <rect key="frame" x="114" y="69" width="304" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" id="373">
+                                                        <font key="font" metaFont="smallSystemBold"/>
+                                                        <string key="title">“Enable access for assistive devices” must also
+be enabled in the Universal Access preferences.</string>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="376">
+                                                    <rect key="frame" x="111" y="33" width="310" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="push" title="Open System Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="377">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="showSystemAccessibilityControls:" target="-1" id="2eI-2V-JBN"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </customView>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="initialFirstResponder" destination="366" id="398"/>
+                                </connections>
+                            </tabViewItem>
+                        </tabViewItems>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="362"/>
+                        </connections>
+                    </tabView>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="76B0F17F-D318-49FE-A082-D1A4344E7B4A" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="100">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="026541C2-2C3C-4F9A-9DB5-C724C89DD986" label="General   " paletteLabel="General   " image="NSPreferencesGeneral" sizingBehavior="auto" autovalidates="NO" selectable="YES" id="108">
+                        <connections>
+                            <action selector="takeSelectedTabViewItemFromTag:" target="-2" id="191"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="05D98923-A078-4A7C-80E2-356FA397ED33" label="Display   " paletteLabel="Display   " tag="1" image="Display" sizingBehavior="auto" autovalidates="NO" selectable="YES" id="109">
+                        <connections>
+                            <action selector="takeSelectedTabViewItemFromTag:" target="-2" id="192"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="1FA3ECA1-7D08-4DF4-B0E8-C072D7997C95" label="Audio   " paletteLabel="Audio   " tag="2" image="Audio" sizingBehavior="auto" autovalidates="NO" selectable="YES" id="266">
+                        <connections>
+                            <action selector="takeSelectedTabViewItemFromTag:" target="-2" id="267"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="BC04B8C7-9C68-48A6-B9B3-6E61135E7C22" label="Keyboard" paletteLabel="Keyboard" tag="3" image="Keyboard" sizingBehavior="auto" autovalidates="NO" selectable="YES" id="396">
+                        <connections>
+                            <action selector="takeSelectedTabViewItemFromTag:" target="-2" id="397"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="113"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="166"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="113"/>
+                    <toolbarItem reference="108"/>
+                    <toolbarItem reference="109"/>
+                    <toolbarItem reference="266"/>
+                    <toolbarItem reference="396"/>
+                    <toolbarItem reference="113"/>
+                </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="-2" id="261"/>
+                </connections>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="53"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="119"/>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="62"/>
+        <menu id="295" userLabel="ROM dropzone menu">
+            <items>
+                <menuItem title="[Add MT-32 ROMs…]" id="299">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showMT32ROMFileChooser:" target="-2" id="302"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="[Show ROMs in Finder]" id="296">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showMT32ROMsInFinder:" target="-2" id="301"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="139" y="300"/>
+        </menu>
+    </objects>
+    <resources>
+        <image name="Audio" width="32" height="32"/>
+        <image name="Display" width="32" height="32"/>
+        <image name="GalleryHQx" width="128" height="212"/>
+        <image name="GalleryOriginal" width="128" height="212"/>
+        <image name="GalleryTVScanlines" width="128" height="212"/>
+        <image name="Keyboard" width="32" height="32"/>
+        <image name="NSPreferencesGeneral" width="32" height="32"/>
+    </resources>
+</document>

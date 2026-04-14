@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BXLaunchPanelController">
+            <connections>
+                <outlet property="filter" destination="io9-xs-Bgz" id="C9S-q1-1Q7"/>
+                <outlet property="launcherList" destination="LLn-Sc-jzs" id="Qaq-1l-7BJ"/>
+                <outlet property="launcherScrollView" destination="lh9-jV-VfB" id="oNY-57-yIC"/>
+                <outlet property="view" destination="dPh-eK-mFK" id="xjb-x6-DEU"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView hidden="YES" id="dPh-eK-mFK" userLabel="Launch Panel">
+            <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lh9-jV-VfB">
+                    <rect key="frame" x="0.0" y="0.0" width="640" height="440"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rpa-h0-GOQ">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="440"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView focusRingType="none" maxNumberOfColumns="1" selectable="YES" id="LLn-Sc-jzs" customClass="BXLauncherList">
+                                <rect key="frame" x="0.0" y="0.0" width="640" height="440"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <binding destination="-2" name="content" keyPath="displayedRows" id="vTt-vG-xaF"/>
+                                    <outlet property="delegate" destination="-2" id="GiT-Eh-GDM"/>
+                                    <outlet property="favoritePrototype" destination="TgG-8i-sVt" id="8yn-8x-qry"/>
+                                    <outlet property="headingPrototype" destination="m2W-Eu-3Sn" id="Kjg-bY-6yQ"/>
+                                    <outlet property="itemPrototype" destination="W1Y-o0-Etd" id="pns-yF-bxW"/>
+                                    <outlet property="nextKeyView" destination="io9-xs-Bgz" id="EMR-WE-Zd0"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="pHw-Yh-11w">
+                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="6cm-Gz-s5W">
+                        <rect key="frame" x="234" y="1" width="15" height="143"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBg-Dd-C8j">
+                    <rect key="frame" x="0.0" y="440" width="640" height="40"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="io9-xs-Bgz">
+                            <rect key="frame" x="128" y="9" width="384" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Search programs" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" recentsAutosaveName="launchPanelFilter" id="Bdg-Sv-vHc">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                            <connections>
+                                <action selector="enterSearchText:" target="-2" id="1ax-jh-Kgb"/>
+                                <outlet property="delegate" destination="-2" id="KuG-L4-f4Q"/>
+                                <outlet property="nextKeyView" destination="LLn-Sc-jzs" id="p1H-hm-Hl0"/>
+                            </connections>
+                        </searchField>
+                    </subviews>
+                </customView>
+            </subviews>
+            <connections>
+                <outlet property="nextKeyView" destination="io9-xs-Bgz" id="9qh-ik-gNg"/>
+            </connections>
+            <point key="canvasLocation" x="48" y="-36"/>
+        </customView>
+        <collectionViewItem nibName="LauncherHeading" id="m2W-Eu-3Sn" userLabel="Heading prototype" customClass="BXLauncherItem">
+            <connections>
+                <outlet property="delegate" destination="-2" id="6uH-B5-iJO"/>
+            </connections>
+        </collectionViewItem>
+        <collectionViewItem nibName="LauncherFavorite" id="TgG-8i-sVt" userLabel="Favorite prototype" customClass="BXLauncherItem">
+            <connections>
+                <outlet property="delegate" destination="-2" id="tyE-RK-Sjx"/>
+            </connections>
+        </collectionViewItem>
+        <collectionViewItem nibName="LauncherItem" id="W1Y-o0-Etd" userLabel="Program prototype" customClass="BXLauncherItem">
+            <connections>
+                <outlet property="delegate" destination="-2" id="xTP-8e-TtX"/>
+            </connections>
+        </collectionViewItem>
+    </objects>
+</document>

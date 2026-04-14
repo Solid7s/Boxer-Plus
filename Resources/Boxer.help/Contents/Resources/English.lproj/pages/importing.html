@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Import a new game</title>
+		<meta name="description" content="Turn a CD, floppy or downloaded folder into a playable game."/>
+		<meta name="keywords" content="install, import, gamebox, adding"/>
+		
+		<link rel="stylesheet" type="text/css" href="../../shared/styles/main.css"/>
+	</head>
+	<body>
+		<a name="importing"></a>
+		<h1><img src="../../shared/images/importer-128.png" alt="" class="page-icon-64"/> Import a new game</h1>
+		
+		<p>Boxer installs games for you and wraps them up as <a href="gameboxes.html" rel="topic">gameboxes</a> in your DOS Games folder. Here’s how:</p>
+		
+		<section>
+			<a name="import-drop-game"></a>
+			<h2><span class="step">1</span> Drop your game onto the Import window</h2>
+			
+			<img src="../images/import-dropzone.png" alt="" width="273" height="204" class="floated-right"/>
+			
+			<p>Bring up the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/import.scpt?" rel="application-window">Import window</a> by clicking on the welcome screen icon or using the <span class="menu">File ▸ Import New Game</span> menu item.</p>
+			
+			<p>Then <strong>drop your game onto the window</strong> to begin. Boxer accepts:</p>
+			
+			<ul>
+				<li>CD-ROMs and floppy disks</li>
+				<li>Regular folders containing DOS game files</li>
+				<li>Disc images in <span class="filename">.iso</span>, <span class="filename">.cdr</span>, <span class="filename">.ima</span>, <span class="filename">.img</span> or <span class="filename">.vfd</span> format</li>
+			</ul>
+			
+			<p class="note">Boxer can’t import from <span class="filename">.bin</span>+<span class="filename">.cue</span> images, but you can <a href="importing-bincue.html" rel="topic">import them manually</a> instead.</p>
+		</section>
+		
+		<section>
+			<a name="import-choose-installer"></a>
+			
+			<h2><span class="step">2</span> Choose (or skip) the game installer</h2>
+			
+			<img src="../images/import-choose-installer.png" alt="" width="273" height="204" class="floated-right"/>
+			
+			<p>If Boxer thinks the game needs installing, it’ll now ask you to <strong>choose which installer to run</strong>. The recommended (or only) installer is selected by default.</p>
+			
+			<p>You can <strong>skip the installer</strong> instead, if you know the game is already installed. (This is usually the case for games downloaded from Abandonware websites.)</p>
+			
+			<p class="note">If you’re not sure, or you want to confirm the game’s configuration settings, then <strong>launch the installer</strong> anyway.</p>
+		</section>
+		
+		<section>
+			<a name="import-run-installer"></a>
+			
+			<h2><span class="step">3</span> Let the game install itself</h2>
+			
+			<img src="../images/import-run-installer.png" alt="" width="273" class="floated-right"/>
+			
+			<p class="note">This step will be skipped if Boxer determined that the game was installed already, or if you skipped the installer yourself.</p>
+			
+			<p>Boxer will launch the chosen installer in DOS, to let it configure the game and copy files into its new gamebox.</p>
+			
+			<p><strong>Follow the on-screen instructions to install the game.</strong> See <a href="game-installation.html" rel="topic">game installation tips</a> for more details.</p>
+			
+			<p>Once the installer is done and has quit back to the DOS prompt, click <strong>“Finish importing”</strong> to continue.</p>
+		</section>
+		
+		<section>
+			<a name="import-finalizing"></a>
+			<h2><span class="step">4</span> Twiddle thumbs while Boxer finishes up</h2>
+		
+			<img src="../images/import-finishing.png" alt="" width="273" height="204" class="floated-right"/>
+			
+			<p>Once the DOS installer is done (or has been skipped), then Boxer will import the game’s source files into the new gamebox.</p>
+			
+			<p>If you’re importing a CD-ROM game, then <strong>Boxer puts a copy of the CD into the gamebox</strong>: this means you won’t have to keep the original around in order to play the game.</p>
+			
+			<p class="note">This process may take several minutes if you’re importing from a real CD-ROM. You can skip this step if you’re impatient, and just keep the CD in the drive when you want to play.</p>
+		</section>
+		
+		<section>
+			<a name="import-finished"></a>
+			<h2><span class="step">5</span> Profit!</h2>
+			
+			<img src="../images/import-done.png" alt="" width="273" height="204" class="floated-right"/>
+			
+			<p>Your game is now a shiny new gamebox living in your <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/opengamesfolder.scpt?" rel="other-application">DOS Games folder</a>.</p>
+			
+			<p>Boxer has guessed a suitable name for the gamebox and given it a bootleg disk icon, but you can rename it and <a href="decorating.html" rel="topic">decorate it with your own cover art</a> if you like.</p>
+			
+			<p>Once you’re happy with it, click <strong>“Launch game”</strong> to <a href="playing.html#choose-program" rel="topic">start playing!</a></p>
+		</section>
+		
+		<section>
+			<h3>Further reading</h3>
+		
+			<ul>
+				<li><a href="playing.html" rel="topic">Playing your games</a></li>
+				<li><a href="game-installation.html" rel="topic">Tips for game installation</a></li>
+				<li><a href="addons.html">Installing expansions and add-ons</a></li>
+				<li><a href="patches.html">Applying patches and cracks</a></li>
+				<li><a href="troubleshooting.html#troubleshooting-importing" rel="topic">Solving common problems when importing</a></li>
+			</ul>
+		</section>
+
+		<script type="text/javascript" src="../../shared/scripts/zepto.min.js"></script>
+		<script type="text/javascript" src="../../shared/scripts/linkhandlers.js"></script>
+	</body>
+</html>

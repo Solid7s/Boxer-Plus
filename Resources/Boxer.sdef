@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary xmlns:xi="http://www.w3.org/2003/XInclude" title="Boxer Terminology">
+	<xi:include href="file:///System/Library/ScriptingDefinitions/CocoaStandard.sdef" xpointer="xpointer(/dictionary/suite)"/>
+	
+	<suite name="Boxer Suite" code="Boxr" description="Boxer-specific scripting facilities">
+        <command name="import" code="BoxrImpt" description="Import a game from the specified file (which can be a folder, volume or disk image.) If no file is specified, the Import window will be displayed.">
+            <cocoa class="BXImportCommand"/>
+            <direct-parameter optional="yes">
+                <type type="file"/>
+            </direct-parameter>
+        </command>
+		
+		<enumeration name="preferences window panels" code="ePpn">
+			<enumerator name="General Preferences panel" code="GPpn">
+				<cocoa integer-value="0"/>
+			</enumerator>
+			<enumerator name="Display Preferences panel" code="DPpn">
+				<cocoa integer-value="1"/>
+			</enumerator>
+			<enumerator name="Audio Preferences panel" code="APpn">
+				<cocoa integer-value="2"/>
+			</enumerator>
+			<enumerator name="Keyboard Preferences panel" code="KPpn">
+				<cocoa integer-value="3"/>
+			</enumerator>
+		</enumeration>
+		
+		<enumeration name="inspector window panels" code="eIpn">
+			<enumerator name="Game panel" code="GIpn">
+				<cocoa integer-value="0"/>
+			</enumerator>
+			<enumerator name="CPU panel" code="CIpn">
+				<cocoa integer-value="1"/>
+			</enumerator>
+			<enumerator name="Mouse panel" code="MIpn">
+				<cocoa integer-value="2"/>
+			</enumerator>
+			<enumerator name="Drives panel" code="DIpn">
+				<cocoa integer-value="3"/>
+			</enumerator>
+			<enumerator name="Joystick panel" code="JIpn">
+				<cocoa integer-value="4"/>
+			</enumerator>
+		</enumeration>
+		
+		<class-extension extends="application" description="The Boxer application.">
+			<property name="Boxer preferences" code="Bprf" type="preferences" access="r" description="Boxer’s application preferences.">
+				<cocoa key="scriptablePreferences"/>
+			</property>
+			<property name="inspector" code="Iwnd" type="inspector window" access="r" description="The Inspector panel.">
+				<cocoa key="scriptableInspectorWindow"/>
+			</property>
+		</class-extension>
+		
+		<class name="preferences" code="cBpf" description="Boxer’s application preferences.">
+			<cocoa class="BXScriptablePreferences"/>
+			<property name="window" code="Pwnd" type="preferences window" access="r" description="Boxer’s application preferences window."/>
+			<property name="games folder" code="pGam" type="file" description="The POSIX path to Boxer’s DOS Games folder.">
+				<cocoa key="gamesFolderURL"/>
+			</property>
+		</class>
+		
+		<class name="preferences window" inherits="window" code="cPwn" description="Boxer’s application preferences window.">
+			<cocoa class="BXScriptableWindow"/>
+			<property name="current panel" code="pPnl" type="preferences window panels" description="The current panel of the application preferences window.">
+				<cocoa key="selectedTabViewItemIndex"/>
+			</property>
+		</class>
+		
+		<class name="inspector window" inherits="window" code="cIwn" description="The Inspector panel.">
+			<cocoa class="BXScriptableWindow"/>
+			<property name="current panel" code="pPnl" type="inspector window panels" description="The current panel of the inspector.">
+				<cocoa key="selectedTabViewItemIndex"/>
+			</property>
+		</class>
+		
+		<class name="document" code="docu" description="A DOS session.">
+			<cocoa class="BXSession"/>
+			<property name="name" code="pnam" type="text" access="r" description="Its name.">
+				<cocoa key="displayName"/>
+			</property>
+			<property name="file" code="file" type="file" access="r" description="Its location on disk, if it has one.">
+				<cocoa key="fileURL"/>
+			</property>
+			<responds-to command="close">
+				<cocoa method="handleCloseScriptCommand:"/>
+			</responds-to>
+		</class>
+	</suite>
+</dictionary>

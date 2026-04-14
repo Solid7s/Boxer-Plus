@@ -1,0 +1,76 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Configuration preamble" : {
+      "comment" : "Used by generated configuration files as a commented header at the top of the file.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This configuration file was created by Boxer. In here you can specify any additional DOSBox settings or startup commands needed for this game. You can find a list of supported settings in Boxer's built-in help, under \"DOSBox configuration file parameters\".\n\nNote that you can tweak CPU speed and other common settings directly from Boxer’s Inspector panel (Cmd-I while playing)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This configuration file was created by Boxer. In here you can specify any additional DOSBox settings or startup commands needed for this game. You can find a list of supported settings in Boxer's built-in help, under \"DOSBox configuration file parameters\".\n\nNote that you can tweak CPU speed and other common settings directly from Boxer’s Inspector panel (Cmd-I while playing)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este archivo de configuración fue creado por Boxer. Aquí puede especificar cualquier ajuste adicional de DOSBox o comandos de arranque necesarios para este juego. Puede encontrar una lista de ajustes soportados en la ayuda incorporada de Boxer,  sobre \"Parámetros del archivo de configuración de DOSBox\".\n\nTenga en cuenta que puede ajustar la velocidad de CPU y otros ajustes comunes directamente desde el panel Inspector de Boxer (Cmd-I mientras juega)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce fichier de configuration a été créé par Boxer. Vous pouvez spécifier ici des paramètres DOSBox supplémentaires ou des commandes de démarrage nécessaires au jeu. Vous pouvez trouver une liste des paramètres supportés sans l'aide intégrée de Boxer, à la rubrique \"Paramètres du fichier de configuration DOSBox\".\n\nVous pouvez ajuster la vitesse du processeur et d'autres paramètres communs directement à partir du panneau Inspecteur de Boxer (Cmd-I pendant un jeu)."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This configuration file was created by Boxer. In here you can specify any additional DOSBox settings or startup commands needed for this game. You can find a list of supported settings in Boxer's built-in help, under \"DOSBox configuration file parameters\".\n\nNote that you can tweak CPU speed and other common settings directly from Boxer’s Inspector panel (Cmd-I while playing)."
+          }
+        }
+      }
+    },
+    "Preamble for startup commands" : {
+      "comment" : "Used in generated configuration files as a commented header underneath the [autoexec] section.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any DOS commands you put underneath this heading will be executed when DOS emulation starts, just before the game itself launches. By this point all drives will be mounted and the current drive will be Z."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any DOS commands you put underneath this heading will be executed when DOS emulation starts, just before the game itself launches. By this point all drives will be mounted and the current drive will be Z."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cualquier comando DOS que coloque debajo de este encabezado se ejecutará al iniciar la emulación DOS, justo antes de ejecutar el juego. En este punto todas las unidades se montarán y la unidad actual será Z."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes les commandes DOS que vous mettrez ci-dessous seront exécutées au démarrage de l'émulation DOS, juste avant le lancement du jeu. À ce stade, tous les lecteurs seront montés et le lecteur en cours sera Z."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any DOS commands you put underneath this heading will be executed when DOS emulation starts, just before the game itself launches. By this point all drives will be mounted and the current drive will be Z."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

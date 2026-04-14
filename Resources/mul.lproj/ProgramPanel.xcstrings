@@ -1,0 +1,306 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "420.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Not now\"; ObjectID = \"420\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Not now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora no"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas maintenant"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agora não"
+          }
+        }
+      }
+    },
+    "422.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Launch every time\"; ObjectID = \"422\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Launch every time"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ejecutar cada vez"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer chaque fois"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executar todas as vezes"
+          }
+        }
+      }
+    },
+    "469.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Click a program to launch:\"; ObjectID = \"469\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Click a program to launch:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haga clic en un programa para ejecutar:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquez sur le programme pour le lancer :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click no programa a ser executado:"
+          }
+        }
+      }
+    },
+    "475.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Hold down Option during startup to get the DOS prompt instead.\"; ObjectID = \"475\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hold down Option during startup to get the DOS prompt instead."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantenga pulsado Opción durante el inicio para obtener el símbolo del DOS en su lugar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenez enfoncé Option pendant le démarrage pour obtenir l’invite DOS."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pressione Option durante a inicialização para abrir o DOS."
+          }
+        }
+      }
+    },
+    "477.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Launch wwwwwww.exe every time I start this gamebox.\"; ObjectID = \"477\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Launch wwwwwww.exe every time I start this gamebox."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ejecutar wwwwwww.exe cada vez que inicia este gamebox."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer wwwwwww.exe chaque fois que je démarre cette gamebox."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executar wwwwwww.exe todas as vezes que eu iniciar esta Gamebox."
+          }
+        }
+      }
+    },
+    "483.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Launch wwwwwwww.exe every time?\"; ObjectID = \"483\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Launch wwwwwwww.exe every time?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Ejecutar wwwwwwww.exe cada vez?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer wwwwwwww.exe chaque fois ?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Executar wwwwwwww.exe toda vez?"
+          }
+        }
+      }
+    },
+    "487.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"You can change your choice later from the Inspector Panel.\"; ObjectID = \"487\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You can change your choice later from the Inspector Panel."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede cambiar su opción más tarde desde el panel Inspector."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pourrez changer votre choix dans le panneau Inspecteur."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você pode mudar sua escolha depois no Painel de Inspeção."
+          }
+        }
+      }
+    },
+    "489.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"There are no programs in this gamebox.\"; ObjectID = \"489\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "There are no programs in this gamebox."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay programas en este gamebox."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il n’y a pas de programme dans la gamebox."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há programas nesta Gamebox."
+          }
+        }
+      }
+    },
+    "491.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Once you’ve installed some programs, they will be listed here.\"; ObjectID = \"491\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Once you’ve installed some programs, they will be listed here."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una vez haya instalado algunos programas, aparecerán aquí."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lorsque des programmes seront installés, ils seront listés ici."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando intalar alguns programas, eles aparecerão aqui."
+          }
+        }
+      }
+    },
+    "495.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"[filename.exe]\"; ObjectID = \"495\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[filename.exe]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[filename.exe]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[filename.exe]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[arquivo.exe]"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,296 @@
+/* 
+ Copyright (c) 2013 Alun Bestor and contributors. All rights reserved.
+ This source file is released under the GNU General Public License 2.0. A full copy of this license
+ can be found in this XCode project at Resources/English.lproj/BoxerHelp/pages/legalese.html, or read
+ online at [http://www.gnu.org/licenses/gpl-2.0.txt].
+ */
+
+#import "BXSessionPrivate.h"
+#import "BXBezelController.h"
+#import "BXBaseAppController+BXSupportFiles.h"
+#import "BXEmulator+BXAudio.h"
+#import "BXMIDIDeviceMonitor.h"
+#import "NSError+ADBErrorHelpers.h"
+
+#import "BXEmulatedMT32.h"
+#import "BXMIDISynth.h"
+#import "BXExternalMIDIDevice.h"
+#import "BXExternalMT32.h"
+#import "Boxer-Swift.h"
+#import "RegexKitLite.h"
+
+
+@implementation BXSession (BXAudioControls)
+
+
+#pragma mark -
+#pragma mark Delegate methods
+
+- (void) emulatorDidDisplayMT32Message: (NSNotification *)notification
+{
+    NSString *message = [notification.userInfo objectForKey: @"message"];
+    
+    //TWEAK: some games (e.g. King's Quest IV, Ultima VII) spam the same message
+    //or set of messages over and over again. This is irritating when it's shown
+    //in a popover, so we ignore repeat messages.
+    BOOL isARepeat;
+    if (self.MT32MessagesReceived)
+    {
+        isARepeat = [self.MT32MessagesReceived containsObject: message];
+        [self.MT32MessagesReceived addObject: message];
+    }
+    else
+    {
+        isARepeat = NO;
+        self.MT32MessagesReceived = [NSMutableSet setWithObjects: message, nil];
+    }
+    
+    if (!isARepeat)
+        [[BXBezelController controller] showMT32BezelForMessage: message];
+}
+
+- (id <BXMIDIDevice>) MIDIDeviceForEmulator: (BXEmulator *)theEmulator
+                         meetingDescription: (NSDictionary *)description
+{
+    //Defaults to BXMIDIMusicAutodetect if unspecified.
+    BXMIDIMusicType musicType = [[description objectForKey: BXMIDIMusicTypeKey] integerValue];
+    
+    //Defaults to NO if unspecified.
+    BOOL preferExternal = [[description objectForKey: BXMIDIPreferExternalKey] boolValue];
+    
+    //Check if the device the emulator is already using is a suitable match,
+    //and just return that if so.
+    if ([self MIDIDevice: theEmulator.activeMIDIDevice meetsDescription: description])
+    {
+        return theEmulator.activeMIDIDevice;
+    }
+    
+    //Use a dummy MIDI device if MIDI music is disabled.
+    if (musicType == BXMIDIMusicDisabled)
+    {
+        return [[DummyMIDIDevice alloc] init];
+    }
+    
+    //If the emulator wants an external MIDI device if available, try and find the one
+    //it's looking for. (Or just the first one we can find, if no details were specified.)
+    //If we can't find any suitable external device, then fall back on internal devices.
+    if (preferExternal)
+    {
+        MIDIUniqueID uniqueID       = (MIDIUniqueID)[[description objectForKey: BXMIDIExternalDeviceUniqueIDKey] integerValue];
+        ItemCount destinationIndex  = (ItemCount)[[description objectForKey: BXMIDIExternalDeviceIndexKey] integerValue];
+        BOOL needsMT32Delays        = [[description objectForKey: BXMIDIExternalDeviceNeedsMT32SysexDelaysKey] boolValue];
+        
+        //Note that we don't check here what kind of music the game is trying to play:
+        //instead we assume that the requested external device is appropriate for
+        //whatever the game plays.
+        
+        Class deviceClass = (needsMT32Delays) ? [BXExternalMT32 class] : [BXExternalMIDIDevice class];
+        
+        BXExternalMIDIDevice *externalDevice;
+        if (uniqueID)
+        {
+            externalDevice = [[deviceClass alloc] initWithDestinationAtUniqueID: uniqueID error: NULL];
+        }
+        //If neither unique ID nor destination index were specified, we'll implicitly
+        //fall back on a destination index of 0 (i.e. the first destination we can find.)
+        else
+        {
+            externalDevice = [[deviceClass alloc] initWithDestinationAtIndex: destinationIndex error: NULL];
+        }
+        
+        if (externalDevice)
+            return externalDevice;
+        
+        //If we cannot connect to an external MIDI device, keep going and
+        //fall back on internal MIDI devices.
+    }
+    
+    //If the emulator is playing MT-32 music, check if we have an MT-32 plugged in;
+    //if we can't find a real MT-32, then try MUNT emulation.
+    if (musicType == BXMIDIMusicMT32)
+    {
+        NSArray *deviceIDs = [(BXBaseAppController *)[NSApp delegate] MIDIDeviceMonitor].discoveredMT32s;
+        
+        for (NSNumber *deviceID in deviceIDs)
+        {
+            BXExternalMT32 *externalMT32 = [[BXExternalMT32 alloc] initWithDestinationAtUniqueID: (MIDIUniqueID)deviceID.integerValue
+                                                                                      error: NULL];
+            
+            if (externalMT32)
+                return externalMT32;
+        }
+        
+        NSError *emulatedMT32Error = nil;
+        NSURL *PCMROMURL        = [(BXBaseAppController *)[NSApp delegate] MT32PCMROMURL];
+        NSURL *controlROMURL    = [(BXBaseAppController *)[NSApp delegate] MT32ControlROMURL];
+
+        //Fallback: check gamebox for ROMs if not found in Application Support
+        if (!PCMROMURL && self.gamebox)
+            PCMROMURL = [self _MT32PCMROMURLInGamebox];
+        if (!controlROMURL && self.gamebox)
+            controlROMURL = [self _MT32ControlROMURLInGamebox];
+
+        BXEmulatedMT32 *emulatedMT32 = [[BXEmulatedMT32 alloc] initWithPCMROM: PCMROMURL
+                                                                    controlROM: controlROMURL
+                                                                      delegate: theEmulator
+                                                                         error: &emulatedMT32Error];
+        
+        if (emulatedMT32)
+            return emulatedMT32;
+        
+        else if (emulatedMT32Error)
+        {
+            //If we don't have the ROMs for MT-32 emulation, warn the user
+            //that we can't play their game's music properly.
+            if ([emulatedMT32Error matchesDomain: BXEmulatedMT32ErrorDomain code: BXEmulatedMT32MissingROM])
+            {
+                [[BXBezelController controller] showMT32MissingBezel];
+            }
+            else
+            {
+                //TODO: display the error reason if initialization
+                //failed for any other reason than missing ROMs: i.e.
+                //if the ROMs were invalid, this needs to be actioned
+                //by the user.
+            }
+        }
+    }
+    
+    //If we got this far, we haven't found a more suitable MIDI device:
+    //fall back on the good old reliable OS X MIDI synth.
+    //Reuse the emulator's existing one if available, otherwise create
+    //a new one.
+    BXMIDISynth *fallbackSynth;
+    if ([self.emulator.activeMIDIDevice isKindOfClass: [BXMIDISynth class]])
+    {
+        fallbackSynth = self.emulator.activeMIDIDevice;
+    }
+    else
+    {
+        fallbackSynth = [[BXMIDISynth alloc] initWithError: NULL];
+    }
+    
+    //If a custom soundfont has been specified for the MIDI synth, load that now also.
+    NSString *soundfontPath = [[NSUserDefaults standardUserDefaults] objectForKey: @"MIDISoundFontPath"];
+    if (soundfontPath.length > 0)
+    {
+        NSError *loadError = nil;
+        BOOL loaded = [fallbackSynth loadSoundFontWithContentsOfURL: [NSURL fileURLWithPath: soundfontPath] error: &loadError];
+        
+        if (loaded)
+        {
+            NSLog(@"Successfully loaded soundfont: %@", soundfontPath);
+        }
+        else
+        {
+            NSLog(@"Error when loading soundfont: %@", loadError);
+        }
+    }
+    else
+    {
+        NSLog(@"No soundfont specified, using default OS X soundfont.");
+    }
+    
+    return fallbackSynth;
+}
+
+- (BOOL) MIDIDevice: (id <BXMIDIDevice>)device meetsDescription: (NSDictionary *)description
+{
+    if (device == nil) return NO;
+    
+    BXMIDIMusicType musicType = [[description objectForKey: BXMIDIMusicTypeKey] integerValue];
+    
+    
+    if (musicType == BXMIDIMusicDisabled)
+        return ([device isKindOfClass: [DummyMIDIDevice class]]);
+    
+    
+    //Check external devices to make sure they meet external-device-specific requirements.
+    //(Note that we don't (and can't) check whether the device corresponds to a specified
+    //destination index, as this may change for a destination over the lifetime of the application.)
+    BOOL preferExternal = [[description objectForKey: BXMIDIPreferExternalKey] boolValue];
+    if (preferExternal)
+    {
+        if (![device isKindOfClass: [BXExternalMIDIDevice class]]) return NO;
+    
+        //Check that the device supports the correct sysex delay requirements.
+        NSNumber *needsDelay = [description objectForKey: BXMIDIExternalDeviceNeedsMT32SysexDelaysKey];
+        if (needsDelay.boolValue && ![device isKindOfClass: [BXExternalMT32 class]]) return NO;
+        
+        //Compare the ID that was asked for against the actual ID of the connected device.
+        NSNumber *specifiedID = [description objectForKey: BXMIDIExternalDeviceUniqueIDKey];
+        if (specifiedID)
+        {
+            MIDIUniqueID actualID;
+            OSStatus errCode = MIDIObjectGetIntegerProperty([(BXExternalMIDIDevice *)device destination], kMIDIPropertyUniqueID, &actualID);
+            if (errCode != noErr || actualID != specifiedID.integerValue) return NO;
+        }
+    }
+    
+    //If a specific kind of music was specified, check that the device supports it.
+    if (musicType == BXMIDIMusicMT32 && !device.supportsMT32Music) return NO;
+    if (musicType == BXMIDIMusicGeneralMIDI && !device.supportsGeneralMIDIMusic) return NO;
+    
+    //If we got this far then we've run out of reasons to reject the device
+    //and so it meets the specified description.
+    return YES;
+}
+
+- (BOOL) emulator: (BXEmulator *)theEmulator shouldWaitForMIDIDevice: (id <BXMIDIDevice>)device untilDate: (NSDate *)date
+{
+    //If the emulator is concurrent it can take care of its own waiting.
+    if (theEmulator.isConcurrent) return YES;
+    else
+    {
+        //If the emulator is running on the main thread, then handle the delay ourselves
+        //by running the event loop until the time is up.
+        //NSLog(@"Waiting for MIDI device for %f seconds", [date timeIntervalSinceNow]);
+        [self _processEventsUntilDate: date];
+        return NO;
+    }
+}
+
+#pragma mark -
+#pragma mark MT-32 ROM support (gamebox fallback)
+
+- (NSURL *) _MT32ROMURLInGameboxMatchingPattern: (NSString *)pattern
+{
+    if (!self.gamebox || !self.fileURL)
+        return nil;
+
+    NSURL *romsDir = [self.fileURL URLByAppendingPathComponent: @"MT-32 ROMs"];
+
+    if (![romsDir checkResourceIsReachableAndReturnError: NULL])
+        return nil;
+
+    NSDirectoryEnumerationOptions options = NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants;
+    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL: romsDir
+                                                             includingPropertiesForKeys: nil
+                                                                                options: options
+                                                                           errorHandler: NULL];
+
+    for (NSURL *URL in enumerator)
+    {
+        NSString *fileName = URL.lastPathComponent;
+        if ([fileName isMatchedByRegex: pattern
+                               options: RKLCaseless
+                               inRange: NSMakeRange(0, fileName.length)
+                                 error: nil])
+        {
+            return URL;
+        }
+    }
+    return nil;
+}
+
+- (NSURL *) _MT32ControlROMURLInGamebox
+{
+    return [self _MT32ROMURLInGameboxMatchingPattern: @"control"];
+}
+
+- (NSURL *) _MT32PCMROMURLInGamebox
+{
+    return [self _MT32ROMURLInGameboxMatchingPattern: @"pcm"];
+}
+
+@end

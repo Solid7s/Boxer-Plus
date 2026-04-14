@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Game installation tips</title>
+		<meta name="description" content="Where to install and which sound card to choose."/>
+		<meta name="keywords" content="destination, soundcard, adlib, soundblaster, mpu401, gus"/>
+		
+		<link rel="stylesheet" type="text/css" href="../../shared/styles/main.css"/>
+	</head>
+	<body>
+		<a name="game-installation"></a>
+		<h1><img src="../../shared/images/importer-128.png" class="page-icon-64" alt=""/>Game installation tips</h1>
+		
+		<p><strong>The tips below apply when dropping games onto the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/import.scpt?" rel="application-window">Import window</a>.</strong> This runs the game’s installer if necessary, and bundles the game into a new <a href="gameboxes.html" rel="topic">gamebox</a>.</p>
+
+		<a name="game-installation-without-preamble"></a>
+		<section class="no-border">
+			<a name="install-location"></a>
+			<h2>Telling the game where to install</h2>
+		
+			<p><strong>Choose any location on drive C</strong>. The path within drive C doesn’t matter, so use whatever the game suggests.</p>
+			
+			<p class="note">When importing a game, Boxer creates an empty drive C inside a new <a href="gameboxes.html" rel="topic">gamebox</a>.<br/>
+			Installing to drive C will put the game files directly into the gamebox, where they belong.</p>
+		</section>
+		
+		<section>
+			<a name="install-size"></a>
+			<h2>Choosing an install size</h2>
+			<p>Many CD-ROM games offer a choice of installation sizes, where smaller installations leave more data on the CD.</p>
+			
+			<p><strong>For most games you should choose the smallest install size</strong>, because Boxer will import the whole CD into the gamebox regardless. A larger install size wastes disk space and will have no effect on loading times.</p>
+			
+			<p class="note">Some game installers will state that they disable features or leave out content at smaller installation sizes. You should choose the maximum installation size for such games.</p>
+		</section>
+		
+		<section>
+			<a name="soundcard-configuration"></a>
+			<h2>Choosing a sound card</h2>
+			
+			<p>Many game installers will happily <strong>autodetect the correct sound card settings</strong>, and it’s easiest to let them do that when available. If you do need to choose a sound card manually, then Boxer supports the following:</p>
+			
+			<section>
+				<a name="sound-blaster-configuration"></a>
+				<h3>Sound Blaster/Pro/16</h3>
+				<p>The most reliable choice and supported by almost all games. Choose Sound Blaster 16 if available, otherwise Pro or regular Sound Blaster. Use the following settings if asked:</p>
+				
+				<table class="sound-configuration">
+					<tr><th>I/O Address:</th><td>220</td></tr>
+					<tr><th>IRQ:</th><td>7</td></tr>
+					<tr><th>DMA:</th><td>1</td></tr>
+					<tr><th>High DMA:</th><td>5 (rarely asked for)</td></tr>
+				</table>
+			</section>
+			
+			<section>
+				<a name="general-midi-configuration"></a>
+				<h3>General MIDI <small>(“MPU-401 compatible”, “Roland Sound Canvas”)</small></h3>
+				<p>This provides high-quality music (better than <a href="#sound-blaster-configuration">Sound Blaster</a>) and is supported by most later DOS games. If the game lets you choose separate soundcards for digital audio and music, choose <strong>Sound Blaster 16 for digital audio</strong> and <strong>General MIDI for music</strong>.</p>
+				
+				<table class="sound-configuration">
+					<tr><th>I/O Address:</th><td>330</td></tr>
+					<tr><th>IRQ:</th><td>2 (rarely asked for)</td></tr>
+				</table>
+			</section>
+			
+			<section>
+				<a name="mt-32-configuration"></a>
+				<h3>Roland MT-32 <small>(“CM-32L”, “LAPC-I”)</small></h3>
+				<p><strong><a href="music-through-mt32.html">Requires MT-32 ROMs or a real MT-32.</a></strong> The precursor to General MIDI, the MT-32 provided excellent-quality music with programmable instruments, and is supported by many games from the late 80s and early 90s.</p>
+				
+				<p>If the game also supports <a href="#general-midi-configuration">General MIDI</a>, it’s usually better to choose that instead.</p>
+				
+				<table class="sound-configuration">
+					<tr><th>I/O Address:</th><td>330</td></tr>
+					<tr><th>IRQ:</th><td>2 (rarely asked for)</td></tr>
+				</table>
+			</section>
+			
+			<section>
+				<a name="gravis-ultrasound-configuration"></a>
+				<h3>Gravis Ultrasound/Max <small>(“GUS”)</small></h3>
+				<p>An late-era sound card that provided high-quality music using banks of digital instrument samples. Not widely supported: but in games that do properly support it, this can provide better-quality sound and music than <a href="#sound-blaster-configuration">Sound Blaster</a> or <a href="#general-midi-configuration">General MIDI</a>.</p>
+				
+				<p class="note">If the game’s music card option is labelled “Gravis Ultrasound MIDI synth” then it does not provide native Gravis Ultrasound music, and you should choose <a href="#general-midi-configuration">General MIDI</a> instead.</p>
+				
+				<table class="sound-configuration">
+					<tr><th>I/O Address:</th><td>240</td></tr>
+					<tr><th>IRQ:</th><td>5</td></tr>
+					<tr><th>DMA:</th><td>3</td></tr>
+				</table>
+			</section>
+		
+			<section>
+				<a name="adlib-configuration"></a>
+				<h3>AdLib</h3>
+				<p>This early music-only card became a de facto standard, and is supported by most DOS games. Choose <a href="#sound-blaster-configuration">Sound Blaster</a> instead if the game supports it.</p>
+				
+				<table class="sound-configuration">
+					<tr><th>I/O Address:</th><td>388 (rarely asked for)</td></tr>
+				</table>
+			</section>
+			
+			<section>
+				<a name="disney-sound-source-configuration"></a>
+				<h3>Disney Sound Source/Covox Speech Thing</h3>
+				<p>A cheap sound peripheral that provided low-quality digital sound. Supported by some games and demos. Requires no extra configuration.</p>
+			</section>
+			
+			<section>
+				<a name="tandy-sound-configuration"></a>
+				<h3>Tandy 3-voice sound</h3>
+				<p><strong>Only available if the game is set to <a href="dosbox-configuration.html#configuration-machine-type" rel="topic">emulate a Tandy 1000 computer</a>.</strong> Provides synthesized music and speech, and is supported by many EGA-era DOS games.</p>
+				
+				<p class="note">Enabling Tandy graphics and sound emulation requires adding settings to a gamebox’s configuration file. See <a href="dosbox-configuration.html" rel="topic">DOSBox Configuration</a> for details.</p>
+			</section>
+			
+			<section>
+				<a name="pc-speaker-configuration"></a>
+				<h3>PC speaker</h3>
+				<p>Boxer emulates the tinny little “beeper speaker” included in every DOS-era PC. Requires no configuration and is always available as a last resort, but choose <em>anything else</em> if you can.</p>
+				
+				<div class="note">
+					<p>PC speaker sound is very dependent on the CPU speed: you may need adjust the CPU speed from the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openinspector.scpt?CPU" rel="application-window">CPU Inspector</a> until the game sounds right.</p>
+					
+					<p>(If you do, then <a href="mailto:support@boxerapp.com?subject=Custom%20game%20settings" rel="email">let me know the right speed</a> so Boxer can configure that game automatically in future.)</p>
+				</div>
+			</section>
+		</section>
+		
+		<section>
+			<a name="troubleshooting-installation"></a>
+			<h2>If the installer can’t copy its files</h2>
+			
+			<p>If the installer asks you to insert floppy disks you don’t have, or says that required files are missing, <strong>this usually means the game has already been installed</strong>. This is frequently the case for downloaded games.</p>
+			
+			<p>In this case, <strong>quit the installer without copying files and tell Boxer to “Finish Importing”</strong>. Boxer will copy the game files itself.</p>
+		</section>
+		
+		<section>
+			<h3>Further reading</h3>
+			
+			<ul>
+				<li><a href="addons.html">Installing expansions and add-ons</a></li>
+				<li><a href="patches.html">Applying patches and cracks</a></li>
+				<li><a href="troubleshooting.html#troubleshooting-importing" rel="topic">Solving common problems when importing</a></li>
+			</ul>
+		</section>
+		
+		<script type="text/javascript" src="../../shared/scripts/zepto.min.js"></script>
+		<script type="text/javascript" src="../../shared/scripts/linkhandlers.js"></script>
+	</body>
+</html>
+
+

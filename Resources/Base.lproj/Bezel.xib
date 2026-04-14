@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BXBezelController">
+            <connections>
+                <outlet property="CPUSpeedBezel" destination="7" id="13"/>
+                <outlet property="MT32MessageBezel" destination="85" id="88"/>
+                <outlet property="MT32MissingBezel" destination="89" id="94"/>
+                <outlet property="driveAddedBezel" destination="29" id="36"/>
+                <outlet property="driveImportedBezel" destination="44" id="49"/>
+                <outlet property="driveRemovedBezel" destination="37" id="50"/>
+                <outlet property="driveSwappedBezel" destination="73" id="82"/>
+                <outlet property="fastForwardBezel" destination="129" id="132"/>
+                <outlet property="fullscreenBezel" destination="3" id="14"/>
+                <outlet property="joystickIgnoredBezel" destination="51" id="54"/>
+                <outlet property="mouseLockedBezel" destination="145" id="150"/>
+                <outlet property="numlockActiveBezel" destination="113" id="123"/>
+                <outlet property="numlockInactiveBezel" destination="118" id="124"/>
+                <outlet property="numpadActiveBezel" destination="95" id="111"/>
+                <outlet property="numpadInactiveBezel" destination="105" id="112"/>
+                <outlet property="pauseBezel" destination="57" id="66"/>
+                <outlet property="playBezel" destination="62" id="65"/>
+                <outlet property="screenshotBezel" destination="125" id="128"/>
+                <outlet property="throttleBezel" destination="19" id="28"/>
+                <outlet property="volumeBezel" destination="133" id="144"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="3" userLabel="Fullscreen Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="391" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="5" customClass="BXHUDLabel">
+                    <rect key="frame" x="20" y="23" width="351" height="42"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="6">
+                        <font key="font" metaFont="system" size="18"/>
+                        <string key="title">Press Cmd+F to exit fullscreen.
+Cmd+click to access the menu bar.</string>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="5" firstAttribute="top" secondItem="3" secondAttribute="top" constant="23" id="CUc-fU-KbZ"/>
+                <constraint firstItem="5" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" id="Xb7-x1-dDL"/>
+                <constraint firstItem="5" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="22" id="bO8-2f-h06"/>
+                <constraint firstItem="5" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" id="qJM-DR-3fI"/>
+            </constraints>
+            <point key="canvasLocation" x="14" y="-55"/>
+        </customView>
+        <customView id="7" userLabel="CPU Speed Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="8" customClass="BXHUDLabel">
+                    <rect key="frame" x="20" y="12" width="260" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="[386 speed (3000 cycles)]" id="9">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                    <rect key="frame" x="41" y="43" width="219" height="20"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <levelIndicatorCell key="cell" alignment="left" maxValue="1" warningValue="4" criticalValue="4" numberOfTickMarks="6" levelIndicatorStyle="continuousCapacity" id="11" customClass="BXHUDLevelIndicatorCell">
+                        <font key="font" metaFont="system"/>
+                    </levelIndicatorCell>
+                </levelIndicator>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                    <rect key="frame" x="16" y="40.5" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="tortoise.fill" catalog="system" id="16" customClass="BXHUDImageCell"/>
+                </imageView>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                    <rect key="frame" x="260" y="38" width="24.5" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="hare.fill" catalog="system" id="18" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="14" y="135"/>
+        </customView>
+        <customView id="19" userLabel="Throttle Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="20" customClass="BXHUDLabel">
+                    <rect key="frame" x="20" y="15" width="200" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="[100% throttle]" id="27">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="21">
+                    <rect key="frame" x="20" y="45" width="200" height="20"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <levelIndicatorCell key="cell" alignment="left" maxValue="100" warningValue="200" criticalValue="200" numberOfTickMarks="3" levelIndicatorStyle="continuousCapacity" id="26" customClass="BXHUDLevelIndicatorCell">
+                        <font key="font" metaFont="system"/>
+                    </levelIndicatorCell>
+                </levelIndicator>
+            </subviews>
+            <point key="canvasLocation" x="-122" y="-205"/>
+        </customView>
+        <customView id="29" userLabel="Drive Added Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="30" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="45" width="186" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="[Drive D added]" id="31">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="67" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="24" width="186" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" alignment="center" title="[Need For Speed.iso]" id="68">
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="34">
+                    <rect key="frame" x="59" y="75" width="102" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="35" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="-122" y="-410"/>
+        </customView>
+        <customView id="37" userLabel="Drive Removed Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="38" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="45" width="186" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="[Drive D ejected]" id="43">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="39">
+                    <rect key="frame" x="59" y="72.5" width="102.5" height="107"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="eject.fill" catalog="system" id="42" customClass="BXHUDImageCell"/>
+                </imageView>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="69" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="24" width="186" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" alignment="center" title="[Need For Speed.iso]" id="70">
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="-121" y="-70"/>
+        </customView>
+        <customView id="44" userLabel="Drive Imported Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="46" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="45" width="186" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="[Drive D imported]" id="47">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="45">
+                    <rect key="frame" x="59" y="75" width="102" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="48" customClass="BXHUDImageCell"/>
+                </imageView>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="71" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="24" width="186" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" alignment="center" title="[Need For Speed.iso]" id="72">
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="-419" y="-85"/>
+        </customView>
+        <customView id="51" userLabel="Joystick Ignored Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="64" width="306" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="53">
+                        <font key="font" metaFont="system" size="18"/>
+                        <string key="title">This game is not responding
+to joystick input.</string>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="55" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="20" width="306" height="36"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="56">
+                        <font key="font" metaFont="system" size="14"/>
+                        <string key="title">You may need to turn on
+joystick control within the game.</string>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="-554" y="-314"/>
+        </customView>
+        <customView id="57" userLabel="Pause Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="58">
+                    <rect key="frame" x="29" y="29" width="102" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PauseBezelTemplate" id="61" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="139" y="154"/>
+        </customView>
+        <customView id="62" userLabel="Play Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="63">
+                    <rect key="frame" x="29" y="29" width="102" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="PlayBezelTemplate" id="64" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="139" y="154"/>
+        </customView>
+        <customView id="73" userLabel="Drive Swapped Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="75" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="45" width="186" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="[Drive D swapped]" id="78">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="74" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="24" width="186" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingHead" sendsActionOnEndEditing="YES" alignment="center" title="[Need For Speed.iso]" id="79">
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                    <rect key="frame" x="21" y="92" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="77" customClass="BXHUDImageCell"/>
+                </imageView>
+                <imageView fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="80">
+                    <rect key="frame" x="129" y="92" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="81" customClass="BXHUDImageCell"/>
+                </imageView>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83">
+                    <rect key="frame" x="100" y="115" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="NSRightFacingTriangleTemplate" id="84" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="4" y="384"/>
+        </customView>
+        <customView id="85" userLabel="MT-32 Message Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="86" customClass="MT32LCDDisplay" customModule="Boxer" customModuleProvider="target">
+                    <rect key="frame" x="20" y="20" width="380" height="47"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="376" id="MRx-l9-OQx"/>
+                        <constraint firstAttribute="height" constant="47" id="Ps0-hK-Y77"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="INSERT BUCKAZOID" id="87">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="86" firstAttribute="top" secondItem="85" secondAttribute="top" constant="23" id="4gW-Oq-Tfa"/>
+                <constraint firstItem="86" firstAttribute="centerX" secondItem="85" secondAttribute="centerX" id="ckV-wy-02m"/>
+                <constraint firstItem="86" firstAttribute="leading" secondItem="85" secondAttribute="leading" constant="22" id="x1D-x3-BVl"/>
+                <constraint firstAttribute="bottom" secondItem="86" secondAttribute="bottom" constant="20" symbolic="YES" id="xGT-rh-lpl"/>
+            </constraints>
+            <point key="canvasLocation" x="14" y="135"/>
+        </customView>
+        <customView id="89" userLabel="MT-32 Missing Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="126"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="90" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="64" width="306" height="42"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="302" id="uBF-ni-kiv"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="MT-32 ROMs are required to play this game’s music correctly." id="93">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="91" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="20" width="306" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="302" id="dOm-LO-5Rq"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="92">
+                        <font key="font" metaFont="system" size="14"/>
+                        <string key="title">You can add MT-32 ROMs
+in Boxer’s Audio preferences.</string>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="90" firstAttribute="leading" secondItem="89" secondAttribute="leading" constant="19" id="EO5-Jz-LEN"/>
+                <constraint firstItem="91" firstAttribute="leading" secondItem="89" secondAttribute="leading" constant="19" id="HH8-Jc-bPN"/>
+                <constraint firstItem="90" firstAttribute="top" secondItem="89" secondAttribute="top" constant="20" symbolic="YES" id="cY2-yb-fFc"/>
+                <constraint firstItem="91" firstAttribute="top" secondItem="90" secondAttribute="bottom" constant="10" id="eTE-F4-UWE"/>
+                <constraint firstItem="90" firstAttribute="centerX" secondItem="89" secondAttribute="centerX" id="vqj-Bc-SGw"/>
+                <constraint firstAttribute="bottom" secondItem="91" secondAttribute="bottom" constant="20" symbolic="YES" id="ypI-wd-TRE"/>
+                <constraint firstItem="91" firstAttribute="centerX" secondItem="89" secondAttribute="centerX" id="zt0-bj-ruY"/>
+            </constraints>
+            <point key="canvasLocation" x="-766" y="120"/>
+        </customView>
+        <customView id="95" userLabel="Numpad Active Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="273" height="167"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="97" customClass="BXHUDLabel">
+                    <rect key="frame" x="31" y="17" width="211" height="21"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Simulated numpad active" id="100">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="98">
+                    <rect key="frame" x="77" y="34" width="118" height="118"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="118" id="EaL-Se-xTx"/>
+                        <constraint firstAttribute="height" constant="118" id="hCZ-Ae-dRI"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NumpadActiveTemplate" id="99" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="97" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="95" secondAttribute="leading" constant="20" symbolic="YES" id="0z5-UW-c0E"/>
+                <constraint firstItem="97" firstAttribute="top" secondItem="98" secondAttribute="bottom" constant="-4" id="KAa-Zh-sHf"/>
+                <constraint firstItem="98" firstAttribute="leading" secondItem="95" secondAttribute="leading" constant="77" id="L8k-li-LSA"/>
+                <constraint firstItem="98" firstAttribute="top" secondItem="95" secondAttribute="top" constant="15" id="eM9-Ut-YXl"/>
+                <constraint firstItem="97" firstAttribute="centerX" secondItem="95" secondAttribute="centerX" id="ief-gq-WE1"/>
+                <constraint firstAttribute="bottom" secondItem="97" secondAttribute="bottom" constant="17" id="jKl-XK-TP9"/>
+            </constraints>
+            <point key="canvasLocation" x="-901" y="-95"/>
+        </customView>
+        <customView id="105" userLabel="Numpad Inactive Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="273" height="172"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="107" customClass="BXHUDLabel">
+                    <rect key="frame" x="21" y="22" width="231" height="21"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Simulated numpad disabled" id="108">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="106">
+                    <rect key="frame" x="77" y="39" width="118" height="118"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="118" id="foe-oB-dOP"/>
+                        <constraint firstAttribute="height" constant="118" id="nmj-sC-rdb"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NumpadInactiveTemplate" id="109" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="106" firstAttribute="leading" secondItem="105" secondAttribute="leading" constant="77" id="2dc-Hp-Cba"/>
+                <constraint firstItem="107" firstAttribute="top" secondItem="106" secondAttribute="bottom" constant="-4" id="3hr-u1-i2W"/>
+                <constraint firstItem="107" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="105" secondAttribute="leading" constant="20" symbolic="YES" id="O6T-aP-uEx"/>
+                <constraint firstItem="107" firstAttribute="centerX" secondItem="105" secondAttribute="centerX" id="XEP-ql-jR4"/>
+                <constraint firstItem="106" firstAttribute="top" secondItem="105" secondAttribute="top" constant="15" id="YOA-Hq-PNw"/>
+                <constraint firstAttribute="bottom" secondItem="107" secondAttribute="bottom" constant="22" id="g5i-K3-tgP"/>
+            </constraints>
+            <point key="canvasLocation" x="-1036" y="-332"/>
+        </customView>
+        <customView id="113" userLabel="Numpad Active Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="172"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="115" customClass="BXHUDLabel">
+                    <rect key="frame" x="17" y="20" width="186" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Numlock active" id="116">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                    <rect key="frame" x="59" y="47" width="102" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NumlockActiveTemplate" id="117" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="-1171" y="-569"/>
+        </customView>
+        <customView id="118" userLabel="Numpad Active Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="172"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="119" customClass="BXHUDLabel">
+                    <rect key="frame" x="34" y="21" width="152" height="21"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Numlock disabled" id="122">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="120">
+                    <rect key="frame" x="59" y="47" width="102" height="102"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="102" id="JpM-Qi-qiN"/>
+                        <constraint firstAttribute="width" constant="102" id="R7Q-yk-dka"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NumlockInactiveTemplate" id="121" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="120" firstAttribute="centerX" secondItem="118" secondAttribute="centerX" id="BMm-iF-eS6"/>
+                <constraint firstAttribute="bottom" secondItem="119" secondAttribute="bottom" constant="21" id="CMX-Vg-VN5"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="119" secondAttribute="trailing" constant="20" symbolic="YES" id="GoF-3f-ych"/>
+                <constraint firstItem="120" firstAttribute="top" secondItem="118" secondAttribute="top" constant="23" id="PaE-dR-Rs8"/>
+                <constraint firstItem="120" firstAttribute="leading" secondItem="118" secondAttribute="leading" constant="59" id="dcx-Kd-J7B"/>
+                <constraint firstItem="119" firstAttribute="centerX" secondItem="118" secondAttribute="centerX" id="doj-Jj-Udd"/>
+                <constraint firstItem="119" firstAttribute="top" secondItem="120" secondAttribute="bottom" constant="5" id="vhQ-jx-jRa"/>
+            </constraints>
+            <point key="canvasLocation" x="-1306" y="-806"/>
+        </customView>
+        <customView id="125" userLabel="Screenshot Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="126">
+                    <rect key="frame" x="29" y="29.5" width="102" height="102"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="96" id="yTA-gd-VAa"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="camera.fill" catalog="system" id="127" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="126" firstAttribute="leading" secondItem="125" secondAttribute="leading" constant="29" id="Jx7-s4-jLu"/>
+                <constraint firstItem="126" firstAttribute="centerX" secondItem="125" secondAttribute="centerX" id="LY7-MP-nsP"/>
+                <constraint firstItem="126" firstAttribute="centerY" secondItem="125" secondAttribute="centerY" id="ZhX-7D-Y1x"/>
+                <constraint firstItem="126" firstAttribute="top" secondItem="125" secondAttribute="top" constant="32" id="ixo-ev-Qjd"/>
+            </constraints>
+            <point key="canvasLocation" x="14" y="135"/>
+        </customView>
+        <customView id="129" userLabel="Fast Forward Bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="130">
+                    <rect key="frame" x="29" y="29" width="102" height="102"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="102" id="R1H-gs-FCf"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="FastForwardBezelTemplate" id="131" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="130" firstAttribute="top" secondItem="129" secondAttribute="top" constant="29" id="2fj-gc-w7T"/>
+                <constraint firstItem="130" firstAttribute="centerX" secondItem="129" secondAttribute="centerX" id="J6b-sg-o1t"/>
+                <constraint firstItem="130" firstAttribute="leading" secondItem="129" secondAttribute="leading" constant="29" id="lKT-dM-sf6"/>
+                <constraint firstItem="130" firstAttribute="centerY" secondItem="129" secondAttribute="centerY" id="vK4-va-oYZ"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
+        </customView>
+        <customView id="133" userLabel="Volume bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="172"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="135">
+                    <rect key="frame" x="20" y="21" width="200" height="20"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <levelIndicatorCell key="cell" alignment="left" maxValue="1" warningValue="4" criticalValue="4" numberOfTickMarks="7" levelIndicatorStyle="continuousCapacity" id="140" customClass="BXHUDLevelIndicatorCell">
+                        <font key="font" metaFont="system"/>
+                    </levelIndicatorCell>
+                </levelIndicator>
+                <imageView fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="142">
+                    <rect key="frame" x="69" y="50" width="101.5" height="102"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="speaker.fill" catalog="system" id="143" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="14" y="135"/>
+        </customView>
+        <customView id="145" userLabel="Mouse Locked bezel" customClass="BXBezelView">
+            <rect key="frame" x="0.0" y="0.0" width="434" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" tag="7" translatesAutoresizingMaskIntoConstraints="NO" id="146" customClass="BXHUDLabel">
+                    <rect key="frame" x="49" y="20" width="368" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Cmd+click to release the mouse pointer." id="147">
+                        <font key="font" metaFont="system" size="18"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="148">
+                    <rect key="frame" x="20" y="21" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="NSLockLockedTemplate" id="149" customClass="BXHUDImageCell"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="-1220" y="121"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="FastForwardBezelTemplate" width="102" height="70"/>
+        <image name="NSLockLockedTemplate" width="17" height="19"/>
+        <image name="NSRightFacingTriangleTemplate" width="12" height="17"/>
+        <image name="NumlockActiveTemplate" width="96" height="96"/>
+        <image name="NumlockInactiveTemplate" width="96" height="96"/>
+        <image name="NumpadActiveTemplate" width="112" height="112"/>
+        <image name="NumpadInactiveTemplate" width="112" height="112"/>
+        <image name="PauseBezelTemplate" width="79" height="102"/>
+        <image name="PlayBezelTemplate" width="79" height="102"/>
+        <image name="camera.fill" catalog="system" width="19" height="15"/>
+        <image name="eject.fill" catalog="system" width="16" height="14"/>
+        <image name="hare.fill" catalog="system" width="23" height="16"/>
+        <image name="speaker.fill" catalog="system" width="14" height="14"/>
+        <image name="tortoise.fill" catalog="system" width="24" height="13"/>
+    </resources>
+</document>

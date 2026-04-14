@@ -1,0 +1,17 @@
+#Ignore Finder metadata files
+.DS_Store
+._*
+
+#No build directories thanks
+build
+
+#Ignore user-specific stuff in .xcodeproj bundles
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+xcuserdata/
+project.xcworkspace
+DerivedData/
+swiftpm/

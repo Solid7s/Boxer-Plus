@@ -1,0 +1,18 @@
+.configuration th
+{
+	width: 13em;
+}
+
+
+.default th,
+.default td
+{
+	background-color: #444;
+}
+
+.default th code
+{
+	color: #999;
+}
+
+h3 code.configuration { color: white; }

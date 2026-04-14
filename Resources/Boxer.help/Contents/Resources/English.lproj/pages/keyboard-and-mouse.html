@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Keyboard and mouse tips</title>
+		<meta name="description" content="Keyboard shortcuts, mouse-button modifiers, and tweaks for keyboard behaviour."/>
+		<meta name="keywords" content="hotkeys, mousebutton, touchpad, fullscreen, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, screen shot, media key"/>
+		
+		<link rel="stylesheet" type="text/css" href="../../shared/styles/main.css"/>
+	</head>
+	<body>
+		<a name="shortcuts"></a>
+		<h1>Keyboard and mouse tips</h1>
+		
+		<section>
+			<a name="mouse-modifiers"></a>
+			<h2>Mouse modifiers</h2>
+		
+			<p>These modifiers will help you play DOS games on a trackpad or one-button mouse:</p>
+			
+			<table class="wide shortcuts">
+				<col class="action"/>
+				<col class="shortcut"/>
+				<thead>
+					<tr>
+						<th>Action</th>
+						<th>Shortcut</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<td>Click the right mouse button</td>
+						<td><kbd>Ctrl ⌃</kbd>+<kbd>click</kbd></td>
+					</tr>
+					<tr>
+						<td>Click the left and right mouse buttons at once</td>
+						<td><kbd>Ctrl ⌃</kbd>+<kbd>Opt ⌥</kbd>+<kbd>click</kbd><br/>
+							or <strong>three-finger tap</strong> on trackpad
+						</td>
+					</tr>
+					<tr>
+						<td>Lock/unlock the mouse from the window
+						<p class="note">This will also reveal the menu bar in full screen mode</p></td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>click</kbd></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<p class="note">If these mouse shortcuts conflict with a game’s own controls, you can change them for that game from the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openinspector.scpt?mouse" rel="application-window">Mouse Inspector</a>.</p>
+		</section>
+		
+		<section>
+			<a name="keyboard-shortcuts"></a>
+			<h2>Keyboard shortcuts</h2>
+		
+			<table class="wide shortcuts">
+				<col class="action"/>
+				<col class="shortcut"/>
+				<thead>
+					<tr>
+						<th>Action</th>
+						<th>Shortcut</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr>
+						<td>Send a function key to the game</td>
+						<td><kbd>Fn</kbd>+<kbd>F1–F12</kbd></td>
+					</tr>
+					<tr>
+						<td>Toggle the <a href="#simulated-numpad">numeric keypad</a></td>
+						<td><kbd>Cmd</kbd>+<kbd>U</kbd><br/> or hold <kbd>Fn</kbd></td>
+					</tr>
+					<tr>
+						<td>Switch to/from full screen mode</td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>F</kbd></td>
+					</tr>
+					<tr>
+						<td>Pause the emulation</td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>P</kbd><br/>
+						or <kbd><img src="../../shared/images/play-pause-key.png" alt="Play/Pause media key"/></kbd></td>
+					</tr>
+					<tr>
+						<td>Fast-forward the emulation</td>
+						<td>Hold <kbd>Cmd ⌘</kbd>+<kbd>Opt ⌥</kbd>+<kbd>⇢</kbd><br/>
+						or hold <kbd><img src="../../shared/images/fast-forward-key.png" alt="Fast Forward media key"/></kbd></td>
+					</tr>
+					
+					<tr>
+						<td>Speed up/slow down the emulation</td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>Opt ⌥</kbd>+<kbd>⇡</kbd>/<kbd>⇣</kbd></td>
+					</tr>
+					
+					<tr>
+						<td>Switch to previous/next CD</td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>Shift ⇧</kbd>+<kbd>⇠</kbd>/<kbd>⇢</kbd></td>
+					</tr>
+					<tr>
+						<td>Take a screenshot</td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>Shift ⇧</kbd>+<kbd>S</kbd></td>
+					</tr>
+					
+					<tr>
+						<td>Skip the default program and start up at the DOS prompt</td>
+						<td>Hold <kbd>Opt ⌥</kbd> while gamebox is loading</td>
+					</tr>
+					
+					<tr>
+						<td>Show/hide the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openinspector.scpt?" rel="application-window">Inspector panel</a></td>
+						<td><kbd>Cmd ⌘</kbd>+<kbd>I</kbd></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<p class="note">Additional keyboard shortcuts can be found alongside each item in Boxer’s application menus.</p>
+		</section>
+		
+		<a name="keyboard"></a>
+			
+		<section>
+			<a name="simulated-numpad"></a>
+			<h2>Accessing numpad keys on a compact Mac keyboard</h2>
+			
+			<p>If a DOS program needs you to press a key on the numeric keypad, but your Mac’s keyboard doesn’t have one, then you can <strong>hold down <kbd>Fn</kbd> to make part of the keyboard act as a numpad:</strong></p>
+			
+			<p>
+				<img src="../images/numeric-keypad.png" class="fit-to-width" alt="While Fn is held down the 789, UIO and JKL keys act as the 9 numpad keys, the “M” and “,” keys act as 0 and period, the “.” key acts as Enter and the 6 key acts as Num Lock. The column of keys to the right of these acts as /, *, + and - on the numpad."/>
+			</p>
+			
+			<p class="note">The 7-8-9 numpad keys match up to the same numbers on the regular keyboard: you can use this to orient your fingers to the simulated numpad.</p>
+			
+			<p class="tip">If you don’t want to keep <kbd>Fn</kbd> held down to access the numpad, you can also <strong>turn the numpad behaviour on or off</strong> with the <span class="menu">Emulation ▸ Simulate numeric keypad</span> menu option. This will take effect until you toggle the option again.</p>
+			
+		</section>
+		
+		<section>
+			<a name="function-keys"></a>
+			<h2>Using the function keys on a Mac keyboard</h2>
+			
+			<p>Mac keyboards adopt the <kbd>F1</kbd>–<kbd>F12</kbd> keys as hotkeys to control volume, screen brightness and other system functions. To send those keys to the DOS game instead, <strong>hold down <kbd>fn</kbd> when you press the function key.</strong></p>
+
+			<p class="tip">You can toggle this behaviour by turning on <strong class="ui-label">“Use all F1, F2 etc. keys as standard function keys”</strong> in OS&#160;X’s Keyboard Preferences.</p>
+		</section>
+		
+		<section>
+			<a name="spaces-shortcuts"></a>
+			<h2>Preventing OS&#160;X hotkeys from conflicting with game controls</h2>
+			
+			<p>Some OS&#160;X system hotkeys (like <kbd>Ctrl ⌃</kbd>+<kbd>⇠</kbd>/<kbd>⇢</kbd> to switch Spaces) may overlap with the control schemes for DOS games and get in the way when playing.</p>
+		
+			<p>To avoid such problems, Boxer will try to disable any conflicting hotkeys while you’re playing. To do this, it needs some extra accessibility permissions:</p>
+			
+			<section class="no-border">
+				<a name="hotkey-override-10.9"></a>
+				<h3>To disable conflicting hotkeys on OS&#160;X 10.9 and up:</h3>
+				<ol class="steps">
+					<li><a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openaccessibilitycontrols.scpt?" rel="other-application">Open the <span class="ui-label">“Security and Privacy”</span> pane of System Preferences.</a></li>
+					<li><a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openaccessibilitycontrols.scpt?" rel="other-application">Select the <span class="ui-label">“Privacy”</span> tab and scroll down to the <span class="ui-label">“Accessibility”</span> heading.</a></li>
+					<li>Click the lock icon to make changes to privacy settings.</li>
+					<li><strong>Click the checkbox next to Boxer</strong> under <span class="ui-label">“Allow the apps below to control your computer.”</span></li>
+					<li><strong>Quit and relaunch Boxer</strong> for your changes to take effect.</li>
+				</ol>
+			</section>
+					
+			<section class="no-border">
+				<a name="hotkey-override-10.8"></a>
+				<h3>To disable conflicting hotkeys on OS&#160;X 10.8 and below:</h3>
+				<ol class="steps">
+					<li><a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/opensystemprefs.scpt?com.apple.preference.universalaccess" rel="other-application">Open the <span class="ui-label">“Accessibility”</span> pane of System Preferences.</a></li>
+					<li>Turn on <strong class="ui-label">“Enable access for assistive devices”</strong>. No relaunch is necessary.</li>
+				</ol>
+			</section>
+		</section>
+		
+		<section>
+			<a name="keyboard-layout"></a>
+			
+			<h2>Can’t find a key?</h2>
+
+			<p>Boxer emulates an MS-DOS PC keyboard layout, and special characters (such as punctuation) are often in different places than where they’re labelled your Mac keyboard.</p>
+			
+			<p>Try nearby keys and <kbd>Shift ⇧</kbd>-ed keys to find the character you’re looking for. On non-US keyboards, you can also <strong>hold down the right-hand <kbd>Opt ⌥</kbd> key</strong> to access additional special characters.</p>
+		
+			<p class="tip">Some keys found on DOS-era PC keyboards don’t exist at all on a Mac keyboard. If you have a game that needs such keys, you can send them using the <span class="menu">Emulation ▸ Send Key</span> menu.</p>
+		</section>
+		
+		<script type="text/javascript" src="../../shared/scripts/zepto.min.js"></script>
+		<script type="text/javascript" src="../../shared/scripts/linkhandlers.js"></script>
+	</body>
+</html>

@@ -1,0 +1,125 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "36.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Punching some sense\\ninto DOS emulation.\"; ObjectID = \"36\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Punching some sense\ninto DOS emulation."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empujando algún sentido\ndentro de la emulación DOS."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donner du punch à\nl’émulation DOS."
+          }
+        }
+      }
+    },
+    "47.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Acknowledgements\"; ObjectID = \"47\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Acknowledgements"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agradecimientos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remerciements"
+          }
+        }
+      }
+    },
+    "49.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Boxer Website\"; ObjectID = \"49\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Boxer Website"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Página web de Boxer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Site web Boxer"
+          }
+        }
+      }
+    },
+    "56.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Boxer is designed by\\nAlun Bestor & released under the GNU Public License.\\n\\nBoxer is based on DOSBox 0.74, which is \\n© 2002–2010 by the DOSBox Team.\"; ObjectID = \"56\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boxer is designed by\nAlun Bestor & released under the GNU Public License.\n\nBoxer is based on DOSBox 0.74, which is \n© 2002–2019 by the DOSBox Team."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boxer está diseñado por\nAlun Bestor & publicado bajo la licencia pública GNU.\n\nBoxer está basado en DOSBox 0.74, el cual es \n© 2002–2019 por el equipo DOSBox."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boxer est conçu par\nAlun Bestor et publié sous licence GNU Public License.\n\nBoxer est basé sur DOSBox 0.74, \n© 2002–2010 par l’équipe DOSBox."
+          }
+        }
+      }
+    },
+    "58.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Version 1.2 | build 20111031.1]\"; ObjectID = \"58\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Version 1.2 | build 20111031.1]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Version 1.2 | build 20111031.1]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Version 1.2 | build 20111031.1]"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

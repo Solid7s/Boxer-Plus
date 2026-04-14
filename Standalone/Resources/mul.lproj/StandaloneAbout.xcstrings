@@ -1,0 +1,246 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "47.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Acknowledgements\"; ObjectID = \"47\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poděkování"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Acknowledgements"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remerciements"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acknowledgements"
+          }
+        }
+      }
+    },
+    "49.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Get more games\"; ObjectID = \"49\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chci víc her"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Get more games"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de jeux"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get more games"
+          }
+        }
+      }
+    },
+    "58.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Version [1.2] ([20111031.1])\"; ObjectID = \"58\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verze [1.2] ([20111031.1])"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version [1.2] ([20111031.1])"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version [1.2] ([20111031.1])"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version [1.2] ([20111031.1])"
+          }
+        }
+      }
+    },
+    "67.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"[Game name]\"; ObjectID = \"67\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Game name]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Game name]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Game name]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Game name]"
+          }
+        }
+      }
+    },
+    "84.ibShadowedDisplayPattern" : {
+      "comment" : "Class = \"CocoaBindingsConnection\"; ibShadowedDisplayPattern = \"Version %{value1}@ (%{value2}@)\"; ObjectID = \"84\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verze %{value1}@ (%{value2}@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        }
+      }
+    },
+    "86.ibShadowedDisplayPattern" : {
+      "comment" : "Class = \"CocoaBindingsConnection\"; ibShadowedDisplayPattern = \"Version %{value1}@ (%{value2}@)\"; ObjectID = \"86\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verze %{value1}@ (%{value2}@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        }
+      }
+    },
+    "94.ibShadowedDisplayPattern" : {
+      "comment" : "Class = \"CocoaBindingsConnection\"; ibShadowedDisplayPattern = \"Version %{value1}@ (%{value2}@)\"; ObjectID = \"94\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verze %{value1}@ (%{value2}@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        }
+      }
+    },
+    "96.ibShadowedDisplayPattern" : {
+      "comment" : "Class = \"CocoaBindingsConnection\"; ibShadowedDisplayPattern = \"Version %{value1}@ (%{value2}@)\"; ObjectID = \"96\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verze %{value1}@ (%{value2}@)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %{value1}@ (%{value2}@)"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,246 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "318.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Finish importing\"; ObjectID = \"318\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Finish importing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar importación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer l’importation"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importação concluída"
+          }
+        }
+      }
+    },
+    "382.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Relaunch installer\"; ObjectID = \"382\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Relaunch installer"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relanzar instalador"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Relancer le programme d’installation"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Re-executar instalador"
+          }
+        }
+      }
+    },
+    "439.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Has the installer finished setting up the game?\"; ObjectID = \"439\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Has the installer finished setting up the game?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Ha finalizado el instalador de configurar el juego?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le programme d’installation a-t-il terminé de configurer le jeu ?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O instalador terminou de configurar o jogo?"
+          }
+        }
+      }
+    },
+    "441.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"If so, then we’re ready to finish importing.\"; ObjectID = \"441\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If so, then we’re ready to finish importing."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si es así, entonces estamos listos para finalizar la importación."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si c’est le cas, nous sommes prêts à terminer l’importation."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se sim, estão estamos prontos para concluir a importação."
+          }
+        }
+      }
+    },
+    "443.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"If you’re asked where to install the game:\"; ObjectID = \"443\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you’re asked where to install the game:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si se le pregunta donde instalar el juego:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si l’emplacement pour installer le jeu est demandé :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você for solicitado um lugar para instalar o jogo:"
+          }
+        }
+      }
+    },
+    "445.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Select anywhere on Drive C.\"; ObjectID = \"445\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select anywhere on Drive C."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccione cualquier lugar de la unidad C."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner n’importe lequel sur le lecteur C."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione qualquer lugar no Disco C."
+          }
+        }
+      }
+    },
+    "448.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Select Sound Blaster 16 with IRQ 7.\"; ObjectID = \"448\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Select Sound Blaster 16 with IRQ 7."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccione Sound Blaster 16 con IRQ 7."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner Sound Blaster 16 avec IRQ 7."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione Sound Blaster 16 com IRQ 7."
+          }
+        }
+      }
+    },
+    "449.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"If you’re asked for soundcard settings:\"; ObjectID = \"449\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you’re asked for soundcard settings:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si se le pregunta por ajustes de tarjeta de sonido:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si les paramètres de la carte son sont demandés :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se for perguntado pela placa de som:"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

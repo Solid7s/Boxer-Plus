@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BXDOSWindowController">
+            <connections>
+                <outlet property="documentationButton" destination="1348" id="1439"/>
+                <outlet property="inputController" destination="957" id="973"/>
+                <outlet property="inputView" destination="978" id="979"/>
+                <outlet property="launchPanelController" destination="1056" id="1246"/>
+                <outlet property="loadingPanel" destination="1251" id="1252"/>
+                <outlet property="loadingSpinner" destination="1253" id="1254"/>
+                <outlet property="panelWrapper" destination="1244" id="SKg-qj-KNn"/>
+                <outlet property="renderingView" destination="UZp-TA-dmD" id="ygx-Ud-GCZ"/>
+                <outlet property="shaderParametersController" destination="49q-3x-2NI" id="hQ5-Su-6Nv"/>
+                <outlet property="statusBar" destination="3" id="918"/>
+                <outlet property="statusBarController" destination="926" id="983"/>
+                <outlet property="window" destination="1" id="169"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="1" customClass="BXDOSWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <rect key="contentRect" x="400" y="240" width="640" height="506"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
+            <view key="contentView" id="2">
+                <rect key="frame" x="0.0" y="0.0" width="640" height="506"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3" userLabel="Status bar">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="26"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="909">
+                                <rect key="frame" x="33" y="6" width="321" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Cmd-click to lock the mouse pointer to the window." id="910">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1442">
+                                <rect key="frame" x="7" y="4" width="24" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSLockUnlockedTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSLockLockedTemplate" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1443">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="systemBold" size="12"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleMouseLocked:" target="-1" id="1468"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </customView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="924" userLabel="Window Content Wrapper" customClass="BXDOSWindowBackgroundView">
+                        <rect key="frame" x="0.0" y="26" width="640" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1244" userLabel="Panel Transition Wrapper">
+                                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="978" userLabel="DOS Input View" customClass="BXInputView">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <customView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UZp-TA-dmD" customClass="BXMetalRenderingView">
+                                                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </customView>
+                                        </subviews>
+                                    </customView>
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1251" userLabel="Loading view">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1253" customClass="BXHUDSpinningProgressIndicator">
+                                                <rect key="frame" x="242" y="160" width="156" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            </customView>
+                                        </subviews>
+                                    </customView>
+                                </subviews>
+                            </customView>
+                        </subviews>
+                    </customView>
+                </subviews>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="2C5F78C8-93AF-4984-B864-4A2ABD5AA305" explicitIdentifier="DOSWindowToolbar" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="1268">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="1358"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="1272"/>
+                    <toolbarItem implicitItemIdentifier="540E2882-15E5-4FCD-8C52-8FA004C0A9D6" label="Programs" paletteLabel="Programs" toolTip="Show or hide the game’s launch options" image="LauncherListTemplate" sizingBehavior="auto" id="1285">
+                        <button key="view" verticalHuggingPriority="750" id="1283">
+                            <rect key="frame" x="15" y="14" width="28" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="LauncherListTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1284">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="-2" name="enabled" keyPath="canToggleLaunchPanel" id="1341"/>
+                                <binding destination="-2" name="value" keyPath="launchPanelShown" id="1339"/>
+                            </connections>
+                        </button>
+                        <connections>
+                            <binding destination="-2" name="enabled" keyPath="canToggleLaunchPanel" id="1350"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="185DE03D-DF27-49BC-BF8F-E23D90836DB1" label="Manuals" paletteLabel="Manuals" toolTip="Show the documentation bundled with this game" image="book" catalog="system" sizingBehavior="auto" id="1348">
+                        <button key="view" verticalHuggingPriority="750" id="1346">
+                            <rect key="frame" x="11" y="14" width="30" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="book" catalog="system" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1347">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleDocumentationBrowser:" target="-1" id="1441"/>
+                            <binding destination="-2" name="enabled" keyPath="document.hasGamebox" id="1352"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="4672537F-2C7C-4BDA-A2AF-F120A743EE98" label="Inspector" paletteLabel="Inspector" toolTip="Show or hide the inspector panel" image="NSRevealFreestandingTemplate" sizingBehavior="auto" id="1279">
+                        <button key="view" verticalHuggingPriority="750" id="1277">
+                            <rect key="frame" x="15" y="14" width="27" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRevealFreestandingTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1278">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleInspectorPanel:" target="-1" id="1302"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FF0BB3DF-8893-46B4-8923-56115B684F1B" label="Volume" paletteLabel="Volume" tag="-1" sizingBehavior="auto" id="d9v-Ij-ljW">
+                        <nil key="toolTip"/>
+                        <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" id="MWA-k3-MA8">
+                            <rect key="frame" x="0.0" y="14" width="130" height="22"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <view key="contentView" id="hp2-yr-guj">
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="22"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <slider toolTip="Adjust the volume" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2UX-hR-kRW">
+                                        <rect key="frame" x="29" y="7" width="72" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" focusRingType="none" alignment="left" maxValue="1" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="eHh-bb-mnd"/>
+                                        <connections>
+                                            <binding destination="-3" name="value" keyPath="delegate.effectiveVolume" id="qO5-w1-mUY">
+                                                <dictionary key="options">
+                                                    <real key="NSNoSelectionPlaceholder" value="1"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </slider>
+                                    <button toolTip="Set the volume to maximum" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktK-fd-rsN">
+                                        <rect key="frame" x="102" y="5" width="27" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="speaker.wave.3.fill" catalog="system" imagePosition="only" alignment="center" controlSize="small" state="on" borderStyle="border" inset="2" id="w0L-iR-Af7">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="maximizeVolume:" target="-1" id="6XR-E5-kGe"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Mute the volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32N-s1-9hf">
+                                        <rect key="frame" x="6" y="5" width="22" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="speaker.fill" catalog="system" imagePosition="overlaps" alignment="center" controlSize="small" borderStyle="border" inset="2" id="bVp-0Y-J3v">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="minimizeVolume:" target="-1" id="GUE-2Z-HMO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </box>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="98C1A095-12D7-4DB7-B467-7F426362CCE6" label="CPU Speed" paletteLabel="CPU Speed" tag="-1" sizingBehavior="auto" id="1416">
+                        <nil key="toolTip"/>
+                        <box key="view" autoresizesSubviews="NO" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" id="1417">
+                            <rect key="frame" x="0.0" y="14" width="130" height="22"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <view key="contentView" id="hly-7J-Aom">
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="22"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button toolTip="Decrease the CPU speed" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1420">
+                                        <rect key="frame" x="0.0" y="5" width="29" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="tortoise.fill" catalog="system" imagePosition="only" alignment="center" controlSize="small" continuous="YES" state="on" borderStyle="border" inset="2" id="1421">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="decrementSpeed:" target="-1" id="1435"/>
+                                        </connections>
+                                    </button>
+                                    <button toolTip="Increase the CPU speed" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1419">
+                                        <rect key="frame" x="101" y="5" width="29" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="hare.fill" catalog="system" imagePosition="only" alignment="center" controlSize="small" continuous="YES" state="on" borderStyle="border" inset="2" id="1422">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="incrementSpeed:" target="-1" id="1434"/>
+                                        </connections>
+                                    </button>
+                                    <slider toolTip="Adjust the emulated CPU speed" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1418">
+                                        <rect key="frame" x="29" y="5" width="72" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" focusRingType="none" alignment="left" maxValue="1" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="6" sliderType="linear" id="1423"/>
+                                        <connections>
+                                            <binding destination="-2" name="enabled" keyPath="document.emulating" id="1429"/>
+                                            <binding destination="-2" name="value" keyPath="document.sliderSpeed" id="1433">
+                                                <dictionary key="options">
+                                                    <real key="NSNoSelectionPlaceholder" value="1"/>
+                                                    <bool key="NSValidatesImmediately" value="YES"/>
+                                                    <string key="NSValueTransformerName">BXSpeedSliderTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                            </view>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </box>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="D375FB40-9A93-4A78-8CD9-124F3047BB9B" label="Playback" paletteLabel="Playback" toolTip="Pause, resume or fast-forward the game" sizingBehavior="auto" id="1345">
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="1343">
+                            <rect key="frame" x="0.0" y="14" width="108" height="24"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="1344">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment toolTip="Pause the game" image="pause.fill" catalog="system" width="32"/>
+                                    <segment toolTip="Resume the game at normal speed" image="play.fill" catalog="system" width="32" tag="1"/>
+                                    <segment toolTip="Fast-forward the game" image="forward.fill" catalog="system" width="32" tag="2">
+                                        <nil key="label"/>
+                                    </segment>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <binding destination="-2" name="enabled" keyPath="DOSViewShown" id="1415"/>
+                                <binding destination="-2" name="selectedTag" keyPath="document.playbackMode" id="1411">
+                                    <dictionary key="options">
+                                        <integer key="NSMultipleValuesPlaceholder" value="1"/>
+                                        <integer key="NSNoSelectionPlaceholder" value="1"/>
+                                        <integer key="NSNotApplicablePlaceholder" value="1"/>
+                                        <integer key="NSNullPlaceholder" value="1"/>
+                                    </dictionary>
+                                </binding>
+                                <outlet property="menu" destination="1389" id="1396"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="80692E84-A4DD-40BE-A1AA-F76F98262117" label="Restart" paletteLabel="Restart" image="NSRefreshTemplate" sizingBehavior="auto" id="1355">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="1353">
+                            <rect key="frame" x="10" y="14" width="26" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1354">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="performRestart:" target="-1" id="1357"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="48349D51-8E91-43B9-9559-1D80B7BFAF7E" label="Screenshot" paletteLabel="Screenshot" image="camera.fill" catalog="system" sizingBehavior="auto" id="1379">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="1377">
+                            <rect key="frame" x="18" y="14" width="31" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="camera.fill" catalog="system" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1378">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="saveScreenshot:" target="-1" id="1380"/>
+                            <binding destination="-2" name="enabled" keyPath="DOSViewShown" id="1383"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="09AC3A20-E5A3-450E-B97C-B30E2F9938C9" label="Change Discs" paletteLabel="Change Discs" image="DiscSwapTemplate" sizingBehavior="auto" id="1402">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="1400">
+                            <rect key="frame" x="22" y="14" width="36" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="DiscSwapTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1401">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="mountNextDrivesInQueues:" target="-1" id="1403"/>
+                            <binding destination="-2" name="enabled" keyPath="document.canCycleDrivesInQueues" id="1405"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="1285"/>
+                    <toolbarItem reference="1348"/>
+                    <toolbarItem reference="1358"/>
+                    <toolbarItem reference="1345"/>
+                    <toolbarItem reference="1272"/>
+                    <toolbarItem reference="d9v-Ij-ljW"/>
+                    <toolbarItem reference="1279"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <contentBorderThickness minY="26"/>
+            <connections>
+                <outlet property="actualContentView" destination="924" id="984"/>
+                <outlet property="delegate" destination="-2" id="529"/>
+            </connections>
+            <point key="canvasLocation" x="21" y="113"/>
+        </window>
+        <viewController id="926" customClass="BXStatusBarController">
+            <connections>
+                <outlet property="mouseLockButton" destination="1442" id="1466"/>
+                <outlet property="notificationMessage" destination="909" id="947"/>
+                <outlet property="view" destination="3" id="927"/>
+            </connections>
+        </viewController>
+        <viewController id="957" userLabel="DOS View Input Controller" customClass="BXInputController">
+            <connections>
+                <outlet property="view" destination="978" id="980"/>
+            </connections>
+        </viewController>
+        <viewController nibName="LaunchPanel" id="1056" userLabel="Launch Panel Controller" customClass="BXLaunchPanelController"/>
+        <customObject id="49q-3x-2NI" customClass="BXShaderParametersWindowController"/>
+        <menu id="1389">
+            <items>
+                <menuItem title="Pause" id="1390">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="pause:" target="-1" id="1393"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Play" id="1391">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="resume:" target="-1" id="1394"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Fast Forward" id="1392">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="fastForward:" target="-1" id="1395"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-103" y="-295"/>
+        </menu>
+    </objects>
+    <resources>
+        <image name="DiscSwapTemplate" width="24" height="16"/>
+        <image name="LauncherListTemplate" width="16" height="13"/>
+        <image name="NSLockLockedTemplate" width="17" height="19"/>
+        <image name="NSLockUnlockedTemplate" width="21" height="19"/>
+        <image name="NSRefreshTemplate" width="18" height="21"/>
+        <image name="NSRevealFreestandingTemplate" width="20" height="20"/>
+        <image name="book" catalog="system" width="18" height="14"/>
+        <image name="camera.fill" catalog="system" width="19" height="15"/>
+        <image name="forward.fill" catalog="system" width="20" height="12"/>
+        <image name="hare.fill" catalog="system" width="23" height="16"/>
+        <image name="pause.fill" catalog="system" width="11" height="13"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="speaker.fill" catalog="system" width="14" height="14"/>
+        <image name="speaker.wave.3.fill" catalog="system" width="22" height="15"/>
+        <image name="tortoise.fill" catalog="system" width="24" height="13"/>
+    </resources>
+</document>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Adding and removing DOS drives</title>
+		<meta name="description" content="Using the Drives Inspector to add and remove emulated floppy drives, hard drives and CD-ROM drives."/>
+		<meta name="keywords" content="disk, disc, mount, imgmount, eject, cdrom, cd-rom"/>
+		
+		<link rel="stylesheet" type="text/css" href="../../shared/styles/main.css"/>
+	</head>
+	<body>
+		<section>
+			<a name="adding-and-removing-drives"></a>
+			<h1>Adding and removing DOS drives</h1>
+		
+			<img src="../images/inspector-drives.png" alt="" width="308" height="461" class="floated-right"/>
+			
+			<p>Go to <span class="menu">Drives ▸ Show DOS Drives</span> to open the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openinspector.scpt?Drives" rel="application-window">Drives Inspector</a>. This panel shows what DOS drives are available and lets you add, remove, and swap between drives.</p>
+		
+			<section class="non-cleared">
+				<a name="adding-drives"></a>
+				<h3>To add a drive to DOS:</h3>
+				<ul>
+					<li>
+						<p><strong>If you have a physical CD, insert it into your Mac’s DVD drive</strong>. Boxer will add it automatically to DOS.</p>
+						
+						<p>Boxer will do likewise when you insert a 3.5" floppy disk into a USB floppy drive connected to your Mac.</p>
+					</li>
+					
+					<li>
+						<p><strong>If you have a folder or disc image, drag it into the Drives Inspector.</strong> Boxer will add it as a new drive of the appropriate type (hard disk for regular folders, CD-ROM or floppy disk for disc images).</p>
+					</li>
+					
+					<li>
+						<p><strong>If you need more control over the drive type and letter</strong>, click the <img src="../../shared/images/add-drive-button.png" alt="+" width="40" height="20" style="vertical-align: bottom"/> button on the Drives Inspector: this will bring up a file picker with advanced drive options.</p>
+					</li>
+				</ul>
+				
+				<p class="note">Boxer remembers which drives you’ve added for a particular game, so they’ll be there next time you start up the game too.</p>
+			</section>
+			
+			<section class="non-cleared">
+				<a name="swapping-drives"></a>
+				<h3>To swap between CDs/floppies:</h3>
+				
+				<p>When you add extra CDs or floppies, they will <strong>go into a queue with any previous CD/floppy</strong>, using the same drive letter.</p>
+				
+				<p>You can then swap between each CD/floppy in a queue:</p>
+				
+				<ul>
+					<li>Use the <span class="menu">Drives ▸ Next Disc</span> menu item to cycle through the CDs/floppies; or</li>
+					<li>Go to the Drives Inspector and <strong>double-click a specific CD/floppy</strong> to swap to it.</li>
+				</ul>
+				
+				<p class="note"><strong>If you want to have CDs/floppies on separate drive letters</strong> — e.g. one floppy at drive A and another at drive B — then <strong>add the drives manually with the <img src="../../shared/images/add-drive-button.png" alt="+" width="40" height="20" style="vertical-align: bottom"/> button</strong> as described above.</p>
+			</section>
+			
+			<section class="non-cleared">
+				<a name="removing-drives"></a>
+				<h3>To remove a drive from DOS:</h3>
+				
+				<ul>
+					<li>
+						<p><strong>Drag the drive out of the Drives Inspector</strong> until the cursor changes to a puff of smoke, and then release it. The drive will be removed from DOS and will disappear from the list.</p>
+					</li>
+					
+					<li>
+						<p><strong>If you want to temporarily deactivate a drive</strong>, then <strong>select the drive and click the <img src="../../shared/images/eject-drive-button.png" alt="Eject" style="vertical-align: middle"/> button</strong>: this removes the drive from DOS but leaves it in the drive list. To reactivate the drive, <strong>double-click the drive or click the <img src="../../shared/images/insert-drive-button.png" alt="Eject" style="vertical-align: middle"/> button</strong>.</p>
+					</li>
+				</ul>
+			</section>
+		</section>
+		
+		<section>
+			<a name="bundling-drives"></a>
+			<h2>Bundling additional drives into a gamebox</h2>
+			
+			<p>Each of your gameboxes includes a drive C for the hard disk where the game is installed, and usually a drive D for the game’s CD-ROM. These are physically part of the gamebox, so anyone with the gamebox has everything they need to play.</p>
+			
+			<p>If you want to include additional drives for distribution — for instance, extra CDs for a multi-CD game — then you can <strong>bundle them into the gamebox</strong> too:</p>
+			
+			<ol class="steps">
+				<li><strong>Add the new drive to DOS</strong> if it isn’t already, by following the <a href="#adding-drives">instructions above</a>.</li>
+				
+				<li>In the <a href="x-help-script://net.washboardabs.boxer.help/shared/scripts/openinspector.scpt?Drives" rel="application-window">Drives Inspector</a>, <strong>select the drive and click on the <img src="../../shared/images/bundle-drive-button.png" alt="CD sliding into box" style="vertical-align: middle"/> icon</strong>; or right-click on the drive and choose <span class="menu">Import into Gamebox</span>.</li>
+				
+				<li><strong>Make a cup of tea</strong> while the drive imports.</li>
+			</ol>
+			
+			<p>Once the import is finished, the drive will be a permanent part of the gamebox.</p>
+			
+			<p class="note">The import process will <strong>physically copy the drive’s contents into the gamebox</strong>, creating a duplicate of the original folder or image used for the drive. You don’t need to keep the original around after this.</p>
+		</section>
+		
+		<section>
+			<h3>Further reading</h3>
+		
+			<ul>
+				<li><a href="swapping-cds.html" rel="topic">Swapping CDs in multi-CD games</a></li>
+				<li><a href="gameboxes.html" rel="topic">Introducing gameboxes</a></li>
+			</ul>
+		</section>
+		
+		<script type="text/javascript" src="../../shared/scripts/zepto.min.js"></script>
+		<script type="text/javascript" src="../../shared/scripts/linkhandlers.js"></script>
+	</body>
+</html>

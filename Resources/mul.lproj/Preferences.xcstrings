@@ -1,0 +1,1443 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "1.title" : {
+      "comment" : "Class = \"NSWindow\"; title = \"Boxer Preferences\"; ObjectID = \"1\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Boxer Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias de Boxer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préférences Boxer"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências do Boxer"
+          }
+        }
+      }
+    },
+    "76.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Start up games in Full Screen mode\"; ObjectID = \"76\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Start up games in Full Screen mode"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar juegos en modo pantalla completa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer le jeu en mode plein écran"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar os jogos em tela cheia"
+          }
+        }
+      }
+    },
+    "77.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"You can switch to and from Full Screen at any time from the View menu or by pressing Cmd-F.\"; ObjectID = \"77\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can switch to and from Full Screen at any time from the View menu or by pressing ⌘-F."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede cambiar desde pantalla completa en cualquier momento desde el menú visualización o pulsando Cmd-F."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez basculer ce mode à partir du menu Présentation ou en appuyant sur Cmd-F."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você pode mudar para tela cheia e voltar usando o menu Exibir ou pressionando Cmd+F."
+          }
+        }
+      }
+    },
+    "78.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Always use 4:3 aspect ratio\"; ObjectID = \"78\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Always use 4:3 aspect ratio"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar siempre relación de aspecto 4:3"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toujours utiliser le format d’image 4:3"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sempre usar a proporção 4:3"
+          }
+        }
+      }
+    },
+    "79.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"When enabled, games will be stretched to match their original aspect ratio on old PC monitors.\"; ObjectID = \"79\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "When enabled, games will be stretched to match their original aspect ratio on old PC monitors."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al activar, los juegos se estirarán para coincidir con su relación de aspecto original en los monitores de PC antiguos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Étire le format d’image des jeux afin de correspondre au format des anciens moniteurs PC."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando ativado, os jogos serão esticados para bater com a proporção dos monitores antigos dos PCs."
+          }
+        }
+      }
+    },
+    "86.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Original\"; ObjectID = \"86\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Original"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Original"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Original"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Original"
+          }
+        }
+      }
+    },
+    "87.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Smooth\"; ObjectID = \"87\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Smooth"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smooth"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisse"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suavizado"
+          }
+        }
+      }
+    },
+    "88.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"CRT Display\"; ObjectID = \"88\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "CRT Display"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pantalla CRT"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tube cathodique"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monitor de Tubo"
+          }
+        }
+      }
+    },
+    "108.label" : {
+      "comment" : "Class = \"NSToolbarItem\"; label = \"General   \"; ObjectID = \"108\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "General   "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General   "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Général   "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geral   "
+          }
+        }
+      }
+    },
+    "108.paletteLabel" : {
+      "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"General   \"; ObjectID = \"108\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "General   "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General   "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Général   "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geral   "
+          }
+        }
+      }
+    },
+    "109.label" : {
+      "comment" : "Class = \"NSToolbarItem\"; label = \"Display   \"; ObjectID = \"109\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Display   "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pantalla   "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affichage   "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tela   "
+          }
+        }
+      }
+    },
+    "109.paletteLabel" : {
+      "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Display   \"; ObjectID = \"109\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Display   "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pantalla   "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affichage   "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tela   "
+          }
+        }
+      }
+    },
+    "141.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Keep my DOS games in:\"; ObjectID = \"141\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keep my DOS games in:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mantener juegos DOS en:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dossier des jeux DOS :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manter meus jogos em:"
+          }
+        }
+      }
+    },
+    "144.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"144\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "145.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"(No folder specified)\"; ObjectID = \"145\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(No folder specified)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(No hay carpeta especificada)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(aucun dossier spécifié)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Nenhuma pasta selecionada)"
+          }
+        }
+      }
+    },
+    "146.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Other…\"; ObjectID = \"146\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Other…"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otro…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autre…"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Outro…"
+          }
+        }
+      }
+    },
+    "150.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Use shelf appearance in Finder’s icon view\"; ObjectID = \"150\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Use shelf appearance in Finder’s icon view"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar apariencia de estantería en vista de icono de Finder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser l’apparence étagère dans le Finder"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use o ícone com aparecndia de estante no Finder"
+          }
+        }
+      }
+    },
+    "175.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"General Preferences\"; ObjectID = \"175\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "General Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias generales"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préférences Général"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências Gerais"
+          }
+        }
+      }
+    },
+    "176.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Display Preferences\"; ObjectID = \"176\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Display Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias de pantalla"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préférences Affichage"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências de Tela"
+          }
+        }
+      }
+    },
+    "223.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"When a program is still running\"; ObjectID = \"223\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "When a program is still running"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuando un programa se está ejecutando"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Programme en cours d’exécution"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando o programa ainda estiver rodando"
+          }
+        }
+      }
+    },
+    "225.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Prompt before closing:\"; ObjectID = \"225\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Prompt before closing:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preguntar antes de cerrar:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avertir avant de fermer :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perguntar antes de fechar:"
+          }
+        }
+      }
+    },
+    "266.label" : {
+      "comment" : "Class = \"NSToolbarItem\"; label = \"Audio   \"; ObjectID = \"266\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio   "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio   "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Som   "
+          }
+        }
+      }
+    },
+    "266.paletteLabel" : {
+      "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Audio   \"; ObjectID = \"266\";",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio   "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio   "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Som   "
+          }
+        }
+      }
+    },
+    "268.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Audio Preferences\"; ObjectID = \"268\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Audio Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias de audio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préférences Audio"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências de Som"
+          }
+        }
+      }
+    },
+    "276.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Boxer does not come with the ROMs needed to play\\nMT-32 music, as these are not legal to distribute.\"; ObjectID = \"276\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Boxer does not come with the ROMs needed to play\nMT-32 music, as these are not legal to distribute."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boxer no viene con las ROMs necesarias para reproducir\nmúsica MT-32, ya que no es legal distribuirlas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les ROM nécessaires pour jouer les musiques avec le\nMT-32 ne sont pas fournies. Il est illégal de les distribuer."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Boxer não vem com as ROMs necessárias para\n tocar música do MT-32, pois é ilegal a distribuição."
+          }
+        }
+      }
+    },
+    "278.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"But if one should stumble across MT-32 ROMs on the internet, then acccidentally download them, one could drag them onto this shelf to bring one’s MT-32 games to life.\"; ObjectID = \"278\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "But if one should stumble across MT-32 ROMs on the internet, then acccidentally download them, one could drag them onto this shelf to bring one’s MT-32 games to life."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pero si se encuentra con ROMs MT-32 en internet, entonces descárguelos accidentalmente, podrá arrastrarlos a esta estantería para llevar los juegos MT-32 a la vida."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais si quelqu’un tombait par hasard sur les ROM MT-32 sur Internet et les téléchargeait accidentellement, cette personne pourrait les déposer sur cette étagère afin de donner vie aux jeux MT-32."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porém se você se esbarrar pelas ROMs do MT-32 na internet, e acidentalmente baixa-las, arrasta-las para cá trarão uma vida nova ao jogos com MT-32"
+          }
+        }
+      }
+    },
+    "296.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"[Show ROMs in Finder]\"; ObjectID = \"296\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Show ROMs in Finder]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Show ROMs in Finder]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Show ROMs in Finder]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Exibir ROMs no Finder]"
+          }
+        }
+      }
+    },
+    "299.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"[Add MT-32 ROMs…]\"; ObjectID = \"299\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Add MT-32 ROMs…]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Add MT-32 ROMs…]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Add MT-32 ROMs…]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Adicionar ROMs do MT-32…]"
+          }
+        }
+      }
+    },
+    "309.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"[Drop MT-32 ROMs here to enable MT-32 emulation]\"; ObjectID = \"309\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "[Drop MT-32 ROMs here to enable MT-32 emulation]"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Drop MT-32 ROMs here to enable MT-32 emulation]"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Drop MT-32 ROMs here to enable MT-32 emulation]"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[Solte as ROMs do MT-32 aqui para ativar a emulação]"
+          }
+        }
+      }
+    },
+    "317.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Show messages from the MT-32’s LCD\"; ObjectID = \"317\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show messages from the MT-32’s LCD"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar mensajes desde el LCD de MT-32"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher les messages de l’écran LCD du MT-32"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exibir mensagens da tela LCD do MT-32"
+          }
+        }
+      }
+    },
+    "319.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Some games will print secret messages on the MT-32’s LCD panel. When enabled, Boxer will display these on-screen.\"; ObjectID = \"319\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Some games will print secret messages on the MT-32’s LCD panel. When enabled, Boxer will display these on-screen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algunos juegos escribirán mensajes secretos en el panel LCD de MT-32. Al activar, Boxer los visualizará en pantalla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certains jeux afficheront des messages secrets sur l’écran LCD du MT-32. Si l’option est activée, Boxer affichera ces messages."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alguns jogos exibem mensagens secretas na tela LCD do MT-32. Quando ativado, o Boxer exibirá essas mensagens na tela."
+          }
+        }
+      }
+    },
+    "333.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Music in supporting games will be played through your Roland MT-32 Sound Module.\"; ObjectID = \"333\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Music in supporting games will be played through your Roland MT-32 Sound Module."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La música de los juegos compatibles se reproducirá a través de su módulo de sonido Roland MT-32."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour les jeux supportant la musique, elle sera jouée par votre module sonore Roland MT-32."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Músicas dos jogos suportados serão tocadas através do Módulo de Som do Roland MT-32."
+          }
+        }
+      }
+    },
+    "334.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"As an MT-32 owner, you are also a person of taste and distinction.\"; ObjectID = \"334\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "As an MT-32 owner, you are also a person of taste and distinction."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como propietario de una MT-32, también es una persona de gusto y distinción."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En tant que possesseur d’un MT-32, vous êtes également une personne raffinée et distinguée."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como um dono de MT-31, você também é uma pessoa de bom gosto"
+          }
+        }
+      }
+    },
+    "348.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Choose a rendering style for DOS games:\"; ObjectID = \"348\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose a rendering style for DOS games:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elija un tipo de renderizado para los juegos DOS:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Style de rendu pour les jeux DOS :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha o estilo de renderização dos jogos de DOS:"
+          }
+        }
+      }
+    },
+    "349.title" : {
+      "comment" : "Class = \"NSBox\"; title = \"Box\"; ObjectID = \"349\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Box"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Box"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Box"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Box"
+          }
+        }
+      }
+    },
+    "353.title" : {
+      "comment" : "Class = \"NSMenu\"; title = \"OtherViews\"; ObjectID = \"353\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OtherViews"
+          }
+        }
+      }
+    },
+    "354.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Open my games folder in Finder\"; ObjectID = \"354\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Open my games folder in Finder"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir carpeta de juegos en Finder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir le dossier de mes jeux dans le Finder"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir minha pasta de jogos no Finder"
+          }
+        }
+      }
+    },
+    "355.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Show welcome panel\"; ObjectID = \"355\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show welcome panel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar panel de bienvenida"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le panneau de bienvenue"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exibir o painel de Bem-vindo"
+          }
+        }
+      }
+    },
+    "356.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Do nothing\"; ObjectID = \"356\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do nothing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hacer nada"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne rien faire"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fazer nada"
+          }
+        }
+      }
+    },
+    "357.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"When Boxer starts:\"; ObjectID = \"357\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "When Boxer starts:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al iniciar Boxer:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Au démarrage :"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quando o Boxer abrir:"
+          }
+        }
+      }
+    },
+    "363.label" : {
+      "comment" : "Class = \"NSTabViewItem\"; label = \"Keyboard Preferences\"; ObjectID = \"363\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keyboard Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferencias de teclado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préférences Clavier"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências de Teclado"
+          }
+        }
+      }
+    },
+    "367.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Capture function keys and arrow keys for games\"; ObjectID = \"367\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Capture function keys and arrow keys for games"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturar teclas de función y cursores de juegos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capturer les touches de fonction et les flèches"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capture as teclas de função e setas para os jogos"
+          }
+        }
+      }
+    },
+    "369.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"Prevents macOS system hotkeys from interfering with the keyboard controls in your DOS games.\"; ObjectID = \"369\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Prevents macOS system hotkeys from interfering with the keyboard controls in your DOS games."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evita que las teclas de acceso del sistema macOS interfieran con los controles de teclado en los juegos DOS."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empêche les raccourcis clavier de macOS d’interférer avec les commandes clavier de vos jeux DOS."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impede dos atalhos do macOS interferirem com os controles de teclado dos seus jogos do DOS."
+          }
+        }
+      }
+    },
+    "373.title" : {
+      "comment" : "Class = \"NSTextFieldCell\"; title = \"“Enable access for assistive devices” must also\\nbe enabled in the Universal Access preferences.\"; ObjectID = \"373\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "“Enable access for assistive devices” must also\nbe enabled in the Universal Access preferences."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Activar acceso para dispositivos de asistencia” debe estar\ntambién activado en preferencias de accesibilidad."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "« Activer l’accès pour les périphériques d’aide » doit également\nêtre activé dans les préférences Accès universel."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Ativar acesso a dispositivos de acessibilidade”\ndeve ser ativo nas Preferências de Acessibilidade."
+          }
+        }
+      }
+    },
+    "377.title" : {
+      "comment" : "Class = \"NSButtonCell\"; title = \"Open System Preferences\"; ObjectID = \"377\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Open System Preferences"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir preferencias del sistema"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir Préférences Système"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Preferências do Sistema"
+          }
+        }
+      }
+    },
+    "396.label" : {
+      "comment" : "Class = \"NSToolbarItem\"; label = \"Keyboard\"; ObjectID = \"396\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keyboard"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teclado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clavier"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teclado"
+          }
+        }
+      }
+    },
+    "396.paletteLabel" : {
+      "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Keyboard\"; ObjectID = \"396\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Keyboard"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teclado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clavier"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teclado"
+          }
+        }
+      }
+    },
+    "cba-8m-oxX.title" : {
+      "comment" : "Class = \"NSMenuItem\"; title = \"Open a DOS prompt\"; ObjectID = \"cba-8m-oxX\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Open a DOS prompt"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir símbolo del DOS"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir un invite DOS"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir sessão do DOS"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
