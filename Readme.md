@@ -16,6 +16,12 @@ After cloning, run:
 git submodule update --init --recursive
 ```
 
+#### Optional Windows 3.11 Runtime
+
+Boxer-Plus has experimental support for importing Windows 3.x games by running their installers inside a local Windows 3.11 environment.
+
+Windows 3.11 system files are not included in this repository. To enable that flow, place files from your own legally obtained Windows 3.11 installation in `Resources/Windows311/`. See `Resources/Windows311/README.md` for the expected folder layout.
+
 #### Build Targets
 
 The Boxer project has three targets:

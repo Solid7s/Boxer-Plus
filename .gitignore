@@ -15,3 +15,7 @@ xcuserdata/
 project.xcworkspace
 DerivedData/
 swiftpm/
+
+# Windows 3.11 system files are proprietary and must be supplied locally.
+Resources/Windows311/*
+!Resources/Windows311/README.md
