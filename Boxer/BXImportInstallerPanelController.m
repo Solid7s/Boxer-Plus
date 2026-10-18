@@ -91,13 +91,10 @@
 	//...and then add all the new ones in their place
 	NSArray *installerURLs = self.controller.document.installerURLs;
 	
-	NSLog(@"[BXImportInstallerPanelController _syncInstallerSelector] installerURLs: %@", installerURLs);
-	
 	if (installerURLs)
 	{		
 		for (NSURL *installerURL in installerURLs)
 		@autoreleasepool {
-			NSLog(@"[BXImportInstallerPanelController _syncInstallerSelector] Adding installer: %@", installerURL);
 			NSMenuItem *item = [self _installerSelectorItemForURL: installerURL];
 			
             [menu insertItem: item atIndex: insertionPoint++];
@@ -115,31 +112,17 @@
 {
 	NSURL *baseURL = self.controller.document.sourceURL;
 	
-	//Check if this is a CUE file URL with fragment (e.g., game.cue#INSTALL.EXE)
-	NSURLComponents *components = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-	NSString *shortenedPath;
-	
-	if (components.fragment)
+	//Remove the base source path to make shorter relative paths for display
+	NSString *shortenedPath = URL.path;
+	if ([URL isBasedInURL: baseURL])
 	{
-		//For CUE files, show the fragment (installer path within the image)
-		shortenedPath = components.fragment;
-	}
-	else
-	{
-		//Remove the base source path to make shorter relative paths for display
-		shortenedPath = URL.path;
-		if ([URL isBasedInURL: baseURL])
-		{
-			shortenedPath = [URL pathRelativeToURL: baseURL];
-		}
-	}
+		shortenedPath = [URL pathRelativeToURL: baseURL];
+    }
 	
 	//Prettify the shortened path by using display names and converting slashes to arrows
 	NSValueTransformer *nameTransformer = [NSValueTransformer valueTransformerForName: @"BXImportInstallerMenuTitle"];
 	
 	NSString *title = [nameTransformer transformedValue: shortenedPath];
-	
-	NSLog(@"[BXImportInstallerPanelController _installerSelectorItemForURL] URL: %@, shortenedPath: %@, title: %@", URL, shortenedPath, title);
 	
 	NSMenuItem *item = [[NSMenuItem alloc] init];
 	item.representedObject = URL;
@@ -184,7 +167,6 @@
 - (IBAction) launchSelectedInstaller: (id)sender
 {
 	NSURL *installerURL = self.installerSelector.selectedItem.representedObject;
-	NSLog(@"[BXImportInstallerPanelController launchSelectedInstaller] installerURL: %@", installerURL);
 	[self.controller.document launchInstallerAtURL: installerURL];
 }
 
@@ -208,7 +190,7 @@
     openPanel.allowsMultipleSelection = NO;
     openPanel.canChooseDirectories = NO;
     openPanel.treatsFilePackagesAsDirectories = NO;
-    openPanel.message = NSLocalizedString(@"Choose the DOS installer program for this game:",
+    openPanel.message = NSLocalizedString(@"Choose the DOS or Windows 3.x installer program for this game:",
                                           @"Help text shown at the top of choose-an-installer panel.");
 	
     openPanel.allowedFileTypes = [BXFileTypes executableTypes].allObjects;

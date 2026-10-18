@@ -82,9 +82,9 @@ and Boxer will import it into a new gamebox. </string>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="14">
-                            <rect key="frame" x="384" y="6" width="82" height="28"/>
+                            <rect key="frame" x="395" y="7" width="70" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="15">
+                            <buttonCell key="cell" type="roundTextured" title="Close" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="15">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -136,6 +136,9 @@ scans your game.</string>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="document.loadingMessage" id="windows-loading-message"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <connections>
@@ -147,9 +150,9 @@ scans your game.</string>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="319">
-                            <rect key="frame" x="384" y="6" width="82" height="28"/>
+                            <rect key="frame" x="395" y="7" width="70" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="320">
+                            <buttonCell key="cell" type="roundTextured" title="Close" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="320">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -239,9 +242,9 @@ already installed and ready to play.</string>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="36">
-                            <rect key="frame" x="328" y="6" width="138" height="28"/>
+                            <rect key="frame" x="340" y="7" width="125" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Launch installer" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="37">
+                            <buttonCell key="cell" type="roundTextured" title="Launch installer" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="37">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -253,9 +256,9 @@ DQ
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" id="49">
-                            <rect key="frame" x="44" y="6" width="116" height="28"/>
+                            <rect key="frame" x="55" y="7" width="104" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Skip installer" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="50">
+                            <buttonCell key="cell" type="roundTextured" title="Skip installer" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="50">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -264,9 +267,9 @@ DQ
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" id="46">
-                            <rect key="frame" x="258" y="6" width="72" height="28"/>
+                            <rect key="frame" x="270" y="7" width="60" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Back" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="47">
+                            <buttonCell key="cell" type="roundTextured" title="Back" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="47">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -360,9 +363,9 @@ others later from the Drives Inspector while you play.</string>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="171">
-                            <rect key="frame" x="306" y="6" width="160" height="28"/>
+                            <rect key="frame" x="318" y="7" width="147" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="[Stop importing]" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="172">
+                            <buttonCell key="cell" type="roundTextured" title="[Stop importing]" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="172">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -447,9 +450,9 @@ Gw
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" id="138">
-                            <rect key="frame" x="339" y="6" width="126" height="28"/>
+                            <rect key="frame" x="351" y="7" width="114" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Launch game" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="141">
+                            <buttonCell key="cell" type="roundTextured" title="Launch game" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="141">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -461,9 +464,9 @@ DQ
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" id="184">
-                            <rect key="frame" x="44" y="6" width="134" height="28"/>
+                            <rect key="frame" x="55" y="7" width="122" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Show in Finder" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="185">
+                            <buttonCell key="cell" type="roundTextured" title="Show in Finder" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="185">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -472,9 +475,9 @@ DQ
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" id="187">
-                            <rect key="frame" x="269" y="6" width="72" height="28"/>
+                            <rect key="frame" x="281" y="7" width="60" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="188">
+                            <buttonCell key="cell" type="roundTextured" title="Close" bezelStyle="texturedRounded" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="188">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">

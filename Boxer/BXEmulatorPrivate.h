@@ -166,6 +166,10 @@ typedef NS_ERROR_ENUM(BXDOSBoxMountErrorDomain, BXDOSBoxMountErrors) {
 /// included from any C or Obj-C implementation file.
 @interface BXEmulator (BXEmulatorInternals)
 
+/// Borrowed singleton, only for synchronous core-loop hooks while start owns it.
+/// Avoids a retain/autorelease for every emulated CPU dispatch.
++ (BXEmulator *) _currentEmulatorForCore;
+
 /// Called at emulator startup and replicates DOSBox's original startup process.
 /// This initializes SDL, requests and parses any config files for this session,
 /// initializes every DOSBox module, and finally starts up the DOSBox machine.

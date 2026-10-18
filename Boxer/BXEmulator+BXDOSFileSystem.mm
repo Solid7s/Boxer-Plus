@@ -169,24 +169,17 @@ void MSCDEX_SetCDInterface(int intNr, int forceCD);
 
 - (BXDrive *) mountDrive: (BXDrive *)drive error: (NSError **)outError
 {
-    NSLog(@"[BXEmulator mountDrive:] drive=%@, letter=%@, mountPointURL=%@", drive, drive.letter, drive.mountPointURL);
-    
     //This is not permitted and indicates a programming error
     NSAssert(self.isExecuting, @"mountDrive:error: called while emulator is not running.");
     
 	NSURL *mountURL = drive.mountPointURL;
-    
-    NSLog(@"[BXEmulator mountDrive:] mountURL=%@", mountURL);
 	
 	//File does not exist or cannot be read, don't continue mounting
 	if (![mountURL checkResourceIsReachableAndReturnError: NULL])
     {
-        NSLog(@"[BXEmulator mountDrive:] Mount URL not reachable!");
         if (outError) *outError = [BXEmulatorCouldNotReadDriveError errorWithDrive: drive];
         return nil;
     }
-    
-    NSLog(@"[BXEmulator mountDrive:] Mount URL is reachable, proceeding...");
 	
     NSNumber *isDirFlag;
     BOOL checkedDir = [mountURL getResourceValue: &isDirFlag forKey: NSURLIsDirectoryKey error: NULL];
@@ -222,8 +215,6 @@ void MSCDEX_SetCDInterface(int intNr, int forceCD);
 	
 	DOS_Drive *DOSBoxDrive = NULL;
 	NSUInteger index = [self _indexOfDriveLetter: driveLetter];
-    
-    NSLog(@"[BXEmulator mountDrive:] isDir=%d, isImage=%d, index=%lu", isDir, isImage, (unsigned long)index);
     
     
     NSString *mountPath = mountURL.path;
@@ -318,9 +309,7 @@ void MSCDEX_SetCDInterface(int intNr, int forceCD);
             drive.DOSVolumeLabel = [NSString stringWithCString: DOSBoxDrive->GetLabel()
                                                       encoding: BXDirectStringEncoding];
             
-            NSLog(@"[BXEmulator mountDrive:] Adding drive to cache: %@ at letter %@", drive, driveLetter);
 			[self _addDriveToCache: drive];
-            NSLog(@"[BXEmulator mountDrive:] Drive added to cache, cache now has %lu drives", (unsigned long)_driveCache.count);
 			
 			//Post a notification to whoever's listening
 			[self _postNotificationName: BXEmulatorDriveDidMountNotification
@@ -734,18 +723,11 @@ void MSCDEX_SetCDInterface(int intNr, int forceCD);
 	//Todo: filter this down to matching drives first, then do the sort, which would be quicker.
 	NSArray *sortedDrives = [_driveCache.allValues sortedArrayUsingSelector: @selector(sourceDepthCompare:)];
 	
-	NSLog(@"[BXEmulator driveContainingLogicalURL:%@] Checking %lu drives", URL, (unsigned long)sortedDrives.count);
-	
 	for (BXDrive *drive in sortedDrives.reverseObjectEnumerator)
 	{
-		NSLog(@"  Checking drive %@ at %@", drive.letter, drive.sourceURL);
 		if ([drive exposesLogicalURL: URL])
-		{
-			NSLog(@"  -> Found matching drive: %@", drive.letter);
             return drive;
-		}
 	}
-	NSLog(@"  -> No drive found for URL");
 	return nil;
 }
 

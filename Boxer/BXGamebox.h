@@ -74,6 +74,11 @@ extern NSString * const BXLauncherURLKey;
 /// Launch-time parameters to pass to the launched program at startup.
 extern NSString * const BXLauncherArgsKey;
 
+/// An explicit Windows startup choice takes precedence over the last DOS process.
+extern NSString * const BXLauncherWindowsStartupKey;
+extern NSString * const BXLauncherWorkingDirectoryKey;
+extern NSString * const BXLauncherWindowsShortcutKey;
+
 /// Whether this is the default launcher for this gamebox
 /// (i.e. the launcher that will be executed when the gamebox is first launched.)
 extern NSString * const BXLauncherIsDefaultKey;
@@ -181,6 +186,18 @@ typedef NS_ENUM(NSUInteger, BXGameIdentifierType) {
 
 
 - (void) addLauncher: (NSDictionary<NSString*,id> *)launcher;
+
+/// Atomically save a Windows startup choice, preserving other launcher entries.
+- (BOOL) saveWindowsStartupWithURL: (NSURL *)windowsURL
+                       programPath: (NSString *)DOSPath
+                             error: (NSError **)outError;
+
+- (BOOL) saveWindowsStartupWithURL: (NSURL *)windowsURL
+                       commandLine: (NSString *)command
+                  workingDirectory: (nullable NSString *)directory
+                             title: (nullable NSString *)title
+                        shortcutID: (nullable NSString *)shortcutID
+                             error: (NSError **)outError;
 - (void) insertLauncher: (NSDictionary<NSString*,id> *)launcher atIndex: (NSUInteger)index;
 
 /// Insert a new launcher item into the launcher list at the specified location,

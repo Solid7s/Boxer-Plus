@@ -77,6 +77,7 @@
             break;
             
         case BXImportSessionLoadingSource:
+        case BXImportSessionPreparingWindows:
             self.currentPanel = self.loadingPanel;
             break;
             

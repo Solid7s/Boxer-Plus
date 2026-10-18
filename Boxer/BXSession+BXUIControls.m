@@ -26,7 +26,30 @@
 
 #import "NSImage+ADBSaveImages.h"
 #import "BXFileTypes.h"
+#import "BXDrive.h"
+#import "ADBScanOperation.h"
+#import "BXEmulator+BXDOSFileSystem.h"
+#import "NSURL+ADBFilesystemHelpers.h"
+#import "BXWindowsProgramGroup.h"
 
+// The sheet retains this target through its completion block; popup targets are weak.
+@interface BXWindowsProgramSelection : NSObject
+@property (copy) void (^changed)(void);
+- (void)selectionDidChange:(id)sender;
+@end
+@implementation BXWindowsProgramSelection
+- (void)selectionDidChange:(id)sender { if (self.changed) self.changed(); }
+@end
+
+static NSString *BXAbsoluteWindowsPath(NSString *path, NSString *base) {
+    path = [path stringByReplacingOccurrencesOfString:@"/" withString:@"\\"];
+    if (!path.length || [path rangeOfCharacterFromSet:
+        [NSCharacterSet characterSetWithCharactersInString:@"\r\n\0\"<>|&%"]].location != NSNotFound) return nil;
+    if (path.length >= 2 && [path characterAtIndex:1] == ':')
+        return path.length >= 3 && [path characterAtIndex:2] == '\\' ? path : nil;
+    if ([path hasPrefix:@"\\"]) return [[base substringToIndex:2] stringByAppendingString:path];
+    return [base stringByAppendingFormat:@"\\%@", path];
+}
 
 @implementation BXSession (BXUIControls)
 
@@ -212,7 +235,49 @@
     self.emulator.turboSpeed = NO;
 	
 	//Preserve changes to the speed settings
-	[self.gameSettings setObject: @(BXAutoSpeed) forKey: @"CPUSpeed"];
+    [self.gameSettings setObject:@(self.CPUSpeed) forKey:@"CPUSpeed"];
+    //A fixed cycles string cannot encode an automatic budget. Remember both
+    //parts separately so fixed → relaunch → automatic restores the policy too.
+    [self.gameSettings setObject:@(self.emulator.autoSpeedCPUUsage) forKey:@"autoSpeedCPUUsage"];
+    [self.gameSettings setObject:@(self.emulator.autoSpeedCycleLimit) forKey:@"autoSpeedCycleLimit"];
+}
+
+- (NSInteger) autoSpeedCPUUsage
+{
+    return self.emulator.autoSpeedCPUUsage;
+}
+
+- (void) setAutoSpeedCPUUsage: (NSInteger)usage
+{
+    self.emulator.autoSpeedCPUUsage = usage;
+    [self.gameSettings setObject:@(self.emulator.autoSpeedCPUUsage) forKey:@"autoSpeedCPUUsage"];
+    [self.gameSettings setObject:@(self.CPUSpeed) forKey:@"CPUSpeed"];
+}
+
+- (IBAction) selectAutomaticCPUUsage: (id)sender
+{
+    self.autoSpeedCPUUsage = [sender tag];
+    self.autoSpeed = YES;
+}
+
+- (NSInteger) autoSpeedCycleLimit
+{
+    return self.emulator.autoSpeedCycleLimit;
+}
+
+- (void) setAutoSpeedCycleLimit: (NSInteger)limit
+{
+    self.emulator.autoSpeedCycleLimit = limit;
+    self.gameSettings[@"autoSpeedCycleLimit"] = @(self.emulator.autoSpeedCycleLimit);
+}
+
+- (IBAction) selectAutomaticSpeedLimit: (id)sender
+{
+    //Tag zero captures the current speed after the user checks a demanding scene.
+    NSInteger limit = [sender tag];
+    if (limit == 0) limit = self.emulator.fixedSpeed;
+    self.autoSpeed = YES;
+    self.autoSpeedCycleLimit = limit;
 }
 
 - (NSInteger) CPUSpeed
@@ -437,6 +502,8 @@
     
 	if (theAction == @selector(incrementSpeed:))		return isShowingDOSView && !self.speedAtMaximum;
 	if (theAction == @selector(decrementSpeed:))		return isShowingDOSView && !self.speedAtMinimum;
+    if (theAction == @selector(selectAutomaticCPUUsage:)) return isShowingDOSView;
+    if (theAction == @selector(selectAutomaticSpeedLimit:)) return isShowingDOSView;
 
 	if (theAction == @selector(incrementFrameSkip:))	return isShowingDOSView && !self.frameskipAtMaximum;
 	if (theAction == @selector(decrementFrameSkip:))	return isShowingDOSView && !self.frameskipAtMinimum;
@@ -492,6 +559,26 @@
 - (BOOL) validateMenuItem: (NSMenuItem *)theItem
 {
 	SEL theAction = theItem.action;
+
+    if (theAction == @selector(chooseWindowsProgram:))
+        return self.hasGamebox && self.isEmulating && !self.isImportingDrives &&
+            !self.windowForSheet.attachedSheet &&
+            ![(BXBaseAppController *)NSApp.delegate isStandaloneGameBundle];
+
+    if (theAction == @selector(selectAutomaticSpeedLimit:))
+    {
+        theItem.state = self.isAutoSpeed && self.autoSpeedCycleLimit == theItem.tag
+            ? NSControlStateValueOn : NSControlStateValueOff;
+        if (theItem.tag == 0) theItem.title = [NSString stringWithFormat:NSLocalizedString(@"Use Current Speed (%ld cycles)", nil), (long)self.emulator.fixedSpeed];
+        return self.isEmulating && self.DOSWindowController.DOSViewShown && !self.emulator.isTurboSpeed;
+    }
+
+    if (theAction == @selector(selectAutomaticCPUUsage:))
+    {
+        theItem.state = self.isAutoSpeed && self.autoSpeedCPUUsage == theItem.tag
+            ? NSControlStateValueOn : NSControlStateValueOff;
+        return self.isEmulating && self.DOSWindowController.DOSViewShown;
+    }
 	
     BOOL isShowingDOSView = self.DOSWindowController.DOSViewShown;
     BOOL isStandalone = [(BXBaseAppController *)[NSApp delegate] isStandaloneGameBundle];
@@ -717,6 +804,8 @@
 - (NSString *) speedDescription
 {	
 	if (!self.isEmulating) return @"";
+    if (self.isAutoSpeed && self.autoSpeedCPUUsage < 100)
+        return [NSString stringWithFormat:NSLocalizedString(@"Automatic speed (%ld%% CPU budget)", @"Budgeted automatic CPU speed"), (long)self.autoSpeedCPUUsage];
     return [self.class descriptionForSpeed: self.CPUSpeed];
 }
 
@@ -732,7 +821,7 @@
 	return [NSString stringWithFormat: format, self.frameskip + 1];
 }
 
-+ (NSSet *) keyPathsForValuesAffectingSpeedDescription		{ return [NSSet setWithObject: @"sliderSpeed"]; }
++ (NSSet *) keyPathsForValuesAffectingSpeedDescription { return [NSSet setWithObjects:@"sliderSpeed", @"autoSpeedCPUUsage", nil]; }
 + (NSSet *) keyPathsForValuesAffectingFrameskipDescription	{ return [NSSet setWithObjects: @"emulating", @"frameskip", nil]; }
 
 
@@ -763,6 +852,216 @@
 
 #pragma mark -
 #pragma mark Filesystem and emulation operations
+
+- (NSDictionary *)_windowsProgramForRow:(NSDictionary *)row installation:(NSDictionary *)installation error:(NSString **)message
+{
+    if (!row || !installation) { if (message) *message = NSLocalizedString(@"Choose a program and a Windows installation.", nil); return nil; }
+    NSString *windowsFolder = [[installation[@"path"] stringByReplacingOccurrencesOfString:@"\\" withString:@"/"] stringByDeletingLastPathComponent];
+    windowsFolder = [windowsFolder stringByReplacingOccurrencesOfString:@"/" withString:@"\\"];
+    NSDictionary *shortcut = row[@"shortcut"];
+    NSDictionary *parts = [BXWindowsProgramGroup partsOfCommand:shortcut ? shortcut[@"command"] : row[@"path"]];
+    if (!parts) { if (message) *message = NSLocalizedString(@"This shortcut does not contain a supported program command.", nil); return nil; }
+    NSString *directory = @"";
+    if ([shortcut[@"directory"] length])
+    {
+        directory = BXAbsoluteWindowsPath(shortcut[@"directory"], windowsFolder);
+        BXDrive *drive = directory ? [self.emulator driveForDOSPath:directory] : nil;
+        NSURL *URL = directory ? [self.emulator logicalURLForDOSPath:directory] : nil;
+        NSString *relativePath = URL ? [drive relativeLocationOfLogicalURL:URL] : nil;
+        BOOL isDirectory = NO;
+        if (!relativePath || ![drive.filesystem fileExistsAtPath:relativePath isDirectory:&isDirectory] || !isDirectory)
+        { if (message) *message = NSLocalizedString(@"The shortcut’s working folder is unavailable. Mount its drive first.", nil); return nil; }
+        directory = [self.emulator DOSPathForLogicalURL:URL];
+        if (!directory) return nil;
+    }
+    NSString *program = parts[@"program"];
+    if (!program.pathExtension.length) program = [program stringByAppendingPathExtension:@"exe"];
+    NSArray *folders = directory.length ? @[directory, windowsFolder, [windowsFolder stringByAppendingString:@"\\SYSTEM"]] :
+        @[windowsFolder, [windowsFolder stringByAppendingString:@"\\SYSTEM"]];
+    NSString *resolved = nil;
+    for (NSString *folder in folders)
+    {
+        NSString *candidate = BXAbsoluteWindowsPath(program, folder);
+        if (!candidate || ![self.emulator DOSPathExists:candidate]) continue;
+        BXDrive *drive = [self.emulator driveForDOSPath:candidate];
+        NSURL *URL = [self.emulator logicalURLForDOSPath:candidate];
+        NSString *relativePath = URL ? [drive relativeLocationOfLogicalURL:URL] : nil;
+        if (relativePath && [BXFileTypes typeOfExecutableAtPath:relativePath filesystem:drive.filesystem error:NULL] == BXExecutableTypeWindows)
+            resolved = [self.emulator DOSPathForLogicalURL:URL];
+        if (resolved) break;
+    }
+    if (!resolved) { if (message) *message = NSLocalizedString(@"The Windows program is unavailable. Mount its drive or CD first.", nil); return nil; }
+    NSString *command = [parts[@"arguments"] length] ? [resolved stringByAppendingFormat:@" %@", parts[@"arguments"]] : resolved;
+    return @{ @"command": command, @"directory": directory, @"path": resolved,
+              @"title": shortcut ? shortcut[@"title"] : resolved, @"shortcutID": row[@"shortcutID"] ?: @"" };
+}
+
+- (IBAction) chooseWindowsProgram: (id)sender
+{
+    [self chooseWindowsProgramForImportWithCompletion:nil];
+}
+
+- (void) chooseWindowsProgramForImportWithCompletion:(void (^)(BOOL saved))completion
+{
+    if (!self.hasGamebox || !self.isEmulating || self.windowForSheet.attachedSheet) return;
+
+    NSAlert *chooser = [[NSAlert alloc] init];
+    chooser.messageText = completion ? NSLocalizedString(@"Choose the installed Windows game", nil) : NSLocalizedString(@"Choose a Windows 3.x program", nil);
+    chooser.informativeText = completion ? NSLocalizedString(@"Choose the new game’s shortcut or .exe file to open when you launch this gamebox. Choose Cancel to return to installation.", nil) : NSLocalizedString(@"Choose a Windows shortcut or the game’s .exe file. Shortcuts retain their launch arguments and working folder. Close and reopen the game after saving.", nil);
+    NSButton *save = [chooser addButtonWithTitle: completion ? NSLocalizedString(@"Finish Import", nil) : NSLocalizedString(@"Save for Next Launch", nil)];
+    save.enabled = NO;
+    [chooser addButtonWithTitle: NSLocalizedString(@"Cancel", nil)].keyEquivalent = @"\e";
+
+    NSView *accessory = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 480, 170)];
+    NSTextField *programLabel = [NSTextField labelWithString: NSLocalizedString(@"Game program:", nil)];
+    programLabel.frame = NSMakeRect(0, 146, 480, 20);
+    NSPopUpButton *programs = [[NSPopUpButton alloc] initWithFrame: NSMakeRect(0, 114, 480, 28) pullsDown: NO];
+    programs.accessibilityLabel = programLabel.stringValue;
+    NSTextField *windowsLabel = [NSTextField labelWithString: NSLocalizedString(@"Windows installation:", nil)];
+    windowsLabel.frame = NSMakeRect(0, 88, 480, 20);
+    NSPopUpButton *windows = [[NSPopUpButton alloc] initWithFrame: NSMakeRect(0, 56, 480, 28) pullsDown: NO];
+    windows.accessibilityLabel = windowsLabel.stringValue;
+    NSTextField *status = [NSTextField labelWithString: NSLocalizedString(@"Looking for Windows programs…", nil)];
+    status.frame = NSMakeRect(0, 0, 480, 50);
+    status.maximumNumberOfLines = 3;
+    status.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    status.font = [NSFont systemFontOfSize: NSFont.smallSystemFontSize];
+    for (NSView *view in @[programLabel, programs, windowsLabel, windows, status]) [accessory addSubview: view];
+    chooser.accessoryView = accessory;
+    BXWindowsProgramSelection *selection = [[BXWindowsProgramSelection alloc] init];
+    selection.changed = ^{
+        NSString *message = nil;
+        NSDictionary *resolved = [self _windowsProgramForRow:programs.selectedItem.representedObject
+            installation:windows.selectedItem.representedObject error:&message];
+        save.enabled = resolved != nil;
+        if (resolved)
+            status.stringValue = [NSString stringWithFormat:NSLocalizedString(@"Opens: %@\nWorking folder: %@", nil),
+                resolved[@"command"], [resolved[@"directory"] length] ? resolved[@"directory"] : NSLocalizedString(@"Windows folder", nil)];
+        else status.stringValue = message ?: NSLocalizedString(@"The selected shortcut is unavailable.", nil);
+    };
+    programs.target = windows.target = selection;
+    programs.action = windows.action = @selector(selectionDidChange:);
+
+    //Use the same virtual filesystems as DOSBox, so ISO contents and shadowed
+    //files are visible without mounting images in macOS or extracting game data.
+    NSMutableArray *sources = [NSMutableArray array];
+    for (BXDrive *drive in self.emulator.mountedDrives)
+    {
+        if (drive.filesystem)
+            [sources addObject: @{ @"drive": drive, @"filesystem": drive.filesystem }];
+    }
+    NSMutableArray *matches = [NSMutableArray array];
+    __block __weak ADBScanOperation *weakScan;
+    ADBScanOperation *scan = [ADBScanOperation scanWithEnumerator: sources usingBlock: ^id(NSDictionary *source, BOOL *stop) {
+        id<ADBFilesystemPathAccess, ADBFilesystemLogicalURLAccess> filesystem = source[@"filesystem"];
+        id<ADBFilesystemPathEnumeration> enumerator = [filesystem enumeratorAtPath: @"/"
+            options: NSDirectoryEnumerationSkipsHiddenFiles errorHandler: NULL];
+        for (NSString *path in enumerator)
+        {
+            if (weakScan.isCancelled) { *stop = YES; return nil; }
+            if ([path.pathExtension caseInsensitiveCompare:@"grp"] == NSOrderedSame)
+            {
+                NSNumber *size = [filesystem attributesOfFileAtPath:path error:NULL][NSFileSize];
+                if (size && size.unsignedLongLongValue <= 1024 * 1024)
+                {
+                    NSData *data = [filesystem contentsOfFileAtPath:path error:NULL];
+                    NSURL *URL = [filesystem logicalURLForPath:path];
+                    if (URL) for (NSDictionary *shortcut in [BXWindowsProgramGroup shortcutsInData:data])
+                        [matches addObject:@{ @"URL": URL, @"windows": @NO, @"drive": source[@"drive"], @"shortcut": shortcut }];
+                }
+                continue;
+            }
+            BOOL isWindows = [path.lastPathComponent caseInsensitiveCompare: @"WIN.COM"] == NSOrderedSame;
+            BOOL isProgram = [path.pathExtension caseInsensitiveCompare: @"exe"] == NSOrderedSame &&
+                [BXFileTypes typeOfExecutableAtPath: path filesystem: filesystem error: NULL] == BXExecutableTypeWindows;
+            if (!isWindows && !isProgram) continue;
+            NSURL *URL = [filesystem logicalURLForPath: path];
+            if (URL) [matches addObject: @{ @"URL": URL, @"windows": @(isWindows), @"drive": source[@"drive"] }];
+        }
+        return nil;
+    }];
+    weakScan = scan;
+    scan.completionBlock = ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (weakScan.isCancelled || chooser.window.sheetParent != self.windowForSheet || !self.isEmulating) return;
+            //DOS name resolution touches emulator state and must stay on the main thread.
+            NSMutableArray *rows = [NSMutableArray array];
+            for (NSDictionary *match in matches)
+            {
+                BXDrive *drive = match[@"drive"];
+                if (![self.emulator driveIsMounted: drive]) continue;
+                NSURL *URL = match[@"URL"];
+                NSString *path = [self.emulator DOSPathForLogicalURL: URL onDrive: drive];
+                if (path)
+                {
+                    NSMutableDictionary *row = [@{ @"URL": URL, @"path": path, @"windows": match[@"windows"] } mutableCopy];
+                    NSDictionary *shortcut = match[@"shortcut"];
+                    if (shortcut)
+                    {
+                        row[@"shortcut"] = shortcut;
+                        row[@"title"] = [NSString stringWithFormat:@"%@ — %@", shortcut[@"title"], path];
+                        row[@"shortcutID"] = [NSString stringWithFormat:@"%@#%@", [URL pathRelativeToURL:self.gamebox.resourceURL], shortcut[@"index"]];
+                    }
+                    else row[@"title"] = path;
+                    [rows addObject:row];
+                }
+            }
+            [rows sortUsingComparator: ^NSComparisonResult(NSDictionary *a, NSDictionary *b) {
+                if ((a[@"shortcut"] != nil) != (b[@"shortcut"] != nil)) return a[@"shortcut"] ? NSOrderedAscending : NSOrderedDescending;
+                return [a[@"title"] localizedStandardCompare: b[@"title"]];
+            }];
+            [programs addItemWithTitle: NSLocalizedString(@"Choose a program…", nil)];
+            NSDictionary *current = self.gamebox.defaultLauncher;
+            for (NSDictionary *row in rows)
+            {
+                BOOL isWindows = [row[@"windows"] boolValue];
+                if (isWindows && ![row[@"URL"] isBasedInURL: self.gamebox.resourceURL]) continue;
+                NSPopUpButton *popup = isWindows ? windows : programs;
+                [popup addItemWithTitle: row[@"title"]];
+                popup.lastItem.representedObject = row;
+                if (isWindows ? [row[@"URL"] isEqual: current[BXLauncherURLKey]] :
+                    (current[BXLauncherWindowsShortcutKey] ? [row[@"shortcutID"] isEqual:current[BXLauncherWindowsShortcutKey]] :
+                    (!row[@"shortcut"] && [row[@"path"] caseInsensitiveCompare: current[BXLauncherArgsKey] ?: @""] == NSOrderedSame)))
+                    [popup selectItem: popup.lastItem];
+            }
+            [selection selectionDidChange:nil];
+            if (!windows.numberOfItems)
+                status.stringValue = NSLocalizedString(@"No WIN.COM found. Install Windows 3.x in this gamebox first.", nil);
+            else if (programs.numberOfItems <= 1)
+                status.stringValue = NSLocalizedString(@"No Windows shortcuts or .exe files found on the mounted drives.", nil);
+        });
+    };
+    //Serialize with existing scans of these filesystems. Closing the session
+    //cancels this operation through the existing scan queue cleanup.
+    for (NSOperation *existing in self.scanQueue.operations) [scan addDependency: existing];
+    [chooser beginSheetModalForWindow: self.windowForSheet completionHandler: ^(NSModalResponse response) {
+        //Keep the popup action target alive for the entire sheet, not just its scan.
+        selection.changed = nil;
+        [scan cancel];
+        if (response != NSAlertFirstButtonReturn || !self.isEmulating) { if (completion) completion(NO); return; }
+        NSDictionary *installation = windows.selectedItem.representedObject;
+        NSString *message = nil;
+        NSDictionary *program = [self _windowsProgramForRow:programs.selectedItem.representedObject installation:installation error:&message];
+        NSError *error = nil;
+        if (!program || !installation || ![self.emulator DOSPathExists: program[@"path"]] ||
+            ![self.emulator DOSPathExists: installation[@"path"]])
+        {
+            error = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadNoSuchFileError userInfo:
+                @{ NSLocalizedDescriptionKey: message ?: NSLocalizedString(@"Choose a program from a mounted drive, then save again.", nil) }];
+        }
+        else if ([self.gamebox saveWindowsStartupWithURL: installation[@"URL"] commandLine: program[@"command"]
+            workingDirectory:program[@"directory"] title:program[@"title"] shortcutID:program[@"shortcutID"] error: &error])
+        {
+            self.gameSettings[BXGameboxSettingsShowLaunchPanelKey] = @NO;
+            self.gameSettings[BXGameboxSettingsAlwaysShowLaunchPanelKey] = @NO;
+            [self synchronizeSettings];
+        }
+        if (error) [self presentError: error modalForWindow: self.windowForSheet
+            delegate: nil didPresentSelector: NULL contextInfo: NULL];
+        if (completion) completion(error == nil && program != nil);
+    }];
+    [self.scanQueue addOperation: scan];
+}
 
 - (IBAction) performRestart: (id)sender
 {

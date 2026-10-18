@@ -104,15 +104,14 @@
         return BXDriveHardDisk;
 
     //Failing that, check the volume type of the underlying filesystem at that location.
-    NSLog(@"[BXDrive preferredTypeForContentsOfURL:] Checking volume type for URL: %@", URL);
-    NSString *volumeType = URL ? [workspace typeOfVolumeAtURL: URL] : nil;
+    NSString *volumeType = [workspace typeOfVolumeAtURL: URL];
 
 	//Mount locations on data or audio CD volumes as CD-ROM drives.
 	if ([volumeType isEqualToString: ADBDataCDVolumeType] || [volumeType isEqualToString: ADBAudioCDVolumeType])
 		return BXDriveCDROM;
 
 	//If the location is on a FAT/FAT32 volume, check if it's floppy-sized.
-	if (URL && [workspace isFloppyVolumeAtURL: URL])
+	if ([workspace isFloppyVolumeAtURL: URL])
         return BXDriveFloppyDisk;
 
 	//In all other cases, fall back on a standard hard-disk mount.
@@ -431,26 +430,14 @@
         }
         else
         {
-            NSError *fsError = nil;
             self.filesystem = [BXFileTypes filesystemWithContentsOfURL: self.mountPointURL
-                                                                 error: &fsError];
-            if (!self.filesystem)
-            {
-                NSLog(@"[BXDrive filesystem] ERROR: Could not create filesystem for %@: %@", self.mountPointURL, fsError);
-            }
-            else
-            {
-                NSLog(@"[BXDrive filesystem] Created filesystem %@ for %@", NSStringFromClass([self.filesystem class]), self.mountPointURL);
-            }
+                                                                 error: NULL];
         }
         
         NSAssert1(self.filesystem != nil, @"No suitable filesystem could be found for mount point %@", self.mountPointURL);
         
         if (![self.sourceURL isEqual: self.mountPointURL])
-        {
             [self.filesystem addRepresentedURL: self.sourceURL];
-            NSLog(@"[BXDrive filesystem] Added represented URL: %@", self.sourceURL);
-        }
         
     }
     return _filesystem;
@@ -491,9 +478,7 @@
 	if (self.isVirtual) return NO;
     
     URL = URL.URLByStandardizingPath;
-    BOOL exposes = [self.filesystem exposesLogicalURL: URL];
-    NSLog(@"[BXDrive exposesLogicalURL:%@] sourceURL: %@, exposes: %d", URL, self.sourceURL, exposes);
-    return exposes;
+    return [self.filesystem exposesLogicalURL: URL];
 }
 
 - (NSURL *) logicalURLForDOSPath: (NSString *)dosPath

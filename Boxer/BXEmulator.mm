@@ -130,6 +130,11 @@ static BOOL _hasStartedEmulator = NO;
 	return [[_currentEmulator retain] autorelease];
 }
 
+- (NSUInteger) hostEventPumpCount
+{
+    return _hostEventPumpCount;
+}
+
 //Whether it is safe to launch a new emulator instance.
 + (BOOL) canLaunchEmulator;
 {
@@ -139,8 +144,17 @@ static BOOL _hasStartedEmulator = NO;
 + (NSString *) configStringForFixedSpeed: (NSInteger)speed
 								  isAuto: (BOOL)isAutoSpeed
 {
-	if (isAutoSpeed) return @"max";
-	else return [NSString stringWithFormat: @"fixed %ld", (long)speed];
+    return [self configStringForFixedSpeed:speed isAuto:isAutoSpeed CPUUsage:100 cycleLimit:-1];
+}
+
++ (NSString *) configStringForFixedSpeed: (NSInteger)speed isAuto: (BOOL)isAutoSpeed
+                               CPUUsage: (NSInteger)usage cycleLimit: (NSInteger)limit
+{
+    if (!isAutoSpeed) return [NSString stringWithFormat:@"fixed %ld", (long)speed];
+    usage = std::max<NSInteger>(10, std::min<NSInteger>(100, usage));
+    NSString *cycles = usage == 100 ? @"max" : [NSString stringWithFormat:@"max %ld%%", (long)usage];
+    if (limit > 0) cycles = [cycles stringByAppendingFormat:@" limit %ld", (long)limit];
+    return cycles;
 }
 
 + (NSString *) configStringForCoreMode: (BXCoreMode)mode
@@ -459,8 +473,7 @@ static BOOL _hasStartedEmulator = NO;
             if (autoSpeed)	CPU_OldCycleMax = CPU_CycleMax;
             else			CPU_CycleMax = CPU_OldCycleMax;
             
-            //Always force the usage percentage to 100
-            CPU_CyclePercUsed = 100;
+            //Keep the configured budget when returning from a fixed speed.
             
             CPU_CycleAutoAdjust = (autoSpeed) ? BXSpeedAuto : BXSpeedFixed;
         }
@@ -468,6 +481,32 @@ static BOOL _hasStartedEmulator = NO;
 }
 
 @synthesize turboSpeed=ticksLocked;
+
+- (NSInteger) autoSpeedCPUUsage
+{
+    return self.isExecuting ? CPU_CyclePercUsed : 100;
+}
+
+- (void) setAutoSpeedCPUUsage: (NSInteger)usage
+{
+    if (self.isExecuting) CPU_CyclePercUsed = (Bit32s)std::max<NSInteger>(10, std::min<NSInteger>(100, usage));
+}
+
+- (NSInteger) autoSpeedCycleLimit
+{
+    return self.isExecuting ? CPU_CycleLimit : -1;
+}
+
+- (void) setAutoSpeedCycleLimit: (NSInteger)limit
+{
+    if (!self.isExecuting) return;
+    CPU_CycleLimit = limit > 0 ? (Bit32s)std::min<NSInteger>(limit, INT32_MAX) : -1;
+    //Apply a lowered ceiling immediately, without changing fixed-speed policy.
+    if (CPU_CycleAutoAdjust && !ticksLocked && CPU_CycleLimit > 0 && CPU_CycleMax > CPU_CycleLimit) {
+        CPU_CycleMax = CPU_CycleLimit;
+        CPU_CycleLeft = CPU_Cycles = 0;
+    }
+}
 
 - (void) setTurboSpeed: (BOOL)turboSpeed
 {
@@ -826,6 +865,12 @@ static BOOL _hasStartedEmulator = NO;
 
 @implementation BXEmulator (BXEmulatorInternals)
 
++ (BXEmulator *) _currentEmulatorForCore
+{
+    //start retains this singleton until _startDOSBox (and all nested loops) exits.
+    return _currentEmulator;
+}
+
 - (DOS_Shell *) _currentShell
 {
 	return currentShell;
@@ -934,6 +979,7 @@ static BOOL _hasStartedEmulator = NO;
 
 - (void) _processEvents
 {
+    _hostEventPumpCount++;
     //Let our delegate process events for us if we don't have our own thread
     if (!self.isConcurrent)
     {

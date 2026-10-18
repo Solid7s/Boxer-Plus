@@ -44,6 +44,9 @@ NSString * const BXLauncherTitleKey         = @"BXLauncherTitle";
 NSString * const BXLauncherRelativePathKey  = @"BXLauncherPath";
 NSString * const BXLauncherURLKey           = @"BXLauncherURL";
 NSString * const BXLauncherArgsKey          = @"BXLauncherArguments";
+NSString * const BXLauncherWindowsStartupKey = @"BXLauncherWindowsStartup";
+NSString * const BXLauncherWorkingDirectoryKey = @"BXLauncherWorkingDirectory";
+NSString * const BXLauncherWindowsShortcutKey = @"BXLauncherWindowsShortcut";
 NSString * const BXLauncherDefaultKey       = @"BXLauncherIsDefault";
 
 
@@ -208,6 +211,67 @@ NSString * const BXGameboxErrorDomain = @"BXGameboxErrorDomain";
 - (void) addLauncher: (NSDictionary *)launcher
 {
     [[self mutableArrayValueForKey: @"launchers"] addObject: launcher];
+}
+
+- (BOOL) saveWindowsStartupWithURL: (NSURL *)windowsURL
+                       programPath: (NSString *)DOSPath
+                             error: (NSError **)outError
+{
+    return [self saveWindowsStartupWithURL: windowsURL commandLine: DOSPath
+        workingDirectory: nil title: nil shortcutID: nil error: outError];
+}
+
+- (BOOL) saveWindowsStartupWithURL: (NSURL *)windowsURL
+                       commandLine: (NSString *)DOSPath
+                  workingDirectory: (NSString *)directory
+                             title: (NSString *)title
+                        shortcutID: (NSString *)shortcutID
+                             error: (NSError **)outError
+{
+    if (![self validateLauncherURL: &windowsURL error: outError]) return NO;
+    //Standalone bundles must never modify their signed resources.
+    if ([(BXBaseAppController *)NSApp.delegate isStandaloneGameBundle]) return NO;
+
+    NSString *relativePath = [windowsURL pathRelativeToURL: self.resourceURL];
+    NSMutableArray *launchers = [NSMutableArray array];
+    NSMutableDictionary *selection = nil;
+    for (NSDictionary *launcher in self.launchers)
+    {
+        NSMutableDictionary *copy = [launcher mutableCopy];
+        [copy removeObjectForKey: BXLauncherURLKey];
+        [copy removeObjectForKey: BXLauncherDefaultKey];
+        if ([copy[BXLauncherRelativePathKey] isEqual: relativePath] &&
+            [copy[BXLauncherArgsKey] isEqual: DOSPath] &&
+            [(copy[BXLauncherWorkingDirectoryKey] ?: @"") isEqual: directory ?: @""])
+            selection = copy;
+        [launchers addObject: copy];
+    }
+    if (!selection)
+    {
+        selection = [@{ BXLauncherRelativePathKey: relativePath,
+                        BXLauncherArgsKey: DOSPath,
+                        BXLauncherTitleKey: DOSPath } mutableCopy];
+        [launchers addObject: selection];
+    }
+    selection[BXLauncherDefaultKey] = @YES;
+    selection[BXLauncherWindowsStartupKey] = @YES;
+    if (title.length) selection[BXLauncherTitleKey] = title;
+    if (directory.length) selection[BXLauncherWorkingDirectoryKey] = directory;
+    if (shortcutID.length) selection[BXLauncherWindowsShortcutKey] = shortcutID;
+    else [selection removeObjectForKey: BXLauncherWindowsShortcutKey];
+    NSMutableDictionary *info = [self.gameInfo mutableCopy];
+    info[BXLaunchersGameInfoKey] = launchers;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList: info
+        format: NSPropertyListXMLFormat_v1_0 options: 0 error: outError];
+    NSURL *infoURL = [self.resourceURL URLByAppendingPathComponent:
+        [BXGameInfoFileName stringByAppendingPathExtension: BXGameInfoFileExtension]];
+    if (!data || ![data writeToURL: infoURL options: NSDataWritingAtomic error: outError]) return NO;
+
+    [self willChangeValueForKey: @"launchers"];
+    self.gameInfo = info;
+    _launchers = nil;
+    [self didChangeValueForKey: @"launchers"];
+    return YES;
 }
 
 - (void) insertLauncherWithURL: (NSURL *)URL

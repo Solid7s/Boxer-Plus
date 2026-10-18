@@ -84,16 +84,16 @@ static NSString * const BXActivateOnLaunchParam = @"--activateOnLaunch";
 #pragma mark -
 #pragma mark Application open/closing behaviour
 
-//Quit after the last window was closed if we are a 'subsidiary' process,
-//to avoid leaving extra Boxers littering the Dock
+//Closing the last window ends this Boxer process. NSDocument still handles
+//close confirmation and session cleanup before AppKit requests termination.
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)sender
 {
-	return [self.class otherBoxersActive];
+	return YES;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-	if (self.documents == 0) {
+	if (self.documents.count == 0) {
 		return NSTerminateNow;
 	}
 	//Tell any remaining documents to close on exit so they can clean up properly and save their state.

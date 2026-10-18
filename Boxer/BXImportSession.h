@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, BXImportStage) {
 	BXImportSessionImportingSourceFiles,
 	BXImportSessionCancellingSourceFileImport,
 	BXImportSessionCleaningGamebox,
-	BXImportSessionFinished
+	BXImportSessionFinished,
+    BXImportSessionPreparingWindows
 };
 
 /// Constants returned by sourceFileImportType
@@ -98,6 +99,8 @@ typedef NS_ENUM(NSInteger, BXSourceFileImportType) {
 
 /// The range of possible DOS installers to choose from, ordered by preference.
 @property (retain, nonatomic) NSArray *installerURLs;
+/// Status text shared by source scanning and Windows runtime preparation.
+@property (readonly, nonatomic) NSString *loadingMessage;
 
 /// The display filename of the gamebox, minus extension.
 /// Changing this will rename the gamebox file itself.
@@ -171,6 +174,8 @@ typedef NS_ENUM(NSInteger, BXSourceFileImportType) {
 
 /// Launches the specified DOS installer program to continue importing.
 - (void) launchInstallerAtURL: (NSURL *)URL;
+/// Copy a closed Windows gamebox's C drive and run the selected Windows setup.
+- (void) launchWindowsInstallerAtURL:(NSURL *)URL usingGameboxURL:(NSURL *)gameboxURL;
 
 /// Skips the installer selection process and continues to the next step of importing.
 - (void) skipInstaller;

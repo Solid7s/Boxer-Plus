@@ -7,7 +7,6 @@
 
 #import "BXSessionPrivate.h"
 
-#import "RegexKitLite.h"
 #import "BXFileTypes.h"
 #import "BXGamebox.h"
 #import "BXGameProfile.h"
@@ -25,7 +24,6 @@
 
 #import "BXEmulator+BXDOSFileSystem.h"
 #import "BXEmulator+BXShell.h"
-#import "BXSession+BXFileManagement.h"
 #import "BXEmulatorErrors.h"
 #import "NSWorkspace+ADBFileTypes.h"
 #import "NSString+ADBPaths.h"
@@ -224,9 +222,6 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
 		
 		self.importQueue = [[NSOperationQueue alloc] init];
 		self.scanQueue = [[NSOperationQueue alloc] init];
-		
-		//Initialize canOpenURLs to YES since no process is running at startup
-		self.canOpenURLs = YES;
 	}
 	return self;
 }
@@ -357,8 +352,17 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
                 }
             }
             
+            //Closing the old WIN.COM process can record its obsolete arguments.
+            //An explicit Windows startup choice must take precedence over those.
+            NSDictionary *windowsLauncher = self.gamebox.defaultLauncher;
+            if ([windowsLauncher[BXLauncherWindowsStartupKey] boolValue])
+            {
+                self.targetURL = windowsLauncher[BXLauncherURLKey];
+                self.targetArguments = windowsLauncher[BXLauncherArgsKey];
+                self.targetWorkingDirectory = windowsLauncher[BXLauncherWorkingDirectoryKey];
+            }
             //If the previously-running program is available, launch that.
-            if ([previousURL checkResourceIsReachableAndReturnError: NULL])
+            else if ([previousURL checkResourceIsReachableAndReturnError: NULL])
             {
                 self.targetURL = previousURL;
                 self.targetArguments = [self.gameSettings objectForKey: BXGameboxSettingsLastProgramLaunchArgumentsKey];
@@ -808,8 +812,14 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
 		{
             NSInteger speed = CPUSpeed.integerValue;
             BOOL isAutoSpeed = (speed == BXAutoSpeed);
+            //The emulator may already have stopped when a window is closed.
+            //Use the recorded policy rather than its inactive fallback values.
+            NSNumber *CPUUsage = self.gameSettings[@"autoSpeedCPUUsage"];
+            NSNumber *cycleLimit = self.gameSettings[@"autoSpeedCycleLimit"];
 			NSString *cyclesString = [BXEmulator configStringForFixedSpeed: speed
-																	isAuto: isAutoSpeed];
+                                                                    isAuto: isAutoSpeed
+                                                                  CPUUsage: CPUUsage ? CPUUsage.integerValue : self.emulator.autoSpeedCPUUsage
+                                                                cycleLimit: cycleLimit ? cycleLimit.integerValue : self.emulator.autoSpeedCycleLimit];
 			
 			[runtimeConf setValue: cyclesString forKey: @"cycles" inSection: @"cpu"];
 		}
@@ -1222,10 +1232,9 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
 	if (!self.gameProfile)
 	{
         NSURL *detectionURL = (self.hasGamebox) ? self.gamebox.bundleURL : self.targetURL;
-        //Skip profile detection for special dos:// URLs (CUE file installers)
-        if (detectionURL && ![detectionURL.scheme isEqualToString:@"dos"])
+        if (detectionURL)
         {
-            BXGameProfile *detectedProfile = [self.class profileForGameAtURL: detectionURL];
+            BXGameProfile *detectedProfile = [self.class profileForGameAtURL: self.targetURL];
             
             if (detectedProfile)
             {
@@ -1237,11 +1246,6 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
             {
                 self.gameProfile = [BXGameProfile genericProfile];
             }
-        }
-        else if (!self.gameProfile)
-        {
-            //Use generic profile for CUE installers or when no detection URL available
-            self.gameProfile = [BXGameProfile genericProfile];
         }
 	}
 	
@@ -1328,6 +1332,13 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
 - (void) runLaunchCommandsForEmulator: (BXEmulator *)theEmulator
 {
 	_hasLaunched = YES;
+
+    //Apply only explicit per-game overrides; otherwise honor cycles= from the
+    //DOSBox configuration, including custom percentages and cycle ceilings.
+    NSNumber *CPUUsage = self.gameSettings[@"autoSpeedCPUUsage"];
+    NSNumber *cycleLimit = self.gameSettings[@"autoSpeedCycleLimit"];
+    if (CPUUsage) theEmulator.autoSpeedCPUUsage = CPUUsage.integerValue;
+    if (cycleLimit) theEmulator.autoSpeedCycleLimit = cycleLimit.integerValue;
     
     //Do any just-in-time configuration, which should override all previous startup stuff.
 	NSNumber *frameskip = [self.gameSettings objectForKey: @"frameskip"];
@@ -1342,84 +1353,6 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
     
 	if (targetURL)
 	{
-        //Handle special dos:// URLs for CUE file installers
-        if ([targetURL.scheme isEqualToString:@"dos"])
-        {
-            NSString *pathWithSlashes = [targetURL.absoluteString substringFromIndex:6]; //Remove "dos://"
-            //Convert forward slashes to backslashes for DOS
-            NSString *dosPath = [pathWithSlashes stringByReplacingOccurrencesOfString:@"/" withString:@"\\"];
-            NSLog(@"[BXSession runLaunchCommandsForEmulator] Executing DOS path from CUE: %@", dosPath);
-            
-            [self.DOSWindowController showDOSView];
-            [self.emulator executeProgramAtDOSPath:dosPath
-                                     withArguments:arguments
-                                 changingDirectory:YES];
-            return;
-        }
-        
-        //Check if this is a Windows installer that should run with "win"
-        //(only during import sessions where Windows 3.11 is pre-installed)
-        if ([self isKindOfClass:NSClassFromString(@"BXImportSession")])
-        {
-            NSString *fileName = targetURL.lastPathComponent.lowercaseString;
-            NSSet *windowsInstallerPatterns = [NSSet setWithObjects:
-                @"^setup\\.exe$",
-                @"^install\\.exe$", 
-                @"^inst\\.exe$",
-                @"^setup32\\.exe$",
-                @"^install32\\.exe$",
-                @"^winsetup\\.exe$",
-                @"^wininstall\\.exe$",
-                @"^.*_setup\\.exe$",
-                @"^.*_install\\.exe$",
-                nil];
-            
-            BOOL isWindowsInstaller = NO;
-            for (NSString *pattern in windowsInstallerPatterns)
-            {
-                if ([fileName isMatchedByRegex:pattern
-                                       options:RKLCaseless
-                                       inRange:NSMakeRange(0, fileName.length)
-                                         error:NULL])
-                {
-                    isWindowsInstaller = YES;
-                    break;
-                }
-            }
-            
-            if (isWindowsInstaller)
-            {
-                //Get the DOS path for the target
-                NSString *dosPath = [self.emulator DOSPathForLogicalURL:targetURL];
-                if (dosPath)
-                {
-                    NSLog(@"[BXSession runLaunchCommandsForEmulator] Running Windows installer with 'win': %@", dosPath);
-                    
-                    [self.DOSWindowController showDOSView];
-                    
-                    //Note: runLaunchCommandsForEmulator is called at the end of AUTOEXEC.BAT,
-                    //so autoexec.bat has already run and set up the environment.
-                    //We just need to execute win with the setup program.
-                    
-                    //First, run C:\AUTOEXEC.BAT to load mouse driver and other settings
-                    //(the Z:\AUTOEXEC.BAT from config files doesn't include C:\AUTOEXEC.BAT)
-                    NSString *cAutoexecPath = @"c:\\autoexec.bat";
-                    [self.emulator executeProgramAtDOSPath:cAutoexecPath
-                                             withArguments:nil
-                                         changingDirectory:NO];
-                    
-                    //Execute win.com with the setup path as argument
-                    //win.com is in C:\WINDOWS and should be in PATH after autoexec.bat runs
-                    NSString *winExePath = @"c:\\windows\\win.com";
-                    [self.emulator executeProgramAtDOSPath:winExePath
-                                             withArguments:dosPath
-                                         changingDirectory:NO];
-                    
-                    return;
-                }
-            }
-        }
-        
         BOOL targetIsExecutable = ([targetURL matchingFileType: [BXFileTypes executableTypes]] != nil);
         
         //If the Option key is held down during the startup process, skip the default program.
@@ -1453,6 +1386,7 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
         NSError *launchError = nil;
 		[self openURLInDOS: targetURL
              withArguments: arguments
+          workingDirectory: targetIsExecutable ? self.targetWorkingDirectory : nil
                clearScreen: YES
               onCompletion: BXSessionProgramCompletionBehaviorAuto
                      error: &launchError];
@@ -2276,6 +2210,7 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
         [self _syncSuppressesDisplaySleep];
         
 		_suspended = flag;
+        self.DOSWindowController.renderingView.renderingSuspended = flag;
         
 		//Tell the emulator to prepare for being suspended, or to resume after we unpause.
         if (self.suspended)

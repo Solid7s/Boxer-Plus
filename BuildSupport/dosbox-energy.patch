@@ -1,0 +1,16 @@
+diff --git a/src/dosbox.cpp b/src/dosbox.cpp
+index 5e11d6969..c595f1500 100644
+--- a/src/dosbox.cpp
++++ b/src/dosbox.cpp
+@@ -382,7 +382,10 @@ static void DOSBOX_RealInit(Section * sec) {
+ 	Section_prop * section=static_cast<Section_prop *>(sec);
+ 	/* Initialize some dosbox internals */
+ 
+-	delay_fn = CanDelayPrecise() ? DelayPrecise : Delay;
++    //On macOS the precise helper repeatedly sleeps for 100 microseconds then
++    //spins/yields. OS sleep avoids that wakeup overhead. Catch-up ticks below
++    //still account for the actual elapsed time; DOS hardware timing is intact.
++    delay_fn = boxer_useLegacyScheduler() && CanDelayPrecise() ? DelayPrecise : Delay;
+ 
+ 	ticksRemain=0;
+ 	ticksLast=GetTicks();

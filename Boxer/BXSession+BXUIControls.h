@@ -63,6 +63,13 @@ typedef NS_ENUM(NSInteger, BXPlaybackMode) {
 /// Whether the CPU speed is automatically scaled to the maximum possible value.
 @property (assign, nonatomic, getter=isAutoSpeed) BOOL autoSpeed;
 
+/// Per-game automatic CPU budget, as a percentage of DOSBox's normal target.
+@property (assign, nonatomic) NSInteger autoSpeedCPUUsage;
+- (IBAction) selectAutomaticCPUUsage: (id)sender;
+/// Optional automatic-speed ceiling, saved with this game (-1 means unlimited).
+@property (assign, nonatomic) NSInteger autoSpeedCycleLimit;
+- (IBAction) selectAutomaticSpeedLimit: (id)sender;
+
 /// The slider speed snaps the CPU speed to fixed increments and automatically bumps
 /// it to maximum speed if set to the highest limit. Used by speed slider in CPU panel.
 @property (assign, nonatomic) NSInteger sliderSpeed;
@@ -179,6 +186,11 @@ typedef NS_ENUM(NSInteger, BXPlaybackMode) {
 /// This will show a confirmation first if there are programs running or drives being imported.
 - (IBAction) performRestart: (id)sender;
 - (IBAction) performRestartAtLaunchPanel: (id)sender;
+
+/// Choose a Windows executable, including one on an image-backed drive, for next launch.
+- (IBAction) chooseWindowsProgram: (id)sender;
+/// Reuse the Windows chooser to select the startup program before finishing import.
+- (void) chooseWindowsProgramForImportWithCompletion:(void (^)(BOOL saved))completion;
 
 
 #pragma mark - Documentation

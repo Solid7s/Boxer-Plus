@@ -100,10 +100,7 @@ NSString * const ADBMountedVolumesErrorDomain = @"ADBMountedVolumesErrorDomain";
 
 - (NSString *) typeOfVolumeAtURL: (NSURL *)URL;
 {
-    if (!URL) {
-        NSLog(@"[WARNING] typeOfVolumeAtURL: called with nil URL - returning nil");
-        return nil;
-    }
+    NSAssert(URL != nil, @"No URL provided!");
     
     //IMPLEMENTATION NOTE: we stick with the NSWorkspace API for this because as of 10.7, the patchy NSURL API
     //does not provide any way to get for the volume type (just the volume's localized format description).
@@ -438,7 +435,6 @@ NSString * const ADBMountedVolumesErrorDomain = @"ADBMountedVolumesErrorDomain";
 
 - (BOOL) isFloppyVolumeAtURL: (NSURL *)volumeURL
 {
-    if (!volumeURL) return NO;
     NSString *volumeType = [self typeOfVolumeAtURL: volumeURL];
     if (![volumeType isEqualToString: ADBFATVolumeType])
         return NO;

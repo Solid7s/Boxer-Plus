@@ -1,5 +1,22 @@
 ![Boxer](http://boxerapp.com/static/images/gloves_96.png)
 
+# Boxer+ 1.1.0
+
+DOS and Windows 3.x games on macOS, with updated imports, Windows shortcut
+selection, CPU/GPU controls, and the Retro Light rendering option.
+
+Download **Boxer+.app.zip** from the [v1.1.0 release](https://github.com/Solid7s/Boxer-Plus/releases/tag/v1.1.0),
+extract it, and move Boxer+.app to Applications. This asset is an Intel x86_64
+Release build, tested on macOS 15.7.4. It is ad-hoc signed and not notarized;
+native Apple Silicon execution is not provided by this binary.
+
+The release app contains the Windows 3.11 template inside its own bundle.
+Source checkouts require your local `Resources/Windows311` files to reproduce
+that bundled-runtime behavior; otherwise the importer asks for an existing
+Windows gamebox. See [release notes](RELEASE-NOTES-v1.1.0.md) for validation and
+known limitations, including the keyboard-hook quit hang and direct CUE/BIN
+import support present in the older repository but absent from this snapshot.
+
 #### Some notes on building Boxer
 
 The Boxer Xcode project is designed to be a painless one-click build. Here's a quick rundown of how it's set up:
@@ -16,12 +33,6 @@ After cloning, run:
 git submodule update --init --recursive
 ```
 
-#### Optional Windows 3.11 Runtime
-
-Boxer-Plus has experimental support for importing Windows 3.x games by running their installers inside a local Windows 3.11 environment.
-
-Windows 3.11 system files are not included in this repository. To enable that flow, place files from your own legally obtained Windows 3.11 installation in `Resources/Windows311/`. See `Resources/Windows311/README.md` for the expected folder layout.
-
 #### Build Targets
 
 The Boxer project has three targets:
@@ -34,13 +45,50 @@ The Boxer project has three targets:
 
 #### Build Configurations
 
-The Boxer target has 2 build configurations: Release and Debug. Both of them compile fully optimized 64-bit binaries using the LLVM compiler. Debug works almost exactly the same as Release but turns on console debug messages and additional error-checking.
+The Boxer target has two build configurations. Release enables compiler optimization and is the configuration to use for playing games. Debug uses `-O0` / `-Onone`, additional checks and logging; its emulation performance and energy use are not representative of Release.
+
+Run `./build-release.sh` to build and verify an optimized, locally signed app in `build/Release/Build/Products/Release/Boxer.app`. Set `DEVELOPER_DIR` if Xcode is installed outside the selected developer directory. The script builds for the current Mac's architecture and does not replace the installed app.
+
+The script also removes the retired ordinary-sleep-only core patch from older working trees, restoring DOSBox's original runtime sleep selection. Run `./BuildSupport/apply-core-patches.sh` once before building directly in Xcode. Fresh submodule checkouts already have the correct timing code; `BuildSupport/dosbox-energy.patch` is retained only to recognize and undo that older patch.
+
+**File → Import New Game** offers DOS and Windows setup programs. This local build automatically copies its Windows 3.11 template into a new gamebox when you start a Windows installer. Finish setup, then choose the installed game or shortcut to save. Builds without the template ask for an existing, closed Windows gamebox instead. DOS imports do not copy Windows. This does not add Windows 95/98 emulation. See [automatic Windows setup](WINDOWS-AUTO-IMPORT-2026-10-18.md), [importer details](WINDOWS-IMPORT-FIX-2026-10-18.md), and the earlier [DOS import fixes](IMPORT-FIX-NOTES.md).
+
+During a game, **Emulation → Max Cycle CPU Usage** offers 50%, 75% and 100% budgets, saved separately for each game. These percentages scale DOSBox's automatic CPU target in Maximum speed mode, not the whole Mac's CPU usage. Use a higher budget if a demanding game slows down; the CPU slider still provides fixed speeds for older games. See [PERFORMANCE-REVIEW.md](PERFORMANCE-REVIEW.md) for implementation and measurement notes.
+
+**Emulation → Automatic Speed Limit** adds a per-game ceiling to automatic mode. Choose a preset or **Use Current Speed** after checking a demanding scene; select **Unlimited** to remove the ceiling. This limits emulated CPU speed, not frame rate. Existing games retain their configured limit until you select a new one.
+
+**View → Graphics Processor (Reopen Game)** offers **Discrete GPU** and **Integrated Intel GPU**. Discrete GPU is the default on supported Macs; your selection is remembered. Close and reopen the game to apply a change. Both choices are disabled on Apple Silicon Macs and Macs without both a built-in Intel integrated GPU and a separate built-in discrete GPU; those Macs continue using their available GPU. **View → Rendering Style → Retro Light** adds static scanlines with one shader pass. The original animated Retro effect remains available.
+
+Closing the last window now quits Boxer. Closing an active game still shows its close confirmation unless you previously disabled that prompt; choosing **Cancel** keeps it running. If another window is open, Boxer stays open until that window is closed.
+
+For compiler comparisons, use `BOXER_LTO=NO` or `BOXER_LTO=YES_THIN` with `./build-release.sh`. Optional positional arguments are the build directory, LTO mode, and cached Swift packages directory, in that order. Keep separately copied apps for A/B measurements.
+
+The [Quiet example](Examples/DOSBox-Quiet.conf) provides a general CPU budget; the [Duke performance profile](Examples/Duke-Performance.conf) adds the tested 100,000-cycle ceiling for 320×200 playback. Active per-game settings live in the gamebox's `DOSBox Preferences.conf` and Boxer's user preferences, so uploading the source does not automatically change another user's games. Select the budget and speed limit from the Emulation menu after launching a game to update both locations.
+
+The [Duke autolaunch example](Examples/Duke-Autolaunch.plist) records `C.harddisk/DUKE3D/DUKE3D.EXE` as the default program. Merge these fields into the gamebox's `Game Info.plist` while Boxer is closed; preserve the existing game identifier and any other launcher entries. This is a partial configuration example, not a replacement for the entire metadata file. A default launcher lets the gamebox start Duke without depending on that Mac's recent-program history.
+
+#### Uploading these changes
+
+For Windows 3.x gameboxes, use **Emulation → Choose Windows 3.x Program…** to
+choose a named Windows shortcut or the game's executable, including one on a
+mounted CD image. Shortcuts retain their arguments and working folder. Click
+**Save for Next Launch**, then close and reopen the game. This requires Windows
+to be installed in the gamebox. Details and the Congo launcher diagnosis are in
+[`WINDOWS-PROGRAM-SELECTOR.md`](WINDOWS-PROGRAM-SELECTOR.md).
+
+Include the modified source and Xcode files along with `BuildSupport/`, `Examples/`, `Tests/`, both shell scripts, and `PERFORMANCE-REVIEW.md`. Keep the existing submodule references and `.gitmodules`; a new checkout needs `git submodule update --init --recursive` before building.
+
+The ignored `build/` directory contains generated apps, backups, benchmark logs and copied game/CD files. Exclude it when uploading or making a source ZIP. Git already excludes it through `.gitignore`; newly added source, scripts, examples and documentation still need to be added to your commit.
 
 #### App requirements
 
 Boxer and Boxer Standalone both run on macOS 10.14.4 and above, while Boxer Bundler runs on OS X 10.8 and above.
 
 OSX 10.5 and PowerPC support has been removed from the Boxer master branch: if you need these, use the older "leopard_legacy" maintenance branch from http://github.com/alunbestor/Boxer/tree/leopard_legacy/.
+
+#### Having trouble?
+
+If you have any problems building the Boxer project, or questions about Boxer's code, please get in touch with me at abestor@boxerapp.com and I'll help out as best I can.
 
 #### License
 

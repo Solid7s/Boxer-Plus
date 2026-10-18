@@ -66,11 +66,7 @@ NSString * const BXGameStateEmulatorVersionKey = @"BXEmulatorVersion";
 #pragma mark - Helper class methods
 
 + (NSURL *) preferredMountPointForURL: (NSURL *)URL
-{
-    //Return nil for special dos:// URLs (CUE file installers)
-    if ([URL.scheme isEqualToString:@"dos"])
-        return nil;
-	
+{	
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	
 	//If the URL points to a disk image, use that as the mount point.
@@ -84,11 +80,10 @@ NSString * const BXGameStateEmulatorVersionKey = @"BXEmulatorVersion";
 	
 	//Check what kind of volume the file is on
 	NSURL *volumeURL = [URL resourceValueForKey: NSURLVolumeURLKey];
-	NSLog(@"[BXSession preferredMountPointForURL:] URL: %@, volumeURL: %@", URL, volumeURL);
-	NSString *volumeType = URL ? [workspace typeOfVolumeAtURL: URL] : nil;
+	NSString *volumeType = [workspace typeOfVolumeAtURL: URL];
     
 	//If it's on a data CD volume or floppy volume, use the base folder of the volume as the mount point
-	if ([volumeType isEqualToString: ADBDataCDVolumeType] || (URL && [workspace isFloppyVolumeAtURL: URL]))
+	if ([volumeType isEqualToString: ADBDataCDVolumeType] || [workspace isFloppyVolumeAtURL: URL])
 	{
 		return volumeURL;
 	}
@@ -130,8 +125,7 @@ NSString * const BXGameStateEmulatorVersionKey = @"BXEmulatorVersion";
 	
 	//Failing that, check what kind of volume the file is on.
 	NSURL *volumeURL = [URL resourceValueForKey: NSURLVolumeURLKey];
-	NSLog(@"[BXSession gameDetectionPointForURL:] URL: %@, volumeURL: %@", URL, volumeURL);
-	NSString *volumeType = URL ? [workspace typeOfVolumeAtURL: URL] : nil;
+	NSString *volumeType = [workspace typeOfVolumeAtURL: URL];
 	
 	//If it's on a data CD volume or floppy volume, scan from the base folder of the volume
 	if ([volumeType isEqualToString: ADBDataCDVolumeType] || [workspace isFloppyVolumeAtURL: volumeURL])
@@ -810,10 +804,6 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
 
 - (BOOL) shouldMountNewDriveForURL: (NSURL *)URL
 {
-    //Skip mounting for special dos:// URLs (CUE file installers)
-    if ([URL.scheme isEqualToString:@"dos"])
-        return NO;
-    
 	//If the file isn't already accessible from DOS, we should mount it
 	if (![self.emulator logicalURLIsAccessibleInDOS: URL])
         return YES;
@@ -870,6 +860,17 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
          onCompletion: (BXSessionProgramCompletionBehavior)completionBehavior
                 error: (out NSError **)outError
 {
+    return [self openURLInDOS: URL withArguments: arguments workingDirectory: nil
+        clearScreen: clearScreen onCompletion: completionBehavior error: outError];
+}
+
+- (BOOL) openURLInDOS: (NSURL *)URL
+        withArguments: (NSString *)arguments
+     workingDirectory: (NSString *)directory
+          clearScreen: (BOOL)clearScreen
+         onCompletion: (BXSessionProgramCompletionBehavior)completionBehavior
+                error: (out NSError **)outError
+{
 	if (!self.canOpenURLs)
     {
         if (outError)
@@ -899,6 +900,21 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
     //If this was an executable, launch it now.
 	if ([URL matchingFileType: [BXFileTypes executableTypes]] != nil)
 	{
+        if (directory.length)
+        {
+            BXDrive *drive = [self.emulator driveForDOSPath: directory];
+            NSURL *logicalURL = [self.emulator logicalURLForDOSPath: directory];
+            NSString *relativePath = logicalURL ? [drive relativeLocationOfLogicalURL: logicalURL] : nil;
+            BOOL isDirectory = NO;
+            if (!relativePath || ![drive.filesystem fileExistsAtPath: relativePath isDirectory: &isDirectory] ||
+                !isDirectory || ![self.emulator changeWorkingDirectoryToDOSPath: directory])
+            {
+                if (outError) *outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadNoSuchFileError
+                    userInfo: @{ NSLocalizedDescriptionKey: [NSString stringWithFormat:
+                        NSLocalizedString(@"The shortcut’s working folder %@ is unavailable.", nil), directory] }];
+                return NO;
+            }
+        }
         if (completionBehavior == BXSessionProgramCompletionBehaviorAuto || completionBehavior == BXSessionShowDOSPromptOnCompletionIfDirectory)
         {
             if (self.DOSWindowController.DOSViewShown || !self.allowsLauncherPanel)
@@ -915,7 +931,7 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
         
 		[self.emulator executeProgramAtDOSPath: dosPath
                                  withArguments: arguments
-                             changingDirectory: YES];
+                             changingDirectory: !directory.length];
         
 	}
     //Otherwise, treat the specified path as a directory and switch the working directory to it.
@@ -1177,21 +1193,14 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
                  options: (BXDriveMountOptions)options
                    error: (NSError **)outError
 {
-    NSLog(@"[BXSession mountDrive:] drive=%@, letter=%@, type=%ld, sourceURL=%@", drive, drive.letter, (long)drive.type, drive.sourceURL);
-    
     if (outError) *outError = nil;
     
     //If this drive is already mounted, don't bother retrying.
-    if ([self driveIsMounted: drive]) {
-        NSLog(@"[BXSession mountDrive:] Drive already mounted");
-        return drive;
-    }
+    if ([self driveIsMounted: drive]) return drive;
     
     //TODO: return an operation-disabled error message also
-    if (!self.allowsDriveChanges && _hasConfigured) {
-        NSLog(@"[BXSession mountDrive:] Drive changes not allowed");
+    if (!self.allowsDriveChanges && _hasConfigured)
         return nil;
-    }
     
     //Sanity check: BXDriveReplaceWithSiblingFromQueue is not applicable
     //when mounting a new drive, so ensure it is not set.
@@ -1286,14 +1295,10 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
     BXDrive *replacedDrive = nil;
     BOOL replacedDriveWasCurrent = NO;
     
-    NSLog(@"[BXSession mountDrive:] About to call emulator mountDrive: driveToMount=%@, letter=%@", driveToMount, driveToMount.letter);
-    
     do
     {
         NSError *mountError = nil;
         mountedDrive = [self.emulator mountDrive: driveToMount error: &mountError];
-        
-        NSLog(@"[BXSession mountDrive:] Emulator mountDrive returned: %@, error: %@", mountedDrive, mountError);
     
         //If mounting fails, check what the failure was and try to recover.
         if (!mountedDrive)
@@ -1623,8 +1628,7 @@ static NSArray<NSURL*>* removeUserDirs(NSArray<NSURL*>* oldArrs)
 	
 	NSURL *volumeURL        = [theNotification.userInfo objectForKey: NSWorkspaceVolumeURLKey];
 	NSWorkspace *workspace	= [NSWorkspace sharedWorkspace];
-	NSLog(@"[BXSession _handleVolumeDidMount:] volumeURL: %@", volumeURL);
-	NSString *volumeType	= volumeURL ? [workspace typeOfVolumeAtURL: volumeURL] : nil;
+	NSString *volumeType	= [workspace typeOfVolumeAtURL: volumeURL];
     
     //Ignore the mount if it's a hidden volume.
     if (![workspace isVisibleVolumeAtURL: volumeURL]) return;

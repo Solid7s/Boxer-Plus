@@ -20,46 +20,22 @@
 /// core runloop gives us time.
 bool boxer_processEvents()
 {
-	[[BXEmulator currentEmulator] _processEvents];
-    return !shutdown_requested || !boxer_runLoopShouldContinue();
+	[[BXEmulator _currentEmulatorForCore] _processEvents];
+    return boxer_runLoopShouldContinue();
 }
 
-/*
- static void UpdateFramePeriod()
- {
-     assert(sdl.window);
-     SDL_DisplayMode display_mode;
-     SDL_GetWindowDisplayMode(sdl.window, &display_mode);
-     const int refresh_rate = display_mode.refresh_rate > 0
-                                      ? display_mode.refresh_rate
-                                      : 60;
-     frame_period = std::chrono::nanoseconds(1'000'000'000 / refresh_rate);
- }
-
- */
-
-//TODO: move to BXEmulator
-//! The frame-period holds the current duration for which a single host
-//! video-frame is displayed. This is kept up-to-date when the video mode is set.
-//! A sane starting value is used, which is based on a 60-Hz monitor.
-auto frame_period = std::chrono::nanoseconds(1'000'000'000 / 60);
 bool boxer_MaybeProcessEvents()
 {
-    // Process SDL's event queue at 200 Hz
+    //Bound extra polls from DOS idle callbacks, as before the energy changes.
+    //The main GFX_Events hook pumps directly so active input is not held here.
     constexpr auto ps2_poll_period = std::chrono::nanoseconds(1'000'000'000 / 200);
-
-    // SDL maintainers recommend processing the SDL's event queue before
-    // each frame. For now, simply ensure that the PS/2 polling period is
-    // quicker than the video frame period. If a time comes when common
-    // displays update faster than 200 Hz, then update this code to pick the
-    // quicker of the two.
-    assert(ps2_poll_period <= frame_period);
-
-    static auto next_process_at = std::chrono::steady_clock::now() + ps2_poll_period;
+    static auto next_process_at = std::chrono::steady_clock::time_point::min();
     const auto checked_at = std::chrono::steady_clock::now();
     if (checked_at < next_process_at)
         return true;
 
+    //Advance before pumping: AppKit may reenter the emulator from an action.
+    next_process_at = checked_at + ps2_poll_period;
     const bool process_result = boxer_processEvents();
 
 #if defined(REPORT_EVENT_LAG)
@@ -71,26 +47,25 @@ bool boxer_MaybeProcessEvents()
     }
 #endif
 
-    next_process_at = checked_at + ps2_poll_period;
     return process_result;
 }
 
 /// Called at the start and end of every iteration of DOSBOX_RunMachine.
 void boxer_runLoopWillStartWithContextInfo(void **contextInfo)
 {
-	[[BXEmulator currentEmulator] _runLoopWillStartWithContextInfo: contextInfo];
+	[[BXEmulator _currentEmulatorForCore] _runLoopWillStartWithContextInfo: contextInfo];
 }
 
 void boxer_runLoopDidFinishWithContextInfo(void *contextInfo)
 {
-	[[BXEmulator currentEmulator] _runLoopDidFinishWithContextInfo: contextInfo];
+	[[BXEmulator _currentEmulatorForCore] _runLoopDidFinishWithContextInfo: contextInfo];
 }
 
 /// This is called at the start of DOSBox_NormalLoop, and
 /// allows us to short-circuit the current run loop if needed.
 bool boxer_runLoopShouldContinue()
 {
-	return [[BXEmulator currentEmulator] _runLoopShouldContinue];
+	return [[BXEmulator _currentEmulatorForCore] _runLoopShouldContinue];
 }
 
 /// Notifies Boxer of changes to title and speed settings

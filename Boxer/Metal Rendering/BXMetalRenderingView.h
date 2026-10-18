@@ -15,7 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BXMetalRenderingView : MTKView<BXFrameRenderingView>
 
+// Shared by the renderer and the GPU menu so displayed and selected devices agree.
++ (BOOL)prefersHighPerformanceGPU;
++ (nullable id<MTLDevice>)graphicsDeviceForHighPerformance:(BOOL)highPerformance;
++ (BOOL)supportsGraphicsProcessorSelection;
+
 @property (readwrite, nonatomic) BXRenderingStyle renderingStyle;
+@property (readwrite, nonatomic) BOOL renderingSuspended;
 @property (assign, nonatomic) BOOL managesViewport;
 @property (assign, nonatomic) NSSize maxViewportSize;
 @property (readonly, nonatomic) NSRect viewportRect;

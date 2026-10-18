@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, BXRenderingStyle) {
     BXRenderingStyleNormal,
     BXRenderingStyleSmoothed,
     BXRenderingStyleCRT,
+    BXRenderingStyleCRTLight,
     //---
     BXNumRenderingStyles
 };
@@ -35,6 +36,10 @@ typedef NS_ENUM(NSInteger, BXRenderingStyle) {
 
 /// Set/get the current rendering style of the view.
 @property (readwrite, nonatomic) BXRenderingStyle renderingStyle;
+
+/// Stops temporal shader animation while the emulation is paused.
+/// Explicit redraws (resize, shader controls, exposure) still work.
+@property (readwrite, nonatomic) BOOL renderingSuspended;
 
 /// Whether this rendering view can render in the specified style.
 - (BOOL) supportsRenderingStyle: (BXRenderingStyle)style;

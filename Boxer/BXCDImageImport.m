@@ -45,8 +45,7 @@ NSString * const BXCDImageImportErrorDomain = @"BXCDImageImportErrorDomain";
         return NO;
     
     NSURL *volumeURL = [volumeAttrs objectForKey: NSURLVolumeURLKey];
-    NSLog(@"[BXCDImageImport isSuitableForDrive:] volumeURL: %@", volumeURL);
-    NSString *volumeType = volumeURL ? [[NSWorkspace sharedWorkspace] typeOfVolumeAtURL: volumeURL] : nil;
+    NSString *volumeType = [[NSWorkspace sharedWorkspace] typeOfVolumeAtURL: volumeURL];
     return [volumeType isEqualToString: ADBDataCDVolumeType];
 }
 

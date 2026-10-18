@@ -509,6 +509,25 @@
                                                 <action selector="toggleRenderingStyle:" target="-1" id="2384"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Retro Light" tag="3" id="crt-light-item">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="toggleRenderingStyle:" target="-1" id="crt-light-action"/></connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Graphics Processor (Reopen Game)" id="gpu-menu-item">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Graphics Processor" id="gpu-menu">
+                                    <items>
+                                        <menuItem title="Discrete GPU" tag="1" id="gpu-high-performance">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectGraphicsProcessor:" target="-1" id="gpu-high-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="Integrated Intel GPU" id="gpu-low-power">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectGraphicsProcessor:" target="-1" id="gpu-low-action"/></connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -606,6 +625,13 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2261"/>
+                            <menuItem title="Choose Windows 3.x Program…" id="windows-program-picker">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="chooseWindowsProgram:" target="-1" id="windows-program-picker-action"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="windows-program-picker-separator"/>
                             <menuItem title="Fast Forward" keyEquivalent="" id="2192">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
@@ -819,6 +845,60 @@
                                 <connections>
                                     <action selector="showCPUPanel:" target="-1" id="2043"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem title="Max Cycle CPU Usage" id="cpu-budget-menu-item">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Max Cycle CPU Usage" id="cpu-budget-menu">
+                                    <items>
+                                        <menuItem title="50%" tag="50" id="cpu-budget-quiet">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticCPUUsage:" target="-1" id="cpu-budget-quiet-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="75%" tag="75" id="cpu-budget-balanced">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticCPUUsage:" target="-1" id="cpu-budget-balanced-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="100%" tag="100" id="cpu-budget-maximum">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticCPUUsage:" target="-1" id="cpu-budget-maximum-action"/></connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Automatic Speed Limit" id="cpu-limit-menu-item">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Automatic Speed Limit" id="cpu-limit-menu">
+                                    <items>
+                                        <menuItem title="Unlimited" tag="-1" id="cpu-limit-unlimited">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-unlimited-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="50,000 cycles" tag="50000" id="cpu-limit-50k">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-50k-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="75,000 cycles" tag="75000" id="cpu-limit-75k">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-75k-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="100,000 cycles" tag="100000" id="cpu-limit-100k">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-100k-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="150,000 cycles" tag="150000" id="cpu-limit-150k">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-150k-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="200,000 cycles" tag="200000" id="cpu-limit-200k">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-200k-action"/></connections>
+                                        </menuItem>
+                                        <menuItem title="Use Current Speed" tag="0" id="cpu-limit-current">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections><action selector="selectAutomaticSpeedLimit:" target="-1" id="cpu-limit-current-action"/></connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                         </items>
                     </menu>

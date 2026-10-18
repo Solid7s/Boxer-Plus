@@ -149,6 +149,7 @@ extern NSStringEncoding BXDirectStringEncoding;
     BXKeyBuffer *_keyBuffer;
     NSTimeInterval _keyBufferLastCheckTime;
     NSTimeInterval _lastRunLoopTime;
+    NSUInteger _hostEventPumpCount;
     
     //Managed by BXAudio.
     id <BXMIDIDevice> _activeMIDIDevice;
@@ -254,6 +255,13 @@ extern NSStringEncoding BXDirectStringEncoding;
 /// Whether we are running at automatic maximum speed.
 @property (assign, getter=isAutoSpeed) BOOL autoSpeed;
 
+/// Percentage of DOSBox's automatic CPU target (10–100), preserved in fixed/turbo mode.
+@property (assign, nonatomic) NSInteger autoSpeedCPUUsage;
+/// Optional automatic cycle ceiling; -1 means unlimited.
+@property (assign, nonatomic) NSInteger autoSpeedCycleLimit;
+/// Diagnostic count of actual AppKit event pumps, excluding skipped polls.
+@property (readonly, nonatomic) NSUInteger hostEventPumpCount;
+
 /// Whether we are running in turbo mode (emulating as fast as possible.)
 @property (assign, nonatomic, getter=isTurboSpeed) BOOL turboSpeed;
 
@@ -311,6 +319,8 @@ extern NSStringEncoding BXDirectStringEncoding;
 
 /// Returns the correct DOSBox configuration string for the "cycles" setting given the specified values.
 + (NSString *) configStringForFixedSpeed: (NSInteger)speed isAuto: (BOOL)isAutoSpeed;
++ (NSString *) configStringForFixedSpeed: (NSInteger)speed isAuto: (BOOL)isAutoSpeed
+                               CPUUsage: (NSInteger)usage cycleLimit: (NSInteger)limit;
 
 /// Returns the correct DOSBox configuration string for the "core" setting given the specified core mode.
 + (NSString *) configStringForCoreMode: (BXCoreMode)mode;

@@ -27,16 +27,12 @@
 #import "ADBImageAwareFileScan.h"
 #import "NSWorkspace+ADBMountedVolumes.h"
 #import "NSWorkspace+ADBFileTypes.h"
-#import "ADBBinCueImage.h"
-#import "BXFileTypes.h"
-#import "ADBFilesystem.h"
 
 
 @implementation ADBImageAwareFileScan
 @synthesize mountedVolumePath = _mountedVolumePath;
 @synthesize ejectAfterScanning = _ejectAfterScanning;
 @synthesize didMountVolume = _didMountVolume;
-@synthesize cueImageFilesystem = _cueImageFilesystem;
 
 - (id) init
 {
@@ -62,14 +58,6 @@
     else return [super enumerator];
 }
 
-//Returns an ADBFilesystemPathEnumeration for CUE image filesystems
-- (id <ADBFilesystemPathEnumeration>) imageFilesystemEnumerator
-{
-    if (self.cueImageFilesystem)
-        return [self.cueImageFilesystem enumeratorAtPath: @"/" options: 0 errorHandler: nil];
-    return nil;
-}
-
 //Split the work up into separate stages for easier overriding in subclasses.
 - (void) main
 {
@@ -81,53 +69,7 @@
 
 - (void) performScan
 {
-    //If we have a CUE image filesystem, enumerate it using the image's own enumerator
-    if (self.cueImageFilesystem)
-    {
-        [self performScanOfCueImageFilesystem];
-    }
-    else
-    {
-        [super main];
-    }
-}
-
-//Performs a scan of the CUE image filesystem using ADBBinCueImage's enumerator
-- (void) performScanOfCueImageFilesystem
-{
-    NSAssert(self.basePath != nil, @"No base path provided for file scan operation.");
-    if (self.basePath == nil)
-        return;
-    
-    [_matchingPaths removeAllObjects];
-    
-    id <ADBFilesystemPathEnumeration> enumerator = [self.cueImageFilesystem enumeratorAtPath: @"/" 
-                                                                                     options: 0 
-                                                                                errorHandler: nil];
-    
-    NSString *relativePath;
-    while ((relativePath = [enumerator nextObject]) != nil)
-    {
-        BOOL keepScanning;
-        if (self.isCancelled) break;
-        
-        @autoreleasepool {
-            
-            //Check if this is a directory by looking at file attributes
-            BOOL isDirectory = NO;
-            [self.cueImageFilesystem fileExistsAtPath: relativePath isDirectory: &isDirectory];
-            
-            if (isDirectory)
-            {
-                if (![self shouldScanSubpath: relativePath])
-                    [enumerator skipDescendants];
-            }
-            
-            keepScanning = [self matchAgainstPath: relativePath];
-        }
-        
-        if (self.isCancelled || !keepScanning) break;
-    }
+    [super main];
 }
 
 - (void) mountVolumesForScan
@@ -135,33 +77,11 @@
     NSString *volumePath = nil;
     _didMountVolume = NO;
     
-    NSURL *baseURL = [NSURL fileURLWithPath: self.basePath];
-    NSString *extension = baseURL.pathExtension.lowercaseString;
-    
-    //Check if this is a CUE sheet that needs special handling
-    if ([extension isEqualToString: @"cue"] || [extension isEqualToString: @"inst"] ||
-        [_workspace file: self.basePath matchesTypes: [NSSet setWithObject: BXCuesheetImageType]])
-    {
-        //CUE files cannot be mounted by hdiutil, so we use ADBBinCueImage to read them directly
-        NSError *imageError = nil;
-        ADBBinCueImage *cueImage = [ADBBinCueImage imageWithContentsOfURL: baseURL error: &imageError];
-        
-        if (cueImage)
-        {
-            self.cueImageFilesystem = cueImage;
-            //Note: didMountVolume stays NO since we didn't mount anything
-        }
-        else
-        {
-            self.error = imageError;
-            [self cancel];
-        }
-        return;
-    }
-    
     //If the target path is on a disk image, then mount the image for scanning
     if ([_workspace file: self.basePath matchesTypes: [NSSet setWithObject: @"public.disk-image"]])
     {
+        NSURL *baseURL = [NSURL fileURLWithPath: self.basePath];
+        
         //First, check if the image is already mounted
         volumePath = [[[_workspace mountedVolumeURLsForSourceImageAtURL: baseURL] firstObject] path];
         
@@ -205,13 +125,7 @@
             [_workspace unmountAndEjectDeviceAtPath: self.mountedVolumePath];
             self.mountedVolumePath = nil;
         }
-    }
-    
-    //Clean up the CUE image filesystem if we were using one
-    if (self.cueImageFilesystem)
-    {
-        self.cueImageFilesystem = nil;
-    }
+    }    
 }
 
 @end

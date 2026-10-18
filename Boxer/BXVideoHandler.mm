@@ -301,6 +301,15 @@
 {
 	if (self.currentFrame)
 	{
+        //NULL can be a forced redraw with no new pixels, or an aborted update
+        //after some rows were written. Do not replay the last frame's dirty
+        //list; conservatively include all rows only in the latter case.
+        if (!dirtyBlocks)
+        {
+            [self.currentFrame clearDirtyRegions];
+            if (_frameInProgress)
+                [self.currentFrame setNeedsDisplayInRegion:NSMakeRange(0, self.currentFrame.size.height)];
+        }
         if (dirtyBlocks)
         {
             //Convert DOSBox's array of dirty blocks into a set of ranges

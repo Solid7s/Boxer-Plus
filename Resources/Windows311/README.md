@@ -1,10 +1,6 @@
-# Windows 3.11 Files
+# Windows 3.11 runtime files
 
-Boxer-Plus can use this folder as a local Windows 3.11 runtime when importing Windows 3.x games.
-
-The actual Windows 3.11 system files are not included in this repository because they are proprietary Microsoft files. To use the Windows 3.11 installer flow, place files from your own legally obtained Windows 3.11 installation here.
-
-Expected layout:
+For a source build with automatic Windows setup, place your Windows 3.11 C-drive files here:
 
 ```text
 Resources/Windows311/
@@ -17,4 +13,6 @@ Resources/Windows311/
     ...
 ```
 
-At build time, `Scripts/CopyWindows311.sh` copies this folder into the app bundle resources when the files are present locally.
+Xcode includes this folder in the app resources. The importer reads `Boxer+.app/Contents/Resources/Windows311` and copies its contents into the new gamebox. Once compiled, the app does not need the project folder.
+
+The v1.1.0 app release includes the local template. Windows system binaries are excluded from this source repository; builds without them offer an existing Windows gamebox as a fallback.

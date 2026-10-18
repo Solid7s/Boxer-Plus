@@ -21,13 +21,11 @@
 /// The relative paths of all DOS and Windows executables and DOSBox configuration files
 /// discovered during scanning.
 @property (readonly, copy, nonatomic) NSArray<NSString*> *windowsExecutables;
+/// Windows setup programs, kept separate so DOS installers retain priority.
+@property (readonly, copy, nonatomic) NSArray<NSString*> *windowsInstallers;
 @property (readonly, copy, nonatomic) NSArray<NSString*> *DOSExecutables;
 @property (readonly, copy, nonatomic) NSArray<NSString*> *macOSApps;
 @property (readonly, copy, nonatomic) NSArray<NSString*> *DOSBoxConfigurations;
-
-/// The preferred Windows installer path, if a Windows installer was detected.
-/// This is populated when Windows executables are found that look like installers.
-@property (readonly, copy, nonatomic) NSString *preferredWindowsInstaller;
 
 /// The path which the scanner recommends as the base path to import from.
 /// This will usually be the same as the base path, but may point to a mounted

@@ -15,6 +15,7 @@
 #import "BXGamebox.h"
 
 #import "BXFrameRenderingView.h"
+#import "BXMetalRenderingView.h"
 #import "BXBezelController.h"
 #import "BXVideoFrame.h"
 #import "BXVideoHandler.h"
@@ -462,6 +463,14 @@ NSString * const BXDOSWindowFullscreenSizeFormat = @"Fullscreen size for %@";
                                                forKey: @"renderingStyle"];
 }
 
+- (IBAction) selectGraphicsProcessor: (id)sender
+{
+    if (![BXMetalRenderingView supportsGraphicsProcessorSelection]) return;
+    //Changing a live Metal device would invalidate all textures and pipelines.
+    //Apply the preference when the next game window is created instead.
+    [[NSUserDefaults standardUserDefaults] setBool:[sender tag] != 0 forKey:@"useHighPerformanceGPU"];
+}
+
 - (IBAction) toggleHerculesTintMode: (id <NSValidatedUserInterfaceItem>)sender
 {
 	BXHerculesTintMode tint = (BXHerculesTintMode)sender.tag;
@@ -717,6 +726,7 @@ NSString * const BXDOSWindowFullscreenSizeFormat = @"Fullscreen size for %@";
                     filterType = BXFilterHQx;
                     break;
                 case BXRenderingStyleCRT:
+                case BXRenderingStyleCRTLight:
                     filterType = BXFilterScanlines;
                     break;
                 case BXRenderingStyleNormal:
@@ -920,6 +930,15 @@ NSString * const BXDOSWindowFullscreenSizeFormat = @"Fullscreen size for %@";
 - (BOOL) validateMenuItem: (NSMenuItem *)theItem
 {	
     SEL theAction = theItem.action;
+    if (theAction == @selector(selectGraphicsProcessor:)) {
+        BOOL highPerformance = theItem.tag != 0;
+        BOOL available = [BXMetalRenderingView supportsGraphicsProcessorSelection];
+        theItem.title = highPerformance ? NSLocalizedString(@"Discrete GPU", nil)
+                                        : NSLocalizedString(@"Integrated Intel GPU", nil);
+        BOOL selectedHighPerformance = [BXMetalRenderingView prefersHighPerformanceGPU];
+        theItem.state = available && selectedHighPerformance == highPerformance ? NSControlStateValueOn : NSControlStateValueOff;
+        return available;
+    }
     BXSession *session = (BXSession *)self.document;
     BXDOSWindow *window = (BXDOSWindow *)self.window;
 

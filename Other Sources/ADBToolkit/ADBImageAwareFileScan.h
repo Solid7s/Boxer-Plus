@@ -27,8 +27,6 @@
 
 #import "ADBFileScan.h"
 
-@class ADBBinCueImage;
-
 typedef NS_ENUM(NSInteger, ADBFileScanEjectionBehaviour) {
     ADBFileScanEjectIfSelfMounted,
     ADBFileScanNeverEject,
@@ -37,24 +35,18 @@ typedef NS_ENUM(NSInteger, ADBFileScanEjectionBehaviour) {
 
 
 /// @c ADBImageAwareFileScan is a @c ADBFileScan subclass that can also scan the
-/// contents of any disk image supported by OS X's hdiutil or CUE/BIN images
-/// handled by ADBBinCueImage. File matches will be returned as a relative path
-/// appended to the original image path.
+/// contents of any disk image supported by OS X's hdiutil. File matches
+/// will be returned as a relative path appended to the original image path.
 @interface ADBImageAwareFileScan : ADBFileScan
 {
     NSString *_mountedVolumePath;
     ADBFileScanEjectionBehaviour _ejectAfterScanning;
     BOOL _didMountVolume;
-    ADBBinCueImage *_cueImageFilesystem;
 }
 
 /// The volume path at which the original source disk image is mounted.
 /// Only valid while scanning a disk image.
 @property (copy) NSString *mountedVolumePath;
-
-/// The ADBBinCueImage filesystem for CUE/BIN images that cannot be mounted.
-/// Only valid while scanning a CUE sheet.
-@property (strong, nonatomic) ADBBinCueImage *cueImageFilesystem;
 
 /// Whether the file scan operation mounted an image volume itself while scanning.
 /// This will be NO if scanning a regular folder or if the scanned image was

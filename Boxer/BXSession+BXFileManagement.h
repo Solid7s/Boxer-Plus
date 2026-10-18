@@ -193,7 +193,15 @@ typedef NS_OPTIONS(NSUInteger, BXDriveMountOptions) {
          onCompletion: (BXSessionProgramCompletionBehavior)completionBehavior
                 error: (out NSError **)outError;
 
-/// Calls the above with no arguments, without clearing the screen, and with automatic exit behavior.
+/// Launch with an explicit DOS working folder; nil keeps the basic form's behavior.
+- (BOOL) openURLInDOS: (NSURL *)URL
+        withArguments: (NSString *)arguments
+     workingDirectory: (NSString *)directory
+          clearScreen: (BOOL)clearScreen
+         onCompletion: (BXSessionProgramCompletionBehavior)completionBehavior
+                error: (out NSError **)outError;
+
+/// Calls the basic form with no arguments and automatic exit behavior.
 - (BOOL) openURLInDOS: (NSURL *)URL
                 error: (out NSError **)outError;
 

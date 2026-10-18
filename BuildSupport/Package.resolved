@@ -1,0 +1,24 @@
+{
+  "originHash" : "c5b668bde427c94be9a5c9343c584d145a4e466de238898df10d51449703c676",
+  "pins" : [
+    {
+      "identity" : "cwldemangle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MaddTheSane/CwlDemangle.git",
+      "state" : {
+        "branch" : "swift5Compat",
+        "revision" : "8f28626273e295e520287ea6854df0f2a28b676e"
+      }
+    },
+    {
+      "identity" : "sparkle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparkle-project/Sparkle",
+      "state" : {
+        "revision" : "10d96f2b9b9905b0f529f09e517219d4e20125c0",
+        "version" : "1.27.3"
+      }
+    }
+  ],
+  "version" : 3
+}

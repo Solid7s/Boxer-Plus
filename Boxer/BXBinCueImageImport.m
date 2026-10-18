@@ -94,8 +94,7 @@ BOOL _mountSynchronously(DASessionRef session, DADiskRef disk, CFURLRef path, DA
 	if ([[volumeAttrs objectForKey: NSURLIsVolumeKey] boolValue])
 	{
         NSURL *volumeURL = [volumeAttrs objectForKey: NSURLVolumeURLKey];
-		NSLog(@"[BXBinCueImageImport isSuitableForDrive:] volumeURL: %@", volumeURL);
-		NSString *volumeType = volumeURL ? [workspace typeOfVolumeAtURL: volumeURL] : nil;
+		NSString *volumeType = [workspace typeOfVolumeAtURL: volumeURL];
 		
 		//If it's an audio CD, we can import it just fine.
 		if ([volumeType isEqualToString: ADBAudioCDVolumeType]) return YES;

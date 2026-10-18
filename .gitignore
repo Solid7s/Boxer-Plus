@@ -16,6 +16,7 @@ project.xcworkspace
 DerivedData/
 swiftpm/
 
-# Windows 3.11 system files are proprietary and must be supplied locally.
-Resources/Windows311/*
-!Resources/Windows311/README.md
+# Local Windows runtime used by this build; retain an empty resource folder in source.
+/Resources/Windows311/*
+!/Resources/Windows311/.gitkeep
+!/Resources/Windows311/README.md

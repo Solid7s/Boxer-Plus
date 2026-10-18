@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC5F53B3679747818C950002 /* Windows311 in Resources */ = {isa = PBXBuildFile; fileRef = AC5F53B2679747818C950001 /* Windows311 */; };
+		AC5F53B4679747818C950003 /* Windows311 in Resources */ = {isa = PBXBuildFile; fileRef = AC5F53B2679747818C950001 /* Windows311 */; };
+        B21710170000000000000003 /* BXWindowsProgramGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B21710170000000000000002 /* BXWindowsProgramGroup.m */; };
+        B21710170000000000000004 /* BXWindowsProgramGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B21710170000000000000002 /* BXWindowsProgramGroup.m */; };
 		058BC51224C27B480078C244 /* ShaderParameters.xib in Resources */ = {isa = PBXBuildFile; fileRef = 058BC51124C27B480078C244 /* ShaderParameters.xib */; };
 		058BC52824C27BA10078C244 /* GroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 058BC52524C27BA10078C244 /* GroupCell.xib */; };
 		058BC52924C27BA10078C244 /* CheckboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 058BC52624C27BA10078C244 /* CheckboxCell.xib */; };
@@ -861,8 +865,6 @@
 		9FFE3EA81BE68DBA005332E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE3EAA1BE68DBA005332E0 /* Localizable.strings */; };
 		9FFE7104165E931600F99C3D /* BXJoystickItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFE7103165E931600F99C3D /* BXJoystickItem.m */; };
 		9FFF97951232B718009B5EE5 /* ADBMultiPanelWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFF97941232B718009B5EE5 /* ADBMultiPanelWindowController.m */; };
-		AC5F53B3679747818C950002 /* Windows311 in Resources */ = {isa = PBXBuildFile; fileRef = AC5F53B2679747818C950001 /* Windows311 */; };
-		AC5F53B4679747818C950003 /* Windows311 in Resources */ = {isa = PBXBuildFile; fileRef = AC5F53B2679747818C950001 /* Windows311 */; };
 		B7900B3E13E47D9E00B37913 /* BXPrecisionProControllerProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = B7900B3D13E47D9E00B37913 /* BXPrecisionProControllerProfile.m */; };
 /* End PBXBuildFile section */
 
@@ -1027,6 +1029,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC5F53B2679747818C950001 /* Windows311 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Windows311; sourceTree = "<group>"; };
+        B21710170000000000000001 /* BXWindowsProgramGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BXWindowsProgramGroup.h; sourceTree = "<group>"; };
+        B21710170000000000000002 /* BXWindowsProgramGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BXWindowsProgramGroup.m; sourceTree = "<group>"; };
 		0532FBF624BAA1A4008EAD86 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 		0580F26924B0E7F10099CB8E /* Boxer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Boxer.entitlements; sourceTree = "<group>"; };
 		058BC51124C27B480078C244 /* ShaderParameters.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShaderParameters.xib; sourceTree = "<group>"; };
@@ -1979,7 +1984,6 @@
 		9FFE7103165E931600F99C3D /* BXJoystickItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BXJoystickItem.m; sourceTree = "<group>"; };
 		9FFF97931232B718009B5EE5 /* ADBMultiPanelWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBMultiPanelWindowController.h; sourceTree = "<group>"; };
 		9FFF97941232B718009B5EE5 /* ADBMultiPanelWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBMultiPanelWindowController.m; sourceTree = "<group>"; };
-		AC5F53B2679747818C950001 /* Windows311 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Windows311; sourceTree = "<group>"; };
 		B7900B3D13E47D9E00B37913 /* BXPrecisionProControllerProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BXPrecisionProControllerProfile.m; sourceTree = "<group>"; };
 		E3300C2223B02F2A000A459D /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "pt-BR"; path = "pt-BR.lproj/Credits.html"; sourceTree = "<group>"; };
 		E3300C2323B02F2B000A459D /* pt-BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -2112,7 +2116,9 @@
 				9F160E6E1236B28900F8768E /* Application Delegate */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				55BBA4E6235EE141007AE319 /* Boxer-Bridging-Header.h */,
-				9F573D370F8E69AF0089D8B7 /* BXGamebox.h */,
+				B21710170000000000000001 /* BXWindowsProgramGroup.h */,
+                B21710170000000000000002 /* BXWindowsProgramGroup.m */,
+                9F573D370F8E69AF0089D8B7 /* BXGamebox.h */,
 				9F573D380F8E69AF0089D8B7 /* BXGamebox.m */,
 				9F61FC8310DE3F7F00F3896C /* BXGameProfile.h */,
 				9F61FC8410DE3F7F00F3896C /* BXGameProfile.m */,
@@ -2204,6 +2210,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC5F53B2679747818C950001 /* Windows311 */,
 				9F4BCCD717E6190A00140390 /* Boxer.help */,
 				9FBC3CB10F56E32C001811F2 /* Info.plist */,
 				9F466AFB11A92C4B00C50965 /* UserDefaults.plist */,
@@ -2220,7 +2227,6 @@
 				9F160BD91236952400F8768E /* Sample Games */,
 				9FFAFE2E10DE343F00728BAC /* Configurations */,
 				9FCBB5FE10A6DDBD00C28B09 /* DOS Toolkit */,
-				AC5F53B2679747818C950001 /* Windows311 */,
 				9FBC34390F56C5AC001811F2 /* Images */,
 				9FCBB2CB10A61C6D00C28B09 /* Sounds */,
 				9F496E4C108EEDF700282261 /* XIBs */,
@@ -3829,7 +3835,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 1330;
-				ORGANIZATIONNAME = solid7s;
+				ORGANIZATIONNAME = "Alun Bestor and contributors";
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
 						LastSwiftMigration = 1110;
@@ -3840,7 +3846,7 @@
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Boxer" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -3953,12 +3959,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5F53B3679747818C950002 /* Windows311 in Resources */,
 				9F4199EC1BD416E400A2D165 /* ImportWindow.xib in Resources */,
 				9FBC31E00F56C383001811F2 /* LockClosing.aiff in Resources */,
 				9FBC31E10F56C383001811F2 /* LockOpening.aiff in Resources */,
 				9FE202480F6D749500B3A38C /* Snapshot.aiff in Resources */,
 				9FCBB6F310A6DDBD00C28B09 /* DOS Toolkit in Resources */,
-				AC5F53B3679747818C950002 /* Windows311 in Resources */,
 				9F4199E11BD416E400A2D165 /* DocumentationPanel.xib in Resources */,
 				9FFAFE2D10DE33FB00728BAC /* GameProfiles.plist in Resources */,
 				058BC52824C27BA10078C244 /* GroupCell.xib in Resources */,
@@ -4012,6 +4018,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC5F53B4679747818C950003 /* Windows311 in Resources */,
 				9F2D30D615B8233800FAE848 /* LockClosing.aiff in Resources */,
 				9FAA7EB01BE698ED00F4FCA6 /* Localizable.strings in Resources */,
 				55220E4824CFFFC900A6736A /* SliderCell.xib in Resources */,
@@ -4027,7 +4034,6 @@
 				9F2D318915B826F600FAE848 /* DOSWindow.xib in Resources */,
 				9F2D318B15B826FE00FAE848 /* MainMenu.xib in Resources */,
 				9FCB7B2715B877E500CC7CC7 /* DOS Toolkit in Resources */,
-				AC5F53B4679747818C950003 /* Windows311 in Resources */,
 				9FCB7B2815B8782800CC7CC7 /* Bezel.xib in Resources */,
 				9F1E959A15BD88D700C3C6A0 /* UserDefaults.plist in Resources */,
 				55220E4624CFFFC900A6736A /* CheckboxCell.xib in Resources */,
@@ -4084,7 +4090,8 @@
 				9FB554220F6EAC5F00A33017 /* NSAlert+BXAlert.m in Sources */,
 				9F6311090F70F54300AB1155 /* BXHelpMenuController.m in Sources */,
 				9F573C5A0F8E18B10089D8B7 /* NSWorkspace+ADBMountedVolumes.m in Sources */,
-				9F573D390F8E69AF0089D8B7 /* BXGamebox.m in Sources */,
+				B21710170000000000000003 /* BXWindowsProgramGroup.m in Sources */,
+                9F573D390F8E69AF0089D8B7 /* BXGamebox.m in Sources */,
 				058BC52E24C27CB50078C244 /* BXShaderParametersWindowController.m in Sources */,
 				55F0B73226ABFD9C0077E58C /* ps1audio.cpp in Sources */,
 				9F4971BB108EF02F00282261 /* BXEmulator+BXDOSFileSystem.mm in Sources */,
@@ -4459,7 +4466,8 @@
 				9F2D2FA615B8233800FAE848 /* BXHelpMenuController.m in Sources */,
 				55215F462AD22FD8007C7C68 /* MT32LCDDisplay.swift in Sources */,
 				9F2D2FA715B8233800FAE848 /* NSWorkspace+ADBMountedVolumes.m in Sources */,
-				9F2D2FA815B8233800FAE848 /* BXGamebox.m in Sources */,
+				B21710170000000000000004 /* BXWindowsProgramGroup.m in Sources */,
+                9F2D2FA815B8233800FAE848 /* BXGamebox.m in Sources */,
 				9F2D2FA915B8233800FAE848 /* BXEmulator+BXDOSFileSystem.mm in Sources */,
 				9F2D2FAA15B8233800FAE848 /* NSString+ADBPaths.m in Sources */,
 				9F2D2FAE15B8233800FAE848 /* BXValueTransformers.m in Sources */,
@@ -5147,8 +5155,8 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_SHORT_VERSION_STRING = 1.0;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_SHORT_VERSION_STRING = 1.1.0;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
@@ -5174,7 +5182,7 @@
 				"LD_NO_PIE[arch=arm64]" = NO;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = "-mstackrealign";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.washboardabs.boxer-standalone";
 				PRODUCT_NAME = "Boxer Standalone";
@@ -5194,8 +5202,8 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_SHORT_VERSION_STRING = 1.0;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_SHORT_VERSION_STRING = 1.1.0;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
@@ -5217,7 +5225,7 @@
 				"LD_NO_PIE[arch=arm64]" = NO;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = "-mstackrealign";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.washboardabs.boxer-standalone";
 				PRODUCT_NAME = "Boxer Standalone";
@@ -5362,7 +5370,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5389,7 +5397,7 @@
 				"LD_NO_PIE[arch=arm64]" = NO;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				MTL_LANGUAGE_REVISION = UseDeploymentTarget;
 				OTHER_CFLAGS = "-mstackrealign";
 				PRODUCT_BUNDLE_IDENTIFIER = net.washboardabs.boxer;
@@ -5413,7 +5421,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.1.0;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5438,7 +5446,7 @@
 				"LD_NO_PIE[arch=arm64]" = NO;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				MTL_LANGUAGE_REVISION = UseDeploymentTarget;
 				OTHER_CFLAGS = "-mstackrealign";
 				PRODUCT_BUNDLE_IDENTIFIER = net.washboardabs.boxer;
@@ -5479,6 +5487,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				ENABLE_DEBUG_DYLIB = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

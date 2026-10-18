@@ -175,6 +175,8 @@ typedef NS_ENUM(NSInteger, BXSessionProgramCompletionBehavior) {
 /// and any arguments to pass to that executable.
 @property (copy, nonatomic) NSURL *targetURL;
 @property (copy, nonatomic) NSString *targetArguments;
+/// Optional DOS working folder for a selected Windows shortcut.
+@property (copy, nonatomic) NSString *targetWorkingDirectory;
 
 /// The logical URL of the last program that was launched through user interaction (i.e. from the
 /// launcher panel or from the DOS prompt), along with any arguments it was launched with.

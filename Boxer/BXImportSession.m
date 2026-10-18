@@ -1,4 +1,4 @@
-/*
+/* 
  Copyright (c) 2013 Alun Bestor and contributors. All rights reserved.
  This source file is released under the GNU General Public License 2.0. A full copy of this license
  can be found in this XCode project at Resources/English.lproj/BoxerHelp/pages/legalese.html, or read
@@ -40,6 +40,9 @@
 
 #import "BXImportSession+BXImportPolicies.h"
 #import "BXSession+BXFileManagement.h"
+#import "BXSession+BXUIControls.h"
+#import "BXBaseAppController+BXSupportFiles.h"
+#import "ADBShadowedFilesystem.h"
 
 #import "NSWorkspace+ADBFileTypes.h"
 #import "NSWorkspace+ADBMountedVolumes.h"
@@ -74,30 +77,20 @@
 
 //Only defined for internal use
 @property (copy, nonatomic) NSURL *rootDriveURL;
+@property (copy, nonatomic) NSURL *windowsInstallerURL;
+@property (copy, nonatomic) NSURL *windowsStagingURL;
+@property (retain, nonatomic) NSOperation *windowsCopyOperation;
+@property (assign, nonatomic) BOOL windowsStartupChosen;
 
-//Snapshots of the root drive before/after Windows installer runs
-@property (copy, nonatomic) NSArray<NSString*> *preInstallSnapshot;
-@property (copy, nonatomic) NSArray<NSString*> *postInstallSnapshot;
-@property (copy, nonatomic) NSArray<NSString*> *preInstallFileSnapshot;
-@property (copy, nonatomic) NSArray<NSString*> *postInstallFileSnapshot;
-@property (copy, nonatomic) NSString *installedWindowsExecutableRelativePath;
+- (void)_launchWindowsInstallerAtURL:(NSURL *)URL
+                   usingFilesystem:(ADBShadowedFilesystem *)filesystem
+                     configuration:(BXEmulatorConfiguration *)configuration;
 
 //Create a new empty game package for our source path.
 - (BOOL) _generateGameboxWithError: (NSError **)error;
 
 //Return the path to which the current gamebox will be moved if renamed with the specified name.
 - (NSURL *) _destinationURLForGameboxName: (NSString *)newName;
-
-//Snapshot helpers
-- (NSArray<NSString*> *) _snapshotRelativePathsForRootDriveIncludeDirectories: (BOOL)includeDirectories
-                                                                    filesOnly: (BOOL)filesOnly;
-- (void) _writeSnapshot: (NSArray<NSString*> *)snapshot
-            toFilename: (NSString *)filename;
-- (NSString *) _dosPathForRelativePath: (NSString *)relativePath;
-- (NSString *) _detectWindowsExecutableFromNewFiles: (NSArray<NSString*> *)newFiles;
-- (void) _recordPreInstallSnapshotIfNeeded;
-- (void) _recordPostInstallSnapshotAndDetectExecutableIfNeeded;
-- (void) _configureWindowsLauncherIfNeeded;
 
 @end
 
@@ -132,12 +125,10 @@
     self.sourceFileImportOperation = nil;
     self.bundledConfigurationURL = nil;
     self.configurationToImport = nil;
-    self.preInstallSnapshot = nil;
-    self.postInstallSnapshot = nil;
-    self.preInstallFileSnapshot = nil;
-    self.postInstallFileSnapshot = nil;
-    self.installedWindowsExecutableRelativePath = nil;
-
+    self.windowsInstallerURL = nil;
+    self.windowsStagingURL = nil;
+    self.windowsCopyOperation = nil;
+    
 	[super dealloc];
 }
 
@@ -160,89 +151,64 @@
 	//Sanity checks: if these fail then there is a programming error.
 	NSAssert(absoluteURL != nil, @"No URL provided.");
 	NSAssert(self.importStage <= BXImportSessionWaitingForInstaller, @"Cannot call readFromURL:ofType:error: after game import has already started.");
-
+	
 	_didMountSourceVolume = NO;
-
+	
 	NSURL *preferredURL = [self.class preferredSourceURLForURL: absoluteURL];
 	if (!preferredURL)
     {
         return NO;
     }
-
+    
     self.sourceURL = preferredURL;
-
+    
     //Create an installer scan operation to perform the actual 'loading' of the URL
     //(scanning it for installer executables, game profile etc.)
     //The didFinish callback will continue the actual import process from this point.
     BXInstallerScan *scan = [BXInstallerScan scanWithBasePath: preferredURL.path];
     scan.delegate = self;
     scan.didFinishSelector = @selector(installerScanDidFinish:);
-
+    
     //Don't automatically eject any image that the scan had to mount: instead
     //we'll use the mounted volume ourselves for later operations, and eject
     //it at the end of importing.
     scan.ejectAfterScanning = ADBFileScanNeverEject;
-
+    
     [self.scanQueue addOperation: scan];
     self.importStage = BXImportSessionLoadingSource;
-
+		
     return YES;
 }
 
 - (void) installerScanDidFinish: (NSNotification *)notification
 {
     BXInstallerScan *scan = notification.object;
-
+    
     if (scan.succeeded)
     {
         self.gameProfile = scan.detectedProfile;
         self.sourceURL = [NSURL fileURLWithPath: scan.recommendedSourcePath];
         //Record whether we ought to unmount any mounted volume after we're done.
         _didMountSourceVolume = scan.didMountVolume;
-
+        
         //If the scan found DOSBox configuration files, choose one of these to guide the import process.
         if (scan.DOSBoxConfigurations.count)
         {
             NSArray *configurationURLs = [self.sourceURL URLsByAppendingPaths: scan.DOSBoxConfigurations];
             self.bundledConfigurationURL = [self.class preferredConfigurationFileFromURLs: configurationURLs];
         }
-
+        
         self.fileURL = self.sourceURL;
-
-        //For CUE files, store the relative path separately for direct execution
-        if ([self.sourceURL.pathExtension.lowercaseString isEqualToString:@"cue"] ||
-            [self.sourceURL.pathExtension.lowercaseString isEqualToString:@"inst"])
-        {
-            //Store fragment-based URLs for display/selection
-            NSMutableArray *installerURLs = [NSMutableArray array];
-            for (NSString *path in scan.matchingPaths)
-            {
-                NSURLComponents *components = [NSURLComponents componentsWithURL:self.sourceURL resolvingAgainstBaseURL:NO];
-                components.fragment = path;
-                NSURL *installerURL = components.URL;
-                if (installerURL)
-                {
-                    [installerURLs addObject:installerURL];
-                }
-            }
-            self.installerURLs = installerURLs;
-        }
-        else
-        {
-            self.installerURLs = [self.sourceURL URLsByAppendingPaths:scan.matchingPaths];
-        }
-
+        self.installerURLs = [self.sourceURL URLsByAppendingPaths:
+            [scan.matchingPaths arrayByAddingObjectsFromArray:scan.windowsInstallers]];
+        
         //If the scan found installers, and doesn't otherwise think
         //the game is already installed, then we'll ask the user to
         //choose which installer to use.
 		if (!scan.isAlreadyInstalled && self.installerURLs.count)
         {
-            #ifdef BOXER_DEBUG
 			self.importStage = BXImportSessionWaitingForInstaller;
             [NSApp requestUserAttention: NSInformationalRequest];
-			#else
-			[self skipInstaller];
-            #endif
         }
         //Otherwise, we'll get on with finalizing the import directly.
 		else
@@ -256,7 +222,7 @@
         self.installerURLs = nil;
         self.fileURL = nil;
 		self.importStage = BXImportSessionWaitingForSource;
-
+		
         //Eject any disk that was mounted as a result of the scan
         if (scan.didMountVolume)
         {
@@ -264,7 +230,7 @@
             [workspace unmountAndEjectDeviceAtPath: scan.mountedVolumePath];
             _didMountSourceVolume = NO;
         }
-
+        
         //If there was an error that wasn't just that the operation was cancelled,
         //display it to the user now as an alert sheet.
         if (scan.error && !scan.error.isUserCancelledError)
@@ -291,19 +257,19 @@
 {
     BXDOSWindowController *controller;
 	controller = [[BXDOSWindowControllerLion alloc] initWithWindowNibName: @"DOSImportWindow"];
-
+	
 	[self addWindowController: controller];
 	self.DOSWindowController = controller;
-
+	
 	controller.shouldCloseDocument = YES;
     [controller release];
-
-
+    
+	
 	BXImportWindowController *importController	= [[BXImportWindowController alloc] initWithWindowNibName: @"ImportWindow"];
-
+	
 	[self addWindowController: importController];
 	self.importWindowController = importController;
-
+	
 	importController.shouldCloseDocument = YES;
 	[importController release];
 }
@@ -345,7 +311,7 @@
     //If the gamebox is being imported and is not yet finalized, we can't close the document safely.
     if (self.gamebox != nil && self.importStage < BXImportSessionFinished)
         return NO;
-
+    
     return YES;
 }
 
@@ -353,24 +319,24 @@
 - (void) canCloseDocumentWithDelegate: (id)delegate
 				  shouldCloseSelector: (SEL)shouldCloseSelector
 						  contextInfo: (void *)contextInfo
-{
+{	
 	//Define an invocation for the callback, which has the signature:
 	//- (void)document:(NSDocument *)document shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo;
 	NSInvocation *callback = [NSInvocation invocationWithTarget: delegate selector: shouldCloseSelector];
 	[callback setArgument: &self atIndex: 2];
 	[callback setArgument: &contextInfo atIndex: 4];
-
+	
 	//If we have a gamebox and haven't finished finalizing it, show a stop importing/cancel prompt
 	if (self.isDocumentEdited)
 	{
         //If we're running an installer, ask the user if they want to quit the installer and finish importing,
-        //or stop importing altogether. Otherwise, just ask if they want to stop importing.
+        //or stop importing altogether. Otherwise, just ask if they want to stop importing. 
         BXCloseAlert *alert;
         if (self.importStage == BXImportSessionRunningInstaller)
             alert = [BXCloseAlert closeAlertWhileRunningInstaller: self];
         else
             alert = [BXCloseAlert closeAlertWhileImportingGame: self];
-
+		
 		//Show our custom close alert, passing it the callback so we can complete
 		//our response down in _closeAlertDidEnd:returnCode:contextInfo:
 		[alert beginSheetModalForWindow: self.windowForSheet
@@ -393,13 +359,13 @@
 {
 	if (alert.showsSuppressionButton && alert.suppressionButton.state == NSControlStateValueOn)
 		[[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"suppressCloseAlert"];
-
+	
     //Hide the alert before we go any further, so that it has time to get out of the way
     //before we animate the DOS window back to the import window's size.
     [alert.window orderOut: self];
-
+    
 	BOOL shouldClose = NO;
-
+	
 	//If the alert has three buttons it means it's a finish/don't finish confirmation
     //instead of a close/cancel confirmation.
 	if (alert.buttons.count == 3)
@@ -410,11 +376,11 @@
 				[self finishInstaller];
 				shouldClose = NO;
 				break;
-
+				
 			case NSAlertSecondButtonReturn:	//Cancel
 				shouldClose = NO;
 				break;
-
+				
 			case NSAlertThirdButtonReturn:	//Stop importing
 				shouldClose = YES;
 				break;
@@ -424,12 +390,12 @@
 	{
 		shouldClose = (returnCode == NSAlertFirstButtonReturn);
 	}
-
+	
 	[callback setArgument: &shouldClose atIndex: 3];
 	[callback invoke];
-
+	
 	//Release the previously-retained callback
-	[callback release];
+	[callback release];	
 }
 
 
@@ -439,12 +405,11 @@
 + (NSSet *)acceptedSourceTypes
 {
 	static NSSet *types = nil;
-
-    //A subset of our usual mountable types: we accept regular folders, disk image
-    //formats which can be mounted by hdiutil, and CUE sheets (which are handled specially
-    //by ADBBinCueImage rather than mounted)
-	if (!types) types = [[[BXFileTypes OSXMountableImageTypes] setByAddingObjectsFromArray: @[@"public.folder", BXCuesheetImageType]] retain];
-
+    
+    //A subset of our usual mountable types: we only accept regular folders and disk image
+    //formats which can be mounted by hdiutil (so that we can inspect their filesystems)
+	if (!types) types = [[[BXFileTypes OSXMountableImageTypes] setByAddingObject: @"public.folder"] retain];
+    
     return types;
 }
 
@@ -458,7 +423,7 @@
     if ([self.launchedProgramURL isEqual: self.targetURL])              return YES;
 	if ([self.installerURLs containsObject: self.launchedProgramURL])   return YES;
 	if ([self.class isInstallerAtPath: self.launchedProgramURL.path])   return YES;
-
+	
 	return NO;
 }
 
@@ -474,6 +439,23 @@
 	}
 }
 
++ (NSSet *)keyPathsForValuesAffectingLoadingMessage { return [NSSet setWithObject:@"importStage"]; }
+- (NSString *)loadingMessage
+{
+    return self.importStage == BXImportSessionPreparingWindows ?
+        NSLocalizedString(@"Copying Windows into\nyour new gamebox…", nil) :
+        NSLocalizedString(@"Please wait while Boxer\nscans your game.", nil);
+}
+
+- (void)close
+{
+    [self.windowsCopyOperation cancel];
+    [self.windowsCopyOperation waitUntilFinished];
+    self.windowsCopyOperation = nil;
+    if (self.windowsStagingURL) [[NSFileManager defaultManager] removeItemAtURL:self.windowsStagingURL error:NULL];
+    [super close];
+}
+
 
 #pragma mark -
 #pragma mark Gamebox renaming
@@ -483,7 +465,7 @@
 	NSString *fullName = newName.lastPathComponent;
 	if (![newName.pathExtension.lowercaseString isEqualToString: @"boxer"])
 		fullName = [newName stringByAppendingPathExtension: @"boxer"];
-
+	
 	NSURL *currentURL = self.gamebox.bundleURL;
 	NSURL *baseURL = [currentURL URLByDeletingLastPathComponent];
 	NSURL *newURL = [baseURL URLByAppendingPathComponent: fullName];
@@ -504,12 +486,12 @@
 	{
 		NSURL *newGameboxURL = [self _destinationURLForGameboxName: newName];
 		NSURL *currentGameboxURL = self.gamebox.bundleURL;
-
+		
 		NSFileManager *manager = [NSFileManager defaultManager];
-
+		
 		NSError *moveError;
 		BOOL moved;
-
+		
 		//Special case: if the user is just changing the case of the filename, then a regular
 		//move operation may cause a file-already-exists error on case-insensitive filesystems.
 		//So we first rename the file to a temporary name, then back to the final name.
@@ -517,7 +499,7 @@
 		if ([newName.lowercaseString isEqualToString: originalName.lowercaseString])
 		{
 			NSURL *tempURL = [currentGameboxURL URLByAppendingPathExtension: @"-renaming"];
-
+			
 			moved = [manager moveItemAtURL: currentGameboxURL toURL: tempURL error: &moveError];
 			if (moved)
 			{
@@ -531,19 +513,19 @@
 		{
 			moved = [manager moveItemAtURL: currentGameboxURL toURL: newGameboxURL error: &moveError];
 		}
-
+		
 		if (moved)
 		{
 			BXGamebox *movedGamebox = [BXGamebox bundleWithURL: newGameboxURL];
 			self.gamebox = movedGamebox;
-
+			
 			if ([self.fileURL isEqual: currentGameboxURL])
 				self.fileURL = newGameboxURL;
-
+			
 			//While we're at it, generate a new icon for the new gamebox name
 			if (_hasAutoGeneratedIcon)
                 [self generateBootlegIcon];
-
+            
             //Also while we're at it, update the name of the default launcher to match the new name.
             NSMutableDictionary *launcherInfo = [self.gamebox.defaultLauncher mutableCopy];
             if (launcherInfo)
@@ -582,24 +564,24 @@
 		}
 		return NO;
 	}
-
+	
 	//Check if a different gamebox already exists with the specified name at the intended destination
 	//(Lowercase comparison avoids an error if the user is just changing the case of the original name)
 	if (![sanitisedName.lowercaseString isEqualToString: self.gameboxName.lowercaseString])
 	{
 		NSURL *intendedURL = [self _destinationURLForGameboxName: sanitisedName];
-
+		
 		if ([intendedURL checkResourceIsReachableAndReturnError: NULL])
 		{
 			if (outError)
 			{
 				//Customise the error message to match Finder's behaviour
-				NSString *messageFormat = NSLocalizedString(@"The name \"%@\" is already taken. Please choose another.",
-															@"Error shown when user renames a gamebox to a name that already exists.");
-
+				NSString *messageFormat = NSLocalizedString(@"The name “%1$@” is already taken. Please choose another.",
+															@"Error shown when user renames a gamebox to a name that already exists. %1$@ is the intended filename.");
+				
                 NSString *message = [NSString stringWithFormat: messageFormat, sanitisedName];
 				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: message, NSURLErrorKey: intendedURL };
-
+                               
 				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
 												code: NSFileWriteFileExistsError
 											userInfo: userInfo];
@@ -607,7 +589,7 @@
 			return NO;
 		}
 	}
-
+	
 	//If the new sanitised name checked out, use that as the value and keep on going.
 	*ioValue = sanitisedName;
 	return YES;
@@ -617,14 +599,14 @@
 {
 	_hasAutoGeneratedIcon = NO;
 	[super setRepresentedIcon: icon];
-
+    
     [self.importWindowController synchronizeWindowTitleWithDocumentName];
 }
 
 - (void) generateBootlegIcon
 {
 	BXReleaseMedium medium = self.gameProfile.releaseMedium;
-
+	
 	//If the game profile doesn't have an era, then autodetect it
 	if (medium == BXUnknownMedium)
 	{
@@ -640,14 +622,14 @@
         {
 			medium = [BXGameProfile mediumOfGameAtURL: self.gamebox.bundleURL];
         }
-
+		
 		//Record the autodetected era so we don't have to scan the filesystem next time.
 		self.gameProfile.releaseMedium = medium;
 	}
-
+	
 	NSImage *icon = [self.class bootlegCoverArtForGamebox: self.gamebox
                                                withMedium: medium];
-
+	
     self.representedIcon = icon;
 	_hasAutoGeneratedIcon = YES;
 }
@@ -667,7 +649,7 @@
 {
 	NSError *readError = nil;
 	BOOL readSucceeded = [self readFromURL: URL ofType: @"net.washboardabs.boxer-game-package" error: &readError];
-
+    
     if (readSucceeded)
     {
 		self.fileURL = self.sourceURL;
@@ -676,7 +658,7 @@
     {
 		self.fileURL = nil;
 		self.importStage = BXImportSessionWaitingForSource;
-
+        
         if (readError)
         {
             //If we failed, then display the error as a sheet
@@ -693,9 +675,9 @@
 {
 	//Sanity checks: if these fail then there is a programming error.
 	NSAssert(self.importStage <= BXImportSessionLoadingSource, @"Cannot call cancelInstallerScan after scan is finished.");
-
+    
     [self.scanQueue cancelAllOperations];
-
+    
     //Our installerScanDidFinish: callback will take care of resetting
     //the import state back to how it should be.
 }
@@ -704,14 +686,14 @@
 {
 	//Sanity checks: if these fail then there is a programming error.
 	NSAssert(self.importStage <= BXImportSessionWaitingForInstaller, @"Cannot call cancelSourcePath after game import has already started.");
-
+    
 	if (_didMountSourceVolume)
 	{
 		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 		[workspace unmountAndEjectDeviceAtURL: self.sourceURL error: NULL];
 		_didMountSourceVolume = NO;
 	}
-
+	
 	self.sourceURL = nil;
 	self.fileURL = nil;
 	self.importStage = BXImportSessionWaitingForSource;
@@ -719,87 +701,250 @@
 
 - (void) launchInstallerAtURL: (NSURL *)URL
 {
-	NSLog(@"[BXImportSession launchInstallerAtURL] Called with URL: %@, sourceURL: %@", URL, self.sourceURL);
-	
 	//Sanity checks: if these fail then there is a programming error.
 	NSAssert(URL != nil, @"No URL specified.");
 	NSAssert(self.sourceURL != nil, @"No source URL for the import has been chosen.");
 
+    if ([BXFileTypes typeOfExecutableAtURL:URL error:NULL] == BXExecutableTypeWindows)
+    {
+        NSURL *runtime = [NSBundle.mainBundle URLForResource:@"Windows311" withExtension:nil];
+        NSURL *windows = [runtime URLByAppendingPathComponent:@"WINDOWS/WIN.COM"];
+        if ([windows checkResourceIsReachableAndReturnError:NULL])
+        {
+            //Use this build's Windows template first, without asking for another game.
+            //The worker copies it into a private C drive before launching setup.
+            [self _launchWindowsInstallerAtURL:URL
+                usingFilesystem:[ADBShadowedFilesystem filesystemWithBaseURL:runtime]
+                configuration:[BXEmulatorConfiguration configuration]];
+            return;
+        }
+
+        NSOpenPanel *panel = [NSOpenPanel openPanel];
+        panel.title = NSLocalizedString(@"Choose a Windows 3.x gamebox", nil);
+        panel.message = NSLocalizedString(@"Choose a closed gamebox with working Windows 3.x. Boxer will copy its C: drive, including installed software and saved changes, into this new gamebox. The original stays unchanged. Windows 95/98 games are not supported by this workflow.", nil);
+        panel.prompt = NSLocalizedString(@"Copy Windows", nil);
+        panel.canChooseFiles = YES;
+        panel.canChooseDirectories = NO;
+        panel.treatsFilePackagesAsDirectories = NO;
+        panel.allowsMultipleSelection = NO;
+        panel.allowedFileTypes = @[@"boxer"];
+        panel.directoryURL = [(BXAppController *)NSApp.delegate gamesFolderURL];
+        [panel beginSheetModalForWindow:self.windowForSheet completionHandler:^(NSInteger result) {
+            if (result == NSModalResponseOK && !self->_isClosing)
+                [self launchWindowsInstallerAtURL:URL usingGameboxURL:panel.URL];
+        }];
+        return;
+    }
+	
 	//Generate a new gamebox for us to import into.
     NSError *generationError;
     BOOL createdGamebox = [self _generateGameboxWithError: &generationError];
-    NSAssert(createdGamebox, @"Gamebox creation failed with error: %@", generationError);
-
+    if (!createdGamebox) { [self presentError:generationError]; return; }
+	
 	self.importStage = BXImportSessionRunningInstaller;
-
+	
 	self.importWindowController.shouldCloseDocument = NO;
 	self.DOSWindowController.shouldCloseDocument = YES;
 	[self.importWindowController handOffToController: self.DOSWindowController];
-
-	//Check if this is a CUE installer URL (has fragment with relative path)
-	NSURLComponents *components = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
-	if (components.fragment)
-	{
-		//For CUE files, convert fragment to DOS path on D: drive
-		NSString *relativePath = components.fragment;
-		//Keep forward slashes - they'll work as URL path separators
-		if ([relativePath hasPrefix:@"/"])
-			relativePath = [relativePath substringFromIndex:1];
-		
-		NSString *dosPath = [NSString stringWithFormat:@"D:/%@", relativePath];
-		NSLog(@"[BXImportSession launchInstallerAtURL:] CUE file - using DOS path: %@", dosPath);
-		
-		//Store the DOS path directly for execution (use forward slashes for valid URL)
-		self.targetURL = [NSURL URLWithString:[NSString stringWithFormat:@"dos://%@", dosPath]];
-	}
-	else
-	{
-		self.targetURL = URL;
-	}
 	
-	NSLog(@"[BXImportSession launchInstallerAtURL] Starting emulator with targetURL: %@", self.targetURL);
-
+	//Set the installer as the target executable for this session
+	self.targetURL = URL;
+    
     //Aaaand start emulating!
 	[self start];
+}
+
+- (void)launchWindowsInstallerAtURL:(NSURL *)URL usingGameboxURL:(NSURL *)gameboxURL
+{
+    if (self.importStage != BXImportSessionWaitingForInstaller || self.windowsCopyOperation) return;
+    NSError *error = nil;
+    NSString *message = nil;
+    BXGamebox *sourceGame = [BXGamebox bundleWithURL:gameboxURL];
+    BXDrive *sourceDrive = nil;
+    for (BXDrive *drive in sourceGame.bundledDrives)
+        if ([drive.letter isEqual:@"C"] && drive.isHardDisk) { sourceDrive = drive; break; }
+    NSNumber *directory = nil;
+    [sourceDrive.mountPointURL getResourceValue:&directory forKey:NSURLIsDirectoryKey error:NULL];
+    if (!sourceDrive || !directory.boolValue)
+        message = NSLocalizedString(@"Choose a Windows 3.x gamebox with a folder-based C: drive.", nil);
+    for (BXSession *document in NSDocumentController.sharedDocumentController.documents)
+        if ([document isKindOfClass:[BXSession class]] &&
+            [document.gamebox.bundleURL.URLByResolvingSymlinksInPath isEqual:gameboxURL.URLByResolvingSymlinksInPath])
+            message = NSLocalizedString(@"Close the selected Windows gamebox before copying it, then try again.", nil);
+    if ([BXFileTypes typeOfExecutableAtURL:URL error:NULL] != BXExecutableTypeWindows)
+        message = NSLocalizedString(@"Choose a Windows setup program from the installation disc.", nil);
+    if (message)
+    {
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError
+            userInfo:@{NSLocalizedDescriptionKey:message}];
+        [self presentError:error modalForWindow:self.windowForSheet delegate:nil didPresentSelector:NULL contextInfo:NULL];
+        return;
+    }
+
+    //Reading gameIdentifier can create metadata in old gameboxes. Only look up
+    //saved changes when the source already has an identifier; never write to it.
+    NSURL *states = sourceGame.gameInfo[BXGameIdentifierGameInfoKey] ?
+        [(BXBaseAppController *)NSApp.delegate gameStatesURLForGamebox:sourceGame creatingIfMissing:NO error:NULL] : nil;
+    NSURL *shadow = [[states URLByAppendingPathComponent:@"Current.boxerstate"]
+        URLByAppendingPathComponent:sourceDrive.sourceURL.lastPathComponent];
+    if (![shadow checkResourceIsReachableAndReturnError:NULL]) shadow = nil;
+    ADBShadowedFilesystem *filesystem = [ADBShadowedFilesystem filesystemWithBaseURL:sourceDrive.mountPointURL shadowURL:shadow];
+    BXEmulatorConfiguration *configuration = [BXEmulatorConfiguration configurationWithContentsOfURL:sourceGame.configurationFileURL error:NULL];
+    configuration = [self.class sanitizedVersionOfConfiguration:configuration];
+    [self _launchWindowsInstallerAtURL:URL usingFilesystem:filesystem configuration:configuration];
+}
+
+- (void)_launchWindowsInstallerAtURL:(NSURL *)URL
+                   usingFilesystem:(ADBShadowedFilesystem *)filesystem
+                     configuration:(BXEmulatorConfiguration *)configuration
+{
+    if (self.importStage != BXImportSessionWaitingForInstaller || self.windowsCopyOperation) return;
+    self.windowsStagingURL = [[NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES]
+        URLByAppendingPathComponent:[@"Boxer-Windows-" stringByAppendingString:NSUUID.UUID.UUIDString] isDirectory:YES];
+    NSURL *staging = self.windowsStagingURL;
+    self.importStage = BXImportSessionPreparingWindows;
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        @autoreleasepool {
+            NSFileManager *manager = [[[NSFileManager alloc] init] autorelease];
+            __block NSError *copyError = nil;
+            NSString *windowsPath = nil;
+            NSUInteger filesCopied = 0;
+            [manager createDirectoryAtURL:staging withIntermediateDirectories:NO attributes:nil error:&copyError];
+            id<ADBFilesystemPathEnumeration> enumerator = [filesystem enumeratorAtPath:@"/"
+                options:0 errorHandler:^BOOL(NSString *path, NSError *failure) {
+                    copyError = failure; return NO;
+                }];
+            for (NSString *path in enumerator)
+            {
+                if (copyError || self.windowsCopyOperation.isCancelled) break;
+                if ([path.lastPathComponent isEqual:@".DS_Store"] ||
+                    [path.lastPathComponent isEqual:@".gitkeep"]) continue;
+                NSDictionary *attributes = [filesystem attributesOfFileAtPath:path error:&copyError];
+                if (!attributes) break;
+                NSURL *destination = [staging URLByAppendingPathComponent:path];
+                if ([attributes[NSFileType] isEqual:NSFileTypeDirectory])
+                    [manager createDirectoryAtURL:destination withIntermediateDirectories:YES attributes:nil error:&copyError];
+                else if ([attributes[NSFileType] isEqual:NSFileTypeRegular])
+                {
+                    [manager createDirectoryAtURL:destination.URLByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:&copyError];
+                    if (!copyError) [manager copyItemAtURL:[filesystem fileURLForPath:path] toURL:destination error:&copyError];
+                    if (!copyError) filesCopied++;
+                    if ([path.lastPathComponent caseInsensitiveCompare:@"WIN.COM"] == NSOrderedSame)
+                        windowsPath = path;
+                }
+                else
+                    copyError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError
+                        userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"The Windows C: drive contains a link or special file. Choose a gamebox with self-contained Windows files.", nil)}];
+            }
+            if (!copyError && !windowsPath)
+            {
+                NSLog(@"Windows import: no WIN.COM after copying %lu files from %@ (shadow %@)",
+                      (unsigned long)filesCopied, filesystem.baseURL, filesystem.shadowURL);
+                copyError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError
+                    userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"No WIN.COM was found in this gamebox’s C: drive. Choose a gamebox with Windows 3.x already installed.", nil)}];
+            }
+            if (self.windowsCopyOperation.isCancelled) { [manager removeItemAtURL:staging error:NULL]; return; }
+            //Capture ordinary locals so the copied completion block retains these
+            //objects after this worker's autorelease pool drains (this file uses MRC).
+            NSError *resultError = copyError;
+            NSString *resultWindowsPath = windowsPath;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.windowsCopyOperation = nil;
+                if (self->_isClosing) { [manager removeItemAtURL:staging error:NULL]; return; }
+                NSError *generationError = resultError;
+                if (!generationError && [self _generateGameboxWithError:&generationError])
+                {
+                    //The freshly generated C drive is empty; replace it with the complete copy.
+                    [manager removeItemAtURL:self.rootDriveURL error:&generationError];
+                    if (!generationError) [manager moveItemAtURL:staging toURL:self.rootDriveURL error:&generationError];
+                    if (!generationError) [configuration writeToURL:self.gamebox.configurationFileURL error:&generationError];
+                }
+                [manager removeItemAtURL:staging error:NULL];
+                self.windowsStagingURL = nil;
+                if (generationError)
+                {
+                    if (self.gamebox) [manager removeItemAtURL:self.gamebox.bundleURL error:NULL];
+                    self.gamebox = nil; self.rootDriveURL = nil; self.fileURL = self.sourceURL;
+                    self.importStage = BXImportSessionWaitingForInstaller;
+                    [self presentError:generationError modalForWindow:self.windowForSheet delegate:nil didPresentSelector:NULL contextInfo:NULL];
+                    return;
+                }
+                //Do not import startup commands from the source disc or the template game.
+                self.configurationToImport = nil; self.bundledConfigurationURL = nil;
+                self.windowsInstallerURL = URL;
+                self.windowsStartupChosen = NO;
+                self.targetURL = [self.rootDriveURL URLByAppendingPathComponent:resultWindowsPath];
+                self.importStage = BXImportSessionRunningInstaller;
+                self.importWindowController.shouldCloseDocument = NO;
+                self.DOSWindowController.shouldCloseDocument = YES;
+                [self.importWindowController handOffToController:self.DOSWindowController];
+                [self start];
+            });
+        }
+    }];
+    self.windowsCopyOperation = operation;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{ [operation start]; });
+}
+
+- (void)runLaunchCommandsForEmulator:(BXEmulator *)emulator
+{
+    if (self.windowsInstallerURL)
+    {
+        self.targetArguments = [emulator DOSPathForLogicalURL:self.windowsInstallerURL];
+        if (!self.targetArguments)
+        {
+            [self presentError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadNoSuchFileError
+                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"The Windows installer is no longer available. Reinsert the installation disc.", nil)}]];
+            return;
+        }
+        NSString *path = [self.targetArguments stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+        self.targetWorkingDirectory = [path.stringByDeletingLastPathComponent stringByReplacingOccurrencesOfString:@"/" withString:@"\\"];
+        if ([self.targetWorkingDirectory hasSuffix:@":"]) self.targetWorkingDirectory = [self.targetWorkingDirectory stringByAppendingString:@"\\"];
+    }
+    [super runLaunchCommandsForEmulator:emulator];
 }
 
 - (void) skipInstaller
 {
 	self.targetURL = nil;
 	self.importStage = BXImportSessionReadyToFinalize;
-
+    
     //Create a new gamebox for us to import into.
     NSError *generationError;
     BOOL createdGamebox = [self _generateGameboxWithError: &generationError];
-
+    
     NSAssert(createdGamebox, @"Gamebox creation failed with error: %@", generationError);
-
+	
 	[self importSourceFiles];
 }
 
 - (void) finishInstaller
-{
+{	
+    if (self.windowsInstallerURL && !self.windowsStartupChosen && self.isEmulating)
+    {
+        [self chooseWindowsProgramForImportWithCompletion:^(BOOL saved) {
+            if (saved) { self.windowsStartupChosen = YES; [self finishInstaller]; }
+        }];
+        return;
+    }
 	//Stop the emulation process
 	[self cancel];
-
-	//Capture a snapshot of the root drive after installation and detect the installed executable
-	[self _recordPostInstallSnapshotAndDetectExecutableIfNeeded];
-
+	
 	//Close the program panel before handoff, otherwise it scales weirdly
 	[self.DOSWindowController hideProgramPanel: self];
-
+	
 	//Close the inspector panel also
 	[BXInspectorController controller].visible = NO;
-
+	
 	//Hide the DOS view
     [self.DOSWindowController switchToPanel: BXDOSWindowLoadingPanel animate: YES];
-
+	
 	//Switch to the next stage before handing off, so that the correct panel is visible as soon as we do
 	self.importStage = BXImportSessionReadyToFinalize;
-
+	
 	//Finally, hand off to the import window
 	[self.importWindowController pickUpFromController: self.DOSWindowController];
-
+	
 	//Aaaaand start in on the next stage immediately
 	[self importSourceFiles];
 }
@@ -816,21 +961,21 @@
 	//The fact that we're even checking this shit is proof that this class needs refactoring big-time
 	NSAssert(self.importStage == BXImportSessionReadyToFinalize, @"BXImportSession importSourceFiles: was called before we are ready to finalize.");
 	NSAssert(self.sourceURL != nil, @"No source URL for the import has been chosen.");
-
-
+	
+    
     //Before we begin, wait for any already-in-progress operations to finish
 	//(In case the user started importing volumes via the Drives panel during installation)
 	[self.importQueue waitUntilAllOperationsAreFinished];
-
-
+	
+    
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSSet *bundleableTypes = [[BXFileTypes mountableFolderTypes] setByAddingObjectsFromSet: [BXFileTypes mountableImageTypes]];
-
-
+    
+	
 	//Determine how we should import the source files
 	//-----------------------------------------------
-
+    
 	//If the source path no longer exists, it means the user probably
     //ejected the disk and we can't import it.
 	//FIXME: make this properly handle the case where the source path
@@ -842,7 +987,7 @@
 		[self finalizeGamebox];
 		return;
 	}
-
+	
 	//If there are already drives in the gamebox other than C,
     //it means the user did their own importing and we shouldn't
     //interfere with their work.
@@ -853,8 +998,8 @@
 		[self finalizeGamebox];
 		return;
 	}
-
-
+	
+	
 	//At this point, all the edge cases are out of the way
     //and we know we'll need to import something.
 	//Now we need to decide exactly what we're importing,
@@ -862,38 +1007,38 @@
     ADBOperation *importOperation = nil;
 	BXSourceFileImportType importType = BXImportTypeUnknown;
     BOOL didInstallFiles = self.gameDidInstall;
-
+    
     //If we have a configuration file to work from, check it to see if it defines any drives.
     //If so, we'll import those drives directly.
     if (self.bundledConfigurationURL)
         self.configurationToImport = [BXEmulatorConfiguration configurationWithContentsOfURL: self.bundledConfigurationURL
                                                                                        error: NULL];
-
+    
     if (self.configurationToImport && (!self.gameProfile || self.gameProfile.shouldImportMountCommands))
     {
         NSArray *mountCommands = [self.class mountCommandsFromConfiguration: self.configurationToImport];
         if (mountCommands.count)
         {
             NSURL *baseURL = self.bundledConfigurationURL.URLByDeletingLastPathComponent;
-
+            
             ADBFileTransferSet *driveImportSet = [[[ADBFileTransferSet alloc] init] autorelease];
             driveImportSet.copyFiles = YES;
-
+            
             for (NSString *mountCommand in mountCommands)
             {
                 BXDrive *driveToImport = [BXEmulator driveFromMountCommand: mountCommand
                                                              relativeToURL: baseURL
                                                                      error: NULL];
-
+                
                 ADBOperation <BXDriveImport> *driveImport = [self importOperationForDrive: driveToImport
                                                                          startImmediately: NO];
-
+                
                 if (driveImport)
                 {
                     driveImport.delegate = nil;
-
+                    
                     [driveImportSet.operations addObject: driveImport];
-
+                    
                     //If a drive C was defined, then remove our gamebox's own drive C.
                     //FIXME: work out how to make this non-destructive if didInstallFiles is YES,
                     //i.e. if we ran an installer first that put its own files on drive C.
@@ -913,16 +1058,16 @@
                         NSError *driveError = [BXImportDriveUnavailableError errorWithSourceURL: self.sourceURL
                                                                                           drive: driveToImport
                                                                                        userInfo: nil];
-
+                        
                         [self presentError: driveError
                             modalForWindow: self.windowForSheet
                                   delegate: nil
                         didPresentSelector: NULL
                                contextInfo: NULL];
-
+                        
                         //Bail out altogether.
                         //TODO: throw this up to an upstream context.
-
+                        
                         [manager removeItemAtURL: self.gamebox.bundleURL error: NULL];
                         self.sourceURL = nil;
                         self.fileURL = nil;
@@ -933,7 +1078,7 @@
                     }
                 }
             }
-
+            
             //Once all operations have been defined, run through them looking for nested drives:
             //i.e. drives that are located within the file structure of another drive import operation.
             for (ADBOperation <BXDriveImport> *driveImport in driveImportSet.operations)
@@ -941,30 +1086,30 @@
                 for (ADBOperation <BXDriveImport> *otherDriveImport in driveImportSet.operations)
                 {
                     if (driveImport == otherDriveImport) continue;
-
+                    
                     NSURL *driveURL1 = driveImport.drive.sourceURL, *driveURL2 = otherDriveImport.drive.sourceURL;
-
+                    
                     if (![driveURL1 isEqual: driveURL2] && [driveURL1 isBasedInURL: driveURL2])
                     {
                         //Make the import for the nested drive dependent on the import for the containing drive,
                         //so that it won't start until the other drive has been copied.
                         [driveImport addDependency: otherDriveImport];
-
+                        
                         //Change the source path for the nested drive to point to where the drive will
                         //have ended up after the containing drive has been copied.
                         NSString *relativeSourcePath = [driveURL1 pathRelativeToURL: driveURL2];
                         NSURL *driveDestination = otherDriveImport.preferredDestinationURL;
                         NSURL *intermediateSourceURL = [driveDestination URLByAppendingPathComponent: relativeSourcePath];
-
+                        
                         driveImport.drive.sourceURL = intermediateSourceURL;
-
+                        
                         //Make the nested drive import into a move operation instead,
                         //since the drive's files will have been copied along with the containing drive.
                         [driveImport setCopyFiles: NO];
                     }
                 }
             }
-
+            
             if (driveImportSet.operations.count)
             {
                 importOperation = driveImportSet;
@@ -972,22 +1117,22 @@
             }
         }
     }
-
+    
     //If no configuration file was available to guide importing,
     //scan the source path itself to see how best to import it.
     if (!importOperation)
     {
         BXDrive *driveToImport = nil;
-
+        
         BOOL isMountableImage = [self.sourceURL matchingFileType: [BXFileTypes mountableImageTypes]] != nil;
         BOOL isMountableFolder = !isMountableImage && [self.sourceURL matchingFileType: [BXFileTypes mountableFolderTypes]] != nil;
-
+        
         //If the source path is directly bundleable (it is an image or a mountable folder)
         //then import it as a new drive into the gamebox.
         if (isMountableImage || isMountableFolder)
         {
             driveToImport = [BXDrive driveWithContentsOfURL: self.sourceURL letter: nil type: BXDriveAutodetect];
-
+            
             //If the drive is marked as being for drive C, then check what we need to do with our original C drive
             if ([driveToImport.letter isEqualToString: @"C"])
             {
@@ -1003,7 +1148,7 @@
                     [manager removeItemAtURL: self.rootDriveURL error: nil];
                 }
             }
-
+            
             //Mark what kind of import we're doing based on what the autodetected drive type is
             switch (driveToImport.type)
             {
@@ -1016,7 +1161,7 @@
             }
             importOperation = [self importOperationForDrive: driveToImport startImmediately: NO];
         }
-
+        
         //Otherwise, we need to decide if the source path represents an already-installed
         //game folder (which should be imported directly to the C drive) or whether it
         //represents the original install media (which should be imported as a separate
@@ -1025,13 +1170,11 @@
         {
             NSURL *volumeURL = nil;
             [self.sourceURL getResourceValue: &volumeURL forKey: NSURLVolumeURLKey error: NULL];
-
-            //For non-volume sources (like .cue files), volumeURL will be nil
-            NSString *volumeType = volumeURL ? [workspace typeOfVolumeAtURL: volumeURL] : nil;
-
+            NSString *volumeType = [workspace typeOfVolumeAtURL: volumeURL];
+            
             BOOL isRealCDROM = [volumeType isEqualToString: ADBDataCDVolumeType];
-            BOOL isRealFloppy = !isRealCDROM && volumeURL && [workspace isFloppyVolumeAtURL: volumeURL];
-
+            BOOL isRealFloppy = !isRealCDROM && [workspace isFloppyVolumeAtURL: volumeURL];
+            
             //If the installer copied files to our C drive, or the source files are on
             //a CDROM/floppy volume, then the source files presumably represent the original
             //install media and should be imported as a new CD-ROM/floppy disk.
@@ -1040,14 +1183,14 @@
                 NSURL *URLToImport = self.sourceURL;
                 NSURL *sourceImageURL = [workspace sourceImageForVolumeAtURL: self.sourceURL];
                 BOOL isDiskImage = NO;
-
+            
                 //If the source path is on a DOSBox-compatible disk image, then import the image directly.
                 if (sourceImageURL && [sourceImageURL matchingFileType: [BXFileTypes mountableImageTypes]] != nil)
                 {
                     isDiskImage = YES;
                     URLToImport = sourceImageURL;
                 }
-
+                
                 //If the source is an actual floppy disk, or this game expects to be installed off floppies,
                 //then import the source files as a floppy disk.
                 if (isRealFloppy || self.gameProfile.sourceDriveType == BXDriveFloppyDisk)
@@ -1055,7 +1198,7 @@
                     if (isDiskImage)		importType = BXImportFromFloppyImage;
                     else if (isRealFloppy)	importType = BXImportFromFloppyVolume;
                     else					importType = BXImportFromFolderToFloppy;
-
+                    
                     driveToImport = [BXDrive driveWithContentsOfURL: URLToImport letter: @"A" type: BXDriveFloppyDisk];
                 }
                 //In all other cases, import the source files as a CD-ROM drive.
@@ -1064,26 +1207,26 @@
                     if (isDiskImage)		importType = BXImportFromCDImage;
                     else if (isRealCDROM)	importType = BXImportFromCDVolume;
                     else					importType = BXImportFromFolderToCD;
-
+                
                     driveToImport = [BXDrive driveWithContentsOfURL: URLToImport letter: @"D" type: BXDriveCDROM];
                 }
-
+                
                 importOperation = [self importOperationForDrive: driveToImport startImmediately: NO];
             }
-
+            
             //If the game didn't install anything and we're not importing a CD or floppy disk,
             //then assume that the source files represent an already-installed game, and copy
             //the source files directly into the gamebox's C drive.
             else
             {
                 importType = BXImportFromPreInstalledGame;
-
+                
                 //Guess whether the game files expect to be located in the root of drive C
                 //(GOG games, Steam games etc.) or in a subfolder within drive C
                 //(almost everything else)
                 BOOL needsSubfolder = [self.class shouldUseSubfolderForSourceFilesAtURL: self.sourceURL];
                 NSString *subfolderPath	= self.gameProfile.preferredInstallationFolderPath;
-
+                
                 if (needsSubfolder && ![subfolderPath isEqualToString: @""])
                 {
                     //If the game profile didn't suggest a specific path then
@@ -1093,9 +1236,9 @@
                         //Ensure the destination name will be DOSBox-compatible
                         subfolderPath = [self.class validDOSNameFromName: self.sourceURL.lastPathComponent];
                     }
-
+                    
                     NSURL *destinationURL = [self.rootDriveURL URLByAppendingPathComponent: subfolderPath];
-
+                    
                     //If we need to copy the source path into a subfolder of drive C,
                     //then do this as a regular file copy rather than a drive import.
                     importOperation = [ADBSingleFileTransfer transferFromPath: self.sourceURL.path
@@ -1115,16 +1258,16 @@
             }
         }
 	}
-
+    
 	//Set up the import operation and start it running.
 	self.sourceFileImportType = importType;
 	self.sourceFileImportOperation = importOperation;
-
+    
 	//If the gamebox is empty, then we need to import the source files for it to work at all;
 	//so make cancelling the drive import cancel the rest of the import as well.
 	self.sourceFileImportRequired = !didInstallFiles;
 	self.importStage = BXImportSessionImportingSourceFiles;
-
+	
 	[self.importQueue addOperation: importOperation];
 }
 
@@ -1140,7 +1283,7 @@
 - (void) cancelSourceFileImport
 {
 	NSOperation *operation = self.sourceFileImportOperation;
-
+	
 	if (operation && !operation.isFinished && self.importStage == BXImportSessionImportingSourceFiles)
 	{
 		[operation cancel];
@@ -1157,7 +1300,7 @@
 	{
 		[_sourceFileImportOperation release];
         _sourceFileImportOperation = [operation retain];
-
+		
 		//Set up our source file import operation with custom callbacks
 		if (operation)
 		{
@@ -1171,7 +1314,7 @@
 - (void) sourceFileImportInProgress: (NSNotification *)notification
 {
 	ADBOperation *operation = notification.object;
-
+    
 	//Update our own progress to match the operation's progress
 	self.stageProgressIndeterminate = operation.isIndeterminate;
 	self.stageProgress = operation.currentProgress;
@@ -1180,10 +1323,10 @@
 - (void) sourceFileImportDidFinish: (NSNotification *)notification
 {
 	ADBOperation *operation = notification.object;
-
+	
 	//Some source-file copies can be simple file transfers
 	BOOL isImport = [operation conformsToProtocol: @protocol(BXDriveImport)];
-
+	
 	//If the operation succeeded or was cancelled by the user,
 	//then proceed with the next stage of the import (cleanup.)
 	if (operation.succeeded || operation.isCancelled)
@@ -1198,22 +1341,22 @@
                 self.rootDriveURL = ((id <BXDriveImport>)operation).destinationURL;
             }
         }
-
+		
 		self.sourceFileImportOperation = nil;
 		[self finalizeGamebox];
 	}
-
+	
 	//If the operation failed with an error, then determine if we can retry
 	//with a safer import method, or skip to the next stage if not.
 	else
 	{
 		ADBOperation <BXDriveImport> *fallbackImport = nil;
-
+		
 		//Check if we can retry the operation...
 		if (isImport && (fallbackImport = [BXDriveImport fallbackForFailedImport: (id <BXDriveImport>)operation]) != nil)
 		{
 			self.sourceFileImportOperation = fallbackImport;
-
+			
 			//IMPLEMENTATION NOTE: we add a short delay before retrying from BIN/CUE imports,
 			//to allow time for the original volume to remount fully.
 			if ([operation isKindOfClass: [BXBinCueImageImport class]])
@@ -1222,7 +1365,7 @@
 			}
 			else [self.importQueue addOperation: fallbackImport];
 		}
-
+		
 		//..and if not, skip the import altogether and pretend everything's OK.
 		//TODO: analyze whether this failure will have resulted in an unusable gamebox,
 		//then warn the user and offer to try importing again.
@@ -1237,17 +1380,17 @@
 - (void) finalizeGamebox
 {
 	self.importStage = BXImportSessionCleaningGamebox;
-
+	
     //Import any bundled DOSBox configuration: converting any launch commands into a launcher batch file.
     if (self.configurationToImport)
-    {
+    {   
         if (!self.gameProfile || self.gameProfile.shouldImportLaunchCommands)
         {
             //If the original autoexec contained any launch commands, convert those
             //into a launcher batchfile in the root drive: we then assign that as
             //the default program to launch.
             NSArray *launchCommands = [self.class launchCommandsFromConfiguration: self.configurationToImport];
-
+            
             if (launchCommands.count)
             {
                 //Add an echo-off to the top of the launch commands if there isn't one already there.
@@ -1256,15 +1399,15 @@
                     launchCommands = [[launchCommands mutableCopy] autorelease];
                     [(NSMutableArray *)launchCommands insertObject: @"@echo off" atIndex: 0];
                 }
-
+                
                 NSURL *launcherURL = [self.rootDriveURL URLByAppendingPathComponent: @"bxlaunch.bat"];
                 NSString *startupCommandString = [launchCommands componentsJoinedByString: @"\r\n"];
-
+                
                 BOOL createdLauncher = [startupCommandString writeToURL: launcherURL
                                                              atomically: NO
                                                                encoding: BXDisplayStringEncoding
                                                                   error: nil];
-
+                
                 if (createdLauncher)
                 {
                     [self.gamebox addLauncherWithURL: launcherURL
@@ -1273,32 +1416,31 @@
                 }
             }
         }
-
+        
         if (!self.gameProfile || self.gameProfile.shouldImportSettings)
         {
             //Strip out all the junk we don't care about from the original game configuration.
             BXEmulatorConfiguration *sanitizedConfig = [self.class sanitizedVersionOfConfiguration: self.configurationToImport];
-
+            
             //Save the sanitized configuration into our new gamebox.
             [self _saveGameboxConfiguration: sanitizedConfig];
         }
     }
-
-
-    //If we detected a Windows-installed executable, create a launcher that runs it via WIN.COM
-    [self _configureWindowsLauncherIfNeeded];
-
+    
+    
     //After picking up any bundled configuration, scan the imported root drive
     //to strip out unnecessary files and to migrate any remaining disc images.
 	NSFileManager *manager	= [NSFileManager defaultManager];
-
-	NSURL *URLToClean = self.rootDriveURL;
+    
+	//Windows keeps useful .PIF/.CONF files and driver resources that resemble DOS
+    //import junk. Preserve its installed filesystem without DOS cleanup heuristics.
+	NSURL *URLToClean = self.windowsInstallerURL ? nil : self.rootDriveURL;
 	NSSet *bundleableTypes = [[BXFileTypes mountableFolderTypes] setByAddingObjectsFromSet: [BXFileTypes mountableImageTypes]];
-	NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL: URLToClean
+	NSDirectoryEnumerator *enumerator = URLToClean ? [manager enumeratorAtURL: URLToClean
                                       includingPropertiesForKeys: nil
                                                          options: 0
-                                                    errorHandler: NULL];
-
+                                                    errorHandler: NULL] : nil;
+	
 	for (NSURL *URL in enumerator)
 	{
 		//Grab the relative path to use for heuristic filename-pattern checks,
@@ -1309,49 +1451,49 @@
 			[manager removeItemAtURL: URL error: NULL];
 			continue;
 		}
-
+		
 		BOOL isBundleable = ([URL matchingFileType: bundleableTypes] != nil);
-
+        
         //TWEAK: exclude .img images from the bundleable types, because it is much more
         //likely that these are regular resource files for a DOS game, not actual images.
         //TODO: validate whether each found image is actually a proper image, regardless
         //of file extension.
         if (isBundleable && [URL.pathExtension.lowercaseString isEqualToString: @"img"])
             isBundleable = NO;
-
+        
         //If this file is a mountable type, move it into the gamebox's root folder where we can find it.
 		if (isBundleable)
 		{
 			BXDrive *drive = [BXDrive driveWithContentsOfURL: URL letter: nil type: BXDriveAutodetect];
-
+			
 			ADBOperation <BXDriveImport> *importOperation = [BXDriveImport importOperationForDrive: drive
                                                                               destinationFolderURL: self.gamebox.resourceURL
                                                                                          copyFiles: NO];
-
+			
 			//Note: we don't set ourselves as a delegate for this import operation
 			//because we don't care about success or failure notifications.
 			[self.importQueue addOperation: importOperation];
 		}
 	}
-
+	
 	//Any import operations we do in this stage would be moves within the same volume,
 	//so they should be done already, but let's wait anyway.
 	[self.importQueue waitUntilAllOperationsAreFinished];
-
+	
 	//That's all folks!
 	self.importStage = BXImportSessionFinished;
-
+	
 	//Add to the recent documents list
 	[[NSDocumentController sharedDocumentController] noteNewRecentDocument: self];
-
+	
 	//If we're not focused, let the user know via a notification that we're done
     if (![NSApp isActive] && [ADBUserNotificationDispatcher userNotificationsAvailable])
 	{
         NSUserNotification *notification = [[NSUserNotification alloc] init];
-
+        
         notification.title = self.displayName;
         notification.subtitle = NSLocalizedString(@"Game imported successfully", @"Subtitle of user notification shown when a game finishes importing.");
-
+        
         [[ADBUserNotificationDispatcher dispatcher] scheduleNotification: notification
                                                                   ofType: BXGameImportedNotificationType
                                                               fromSender: self
@@ -1359,7 +1501,7 @@
                                                                 [self showWindows];
                                                                 [[ADBUserNotificationDispatcher dispatcher] removeNotification: deliveredNotification];
                                                             }];
-
+        
         [notification release];
     }
     //Otherwise, just bounce the dock icon to notify the user that we're done
@@ -1383,14 +1525,14 @@
                                        withObject: self
                                        afterDelay: 1.0];
     }
-
+    
 	//Don't set the active program if we already have one: this way, we keep
 	//track of which program the user manually launched, and won't glom onto
     //other programs spawned by the original program (e.g. if it was a batch file.)
 	if (!self.launchedProgramURL)
 	{
 		NSURL *programURL = [notification.userInfo objectForKey: BXEmulatorLogicalURLKey];
-
+        
         if (programURL)
         {
             NSString *arguments = [notification.userInfo objectForKey: BXEmulatorLaunchArgumentsKey];
@@ -1398,9 +1540,12 @@
             self.launchedProgramArguments = arguments;
 		}
 	}
-
+    
     //Enable/disable display-sleep suppression
     [self _syncSuppressesDisplaySleep];
+    //This override handles installer-specific presentation instead of calling
+    //super, but must keep the superclass's program-launch readiness in sync.
+    self.canOpenURLs = !self.emulator.isRunningActiveProcess;
 }
 
 //Overridden to always drop out of fullscreen mode after quitting a program,
@@ -1411,12 +1556,14 @@
     self.launchedProgramURL = nil;
     self.launchedProgramArguments = nil;
 
+    self.canOpenURLs = !self.emulator.isRunningActiveProcess;
+	
 	//Show the program chooser after returning to the DOS prompt
 	//(Show only after a delay, so that the window has time to resize after quitting the game)
 	[self.DOSWindowController performSelector: @selector(showProgramPanel:)
                                    withObject: self
                                    afterDelay: 1.0];
-
+	
 	//Always drop out of fullscreen mode when we return to the prompt,
 	//so that users can see the "finish importing" option
 	[self.DOSWindowController exitFullScreen];
@@ -1425,7 +1572,7 @@
 - (void) emulatorDidFinish: (NSNotification *)notification
 {
 	[super emulatorDidFinish: notification];
-
+	
 	//Once the emulation session finishes, finalize the import.
     //IMPLEMENTATION NOTE: isCancelled will be NO if the user quit by typing "exit" at
     //the command prompt, in which case we just assume they wanted to finish.
@@ -1469,7 +1616,7 @@
     //autopause-in-background preference is on: this allows lengthy copy operations
     //to continue in the background.
     if (!self.emulator.isAtPrompt) return NO;
-
+    
     else return [super _shouldAutoPause];
 }
 
@@ -1515,7 +1662,7 @@
     NSError *mountError = nil;
 	BXDrive *destinationDrive = [BXDrive driveWithContentsOfURL: self.rootDriveURL letter: @"C" type: BXDriveHardDisk];
     destinationDrive.title = NSLocalizedString(@"Destination Drive",
-                                               @"The display title for the gamebox's C drive when importing a game.");
+                                               @"The display title for the gamebox’s C drive when importing a game.");
 	destinationDrive.freeSpace = freeSpace;
     
 	[self mountDrive: destinationDrive
@@ -1526,298 +1673,71 @@
 	//Then, create a drive of the appropriate type from the source files and mount away
 	BXDrive *sourceDrive = [BXDrive driveWithContentsOfURL: self.sourceURL letter: nil type: sourceDriveType];
 	[sourceDrive setTitle: NSLocalizedString(@"Source Drive", @"The display title for the source drive when importing.")];
-	
-	NSLog(@"[BXImportSession _mountDrivesForSession] About to mount source drive: %@, type: %ld, mountPoint: %@", sourceDrive.sourceURL, (long)sourceDrive.type, sourceDrive.mountPointURL);
-	
-	BOOL mounted = [self mountDrive: sourceDrive
-						ifExists: BXDriveReplace
-						 options: BXImportSourceMountOptions
-						   error: &mountError];
-	
-	NSLog(@"[BXImportSession _mountDrivesForSession] Source drive mounted: %d, error: %@", mounted, mountError);
+    
+    [self mountDrive: sourceDrive
+            ifExists: BXDriveReplace
+             options: BXImportSourceMountOptions
+               error: &mountError];
 	
 	//Automount all currently mounted floppy and CD-ROM volumes
 	[self mountFloppyVolumesWithError: &mountError];
 	[self mountCDVolumesWithError: &mountError];
-
+	
 	//Mount our internal DOS toolkit and temporary drives unless the profile says otherwise
 	if (!self.gameProfile || self.gameProfile.shouldMountHelperDrivesDuringImport)
 	{
 		[self mountToolkitDriveWithError: &mountError];
-
+        
         if (!self.gameProfile || self.gameProfile.shouldMountTempDrive)
             [self mountTempDriveWithError: &mountError];
 	}
 }
 
-- (NSArray<NSString*> *) _snapshotRelativePathsForRootDriveIncludeDirectories: (BOOL)includeDirectories
-                                                                    filesOnly: (BOOL)filesOnly
-{
-    if (!self.rootDriveURL) return @[];
-
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSDirectoryEnumerationOptions options = NSDirectoryEnumerationSkipsHiddenFiles;
-
-    NSMutableArray<NSString*> *paths = [NSMutableArray array];
-    NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL: self.rootDriveURL
-                                     includingPropertiesForKeys: @[NSURLIsDirectoryKey, NSURLIsRegularFileKey]
-                                                        options: options
-                                                   errorHandler: NULL];
-
-    for (NSURL *URL in enumerator)
-    {
-        NSNumber *isDirectory = nil;
-        NSNumber *isFile = nil;
-        [URL getResourceValue: &isDirectory forKey: NSURLIsDirectoryKey error: NULL];
-        [URL getResourceValue: &isFile forKey: NSURLIsRegularFileKey error: NULL];
-
-        if (filesOnly && !isFile.boolValue) continue;
-        if (!includeDirectories && isDirectory.boolValue) continue;
-
-        NSString *relativePath = [URL pathRelativeToURL: self.rootDriveURL];
-        if (relativePath.length == 0) continue;
-
-        if (includeDirectories && isDirectory.boolValue && ![relativePath hasSuffix: @"/"])
-            relativePath = [relativePath stringByAppendingString: @"/"];
-
-        [paths addObject: relativePath];
-    }
-
-    [paths sortUsingSelector: @selector(caseInsensitiveCompare:)];
-    return paths;
-}
-
-- (void) _writeSnapshot: (NSArray<NSString*> *)snapshot
-            toFilename: (NSString *)filename
-{
-    if (!self.gamebox || !filename.length) return;
-
-    NSURL *snapshotURL = [self.gamebox.resourceURL URLByAppendingPathComponent: filename];
-    NSString *contents = [snapshot componentsJoinedByString: @"\n"];
-    [contents writeToURL: snapshotURL
-              atomically: YES
-                encoding: NSUTF8StringEncoding
-                   error: NULL];
-}
-
-- (NSString *) _dosPathForRelativePath: (NSString *)relativePath
-{
-    if (!relativePath.length) return nil;
-    NSString *dosPath = [relativePath stringByReplacingOccurrencesOfString: @"/" withString: @"\\"];
-    return [@"C:\\" stringByAppendingString: dosPath];
-}
-
-- (NSString *) _detectWindowsExecutableFromNewFiles: (NSArray<NSString*> *)newFiles
-{
-    if (!newFiles.count) return nil;
-
-    NSArray<NSString*> *installerNames = @[
-        @"setup.exe",
-        @"install.exe",
-        @"inst.exe",
-        @"setup32.exe",
-        @"install32.exe",
-        @"winsetup.exe",
-        @"wininstall.exe"
-    ];
-
-    NSString *bestCandidate = nil;
-    NSInteger bestScore = NSIntegerMin;
-
-    for (NSString *relativePath in newFiles)
-    {
-        NSURL *fileURL = [self.rootDriveURL URLByAppendingPathComponent: relativePath];
-        if (![fileURL matchingFileType: [BXFileTypes executableTypes]]) continue;
-
-        //Skip DOS-compatible executables; we're only interested in Windows executables
-        if ([BXFileTypes isCompatibleExecutableAtURL: fileURL error: NULL]) continue;
-
-        NSString *lowerPath = relativePath.lowercaseString;
-        NSString *fileName = lowerPath.lastPathComponent;
-
-        BOOL looksLikeInstaller = [installerNames containsObject: fileName] ||
-                                  [fileName hasSuffix: @"_setup.exe"] ||
-                                  [fileName hasSuffix: @"_install.exe"];
-
-        BOOL inWindowsFolder = [lowerPath hasPrefix: @"windows/"] ||
-                               [lowerPath hasPrefix: @"dos/"] ||
-                               [lowerPath hasPrefix: @"system/"] ||
-                               [lowerPath hasPrefix: @"sb16/"];
-
-        NSInteger depthScore = 0;
-        NSInteger pathDepth = relativePath.pathComponents.count;
-        depthScore = MAX(0, 10 - pathDepth);
-
-        NSInteger score = 0;
-        if (!looksLikeInstaller) score += 10;
-        if (!inWindowsFolder) score += 10;
-        score += depthScore;
-
-        if (score > bestScore)
-        {
-            bestScore = score;
-            bestCandidate = relativePath;
-        }
-    }
-
-    return bestCandidate;
-}
-
-- (void) _recordPreInstallSnapshotIfNeeded
-{
-    if (self.preInstallSnapshot.count || !self.rootDriveURL) return;
-
-    self.preInstallSnapshot = [self _snapshotRelativePathsForRootDriveIncludeDirectories: YES filesOnly: NO];
-    self.preInstallFileSnapshot = [self _snapshotRelativePathsForRootDriveIncludeDirectories: NO filesOnly: YES];
-
-    [self _writeSnapshot: self.preInstallSnapshot toFilename: @"install_snapshot_before.txt"];
-}
-
-- (void) _recordPostInstallSnapshotAndDetectExecutableIfNeeded
-{
-    if (self.postInstallSnapshot.count || !self.rootDriveURL) return;
-
-    self.postInstallSnapshot = [self _snapshotRelativePathsForRootDriveIncludeDirectories: YES filesOnly: NO];
-    self.postInstallFileSnapshot = [self _snapshotRelativePathsForRootDriveIncludeDirectories: NO filesOnly: YES];
-
-    [self _writeSnapshot: self.postInstallSnapshot toFilename: @"install_snapshot_after.txt"];
-
-    //Compute new files added since pre-install snapshot
-    NSSet *preFiles = [NSSet setWithArray: self.preInstallFileSnapshot ?: @[]];
-    NSMutableArray<NSString*> *newFiles = [NSMutableArray array];
-    for (NSString *path in self.postInstallFileSnapshot ?: @[])
-    {
-        if (![preFiles containsObject: path])
-            [newFiles addObject: path];
-    }
-
-    //Save the delta for inspection
-    [self _writeSnapshot: newFiles toFilename: @"install_snapshot_delta.txt"];
-
-    NSString *detectedExe = [self _detectWindowsExecutableFromNewFiles: newFiles];
-    if (detectedExe.length)
-    {
-        self.installedWindowsExecutableRelativePath = detectedExe;
-
-        NSString *summary = [NSString stringWithFormat:@"Detected Windows executable: %@", detectedExe];
-        [summary writeToURL:[self.gamebox.resourceURL URLByAppendingPathComponent:@"install_detected_exe.txt"]
-                 atomically:YES
-                   encoding:NSUTF8StringEncoding
-                      error:NULL];
-    }
-}
-
-- (void) _configureWindowsLauncherIfNeeded
-{
-    if (!self.installedWindowsExecutableRelativePath.length) return;
-
-    NSURL *winComURL = [self.rootDriveURL URLByAppendingPathComponent: @"WINDOWS/WIN.COM"];
-    if (![winComURL checkResourceIsReachableAndReturnError: NULL]) return;
-
-    NSString *dosPath = [self _dosPathForRelativePath: self.installedWindowsExecutableRelativePath];
-    if (!dosPath.length) return;
-
-    [self.gamebox addLauncherWithURL: winComURL
-                           arguments: dosPath
-                               title: self.gameboxName ?: self.gamebox.gameName];
-
-    self.gamebox.defaultLauncherIndex = self.gamebox.launchers.count - 1;
-}
-
 - (BOOL) _generateGameboxWithError: (NSError **)outError
-{
+{	
 	NSAssert(self.sourceURL != nil, @"_generateGameboxWithError: called before source URL was set.");
 
 	NSFileManager *manager = [NSFileManager defaultManager];
 
 	NSString *gameName		= [self.class validGameboxNameFromName: self.gameProfile.gameName];
 	if (!gameName) gameName	= [self.class gameboxNameForGameAtURL: self.sourceURL];
-
-
+	
+    
     NSURL *gamesFolder = [(BXAppController *)[NSApp delegate] gamesFolderURL];
 	//If the games folder is missing or not set, then fall back on a path we know does exist (the Desktop)
     if (![gamesFolder checkResourceIsReachableAndReturnError: NULL])
         gamesFolder = [(BXAppController *)[NSApp delegate] fallbackGamesFolderURL];
-
+	
     NSString *fullGameName = [gameName stringByAppendingPathExtension: @"boxer"];
 	NSURL *baseGameboxURL = [gamesFolder URLByAppendingPathComponent: fullGameName];
-
+	
     //Create a uniquely named URL
     NSURL *gameboxURL = [manager createDirectoryAtURL: baseGameboxURL
                                        filenameFormat: ADBDefaultIncrementedFilenameFormat
                                            attributes: @{ NSFileExtensionHidden: @(YES) }
                                                 error: outError];
-
+    
     if (!gameboxURL)
         return NO;
-
+    
     BXGamebox *gamebox = [BXGamebox bundleWithURL: gameboxURL];
 	if (gamebox)
 	{
 		//Prep the gamebox by creating an empty C drive in it
 		NSURL *rootDriveURL = [gamebox.resourceURL URLByAppendingPathComponent: @"C.harddisk"];
-
+		
 		BOOL createdRootDrive = [manager createDirectoryAtURL: rootDriveURL
                                   withIntermediateDirectories: NO
                                                    attributes: nil
                                                         error: outError];
-
+		
 		if (createdRootDrive)
 		{
             //Assign this as the gamebox for this session
 			self.gamebox = gamebox;
 			self.fileURL = gamebox.bundleURL;
 			self.rootDriveURL = rootDriveURL;
-
-            //Copy Windows 3.11 base files to the C drive
-            NSURL *windows311SourceURL = [[NSBundle mainBundle] URLForResource:@"Windows311" withExtension:nil];
-            if (windows311SourceURL)
-            {
-                NSLog(@"[BXImportSession] Copying Windows 3.11 files from %@ to C.harddisk", windows311SourceURL.path);
-                
-                NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL:windows311SourceURL
-                                                  includingPropertiesForKeys:@[NSURLIsDirectoryKey]
-                                                                     options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                                errorHandler:nil];
-                
-                for (NSURL *sourceItemURL in enumerator)
-                {
-                    NSString *relativePath = [sourceItemURL.path substringFromIndex:windows311SourceURL.path.length + 1];
-                    NSURL *destItemURL = [rootDriveURL URLByAppendingPathComponent:relativePath];
-                    
-                    NSNumber *isDirectory = nil;
-                    [sourceItemURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
-                    
-                    if (isDirectory.boolValue)
-                    {
-                        [manager createDirectoryAtURL:destItemURL
-                          withIntermediateDirectories:YES
-                                           attributes:nil
-                                                error:nil];
-                    }
-                    else
-                    {
-                        // Create parent directory if needed
-                        NSURL *parentDir = destItemURL.URLByDeletingLastPathComponent;
-                        [manager createDirectoryAtURL:parentDir
-                          withIntermediateDirectories:YES
-                                           attributes:nil
-                                                error:nil];
-                        
-                        [manager copyItemAtURL:sourceItemURL toURL:destItemURL error:nil];
-                    }
-                }
-                
-                NSLog(@"[BXImportSession] Finished copying Windows 3.11 files to C.harddisk");
-            }
-            else
-            {
-                NSLog(@"[BXImportSession] Windows311 resource not found in bundle");
-            }
-
-            //Record a snapshot of the root drive before running any installer
-            [self _recordPreInstallSnapshotIfNeeded];
-
+            
             //Try to find a suitable cover-art icon from the source path
             NSImage *icon = [self.class boxArtForGameAtURL: self.sourceURL];
             if (icon)
@@ -1828,7 +1748,7 @@
             {
                 [self generateBootlegIcon];
             }
-
+            
 			return YES;
 		}
 		//If the C-drive creation failed for some reason, bail out and delete the new gamebox
@@ -1854,18 +1774,18 @@
 - (BOOL) gameDidInstall
 {
 	if (!self.rootDriveURL) return NO;
-
+	
 	//Check if any files were copied to the root drive
     NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL: self.rootDriveURL
                                                              includingPropertiesForKeys: @[NSURLIsRegularFileKey]
                                                                                 options: NSDirectoryEnumerationSkipsHiddenFiles
                                                                            errorHandler: NULL];
-
+	
     for (NSURL *URL in enumerator)
 	{
         NSNumber *isFileFlag = nil;
         BOOL checkedFile = [URL getResourceValue: &isFileFlag forKey: NSURLIsRegularFileKey error: NULL];
-
+        
 		//If any actual files (not empty directories) were created, then assume the game installed.
 		//IMPLEMENTATION NOTE: We'd like to be more rigorous and check for executables, but some
         //CD-ROM games only store configuration files on the hard drive.
@@ -1879,7 +1799,7 @@
 - (void) _cleanup
 {
 	[super _cleanup];
-
+	
 	//Delete our newly-minted gamebox if we didn't finish importing it before we were closed
 	if (self.importStage != BXImportSessionFinished && self.gamebox)
 	{
@@ -1887,10 +1807,10 @@
 		if (path)
 		{
 			NSFileManager *manager = [NSFileManager defaultManager];
-			[manager removeItemAtPath: path error: NULL];
+			[manager removeItemAtPath: path error: NULL];	
 		}
 	}
-
+	
 	//Unmount any source volume that we mounted in the course of importing
 	if (_didMountSourceVolume)
 	{

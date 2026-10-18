@@ -23,6 +23,8 @@ extern "C" {
 #endif
 	
 //Remapped replacements for DOSBox's old sdlmain functions
+//The main loop must drain host input before advancing the next guest tick.
+//Only the additional idle-loop hook below is rate-limited.
 #define GFX_Events boxer_processEvents
 #define GFX_StartUpdate boxer_startFrame
 #define GFX_EndUpdate boxer_finishFrame

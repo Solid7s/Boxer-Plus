@@ -233,8 +233,7 @@
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	
 	//If the chosen path was an audio CD, check if it has a corresponding data path and use that instead
-	NSString *volumeType = URL ? [workspace typeOfVolumeAtURL: URL] : nil;
-	if ([volumeType isEqualToString: ADBAudioCDVolumeType])
+	if ([[workspace typeOfVolumeAtURL: URL] isEqualToString: ADBAudioCDVolumeType])
 	{
 		NSURL *dataVolumeURL = [workspace dataVolumeOfAudioCDAtURL: URL];
 		if (dataVolumeURL) return dataVolumeURL;

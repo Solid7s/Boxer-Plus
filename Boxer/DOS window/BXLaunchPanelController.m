@@ -691,6 +691,7 @@
             
             [session openURLInDOS: URL
                     withArguments: arguments
+                 workingDirectory: itemDetails[@"launcher"][BXLauncherWorkingDirectoryKey]
                       clearScreen: YES
                      onCompletion: completionBehavior
                             error: &launchError];

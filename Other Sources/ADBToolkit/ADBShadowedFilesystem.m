@@ -1137,7 +1137,11 @@ includingPropertiesForKeys: (NSArray *)keys
         //and skip any descendants if it was a directory.
         if ([self.deletedPaths containsObject: filesystemPath])
         {
-            [self skipDescendants];
+            //skipDescendants is only valid for a directory. Calling it for a
+            //deleted regular file can skip the next directory's contents.
+            NSNumber *isDirectory = nil;
+            [nextURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
+            if (isDirectory.boolValue) [self skipDescendants];
             continue;
         }
         

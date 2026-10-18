@@ -169,6 +169,7 @@ extern NSNotificationName const BXViewDidLiveResizeNotification;
 
 /// Toggle the emulator's active rendering filter.
 - (IBAction) toggleRenderingStyle: (id)sender;
+- (IBAction) selectGraphicsProcessor: (id)sender;
 
 /// Increase the draw size of the fullscreen window.
 - (IBAction) incrementFullscreenSize: (id)sender;
