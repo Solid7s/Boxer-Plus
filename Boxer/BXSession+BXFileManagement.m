@@ -128,7 +128,7 @@ NSString * const BXGameStateEmulatorVersionKey = @"BXEmulatorVersion";
 	NSString *volumeType = [workspace typeOfVolumeAtURL: URL];
 	
 	//If it's on a data CD volume or floppy volume, scan from the base folder of the volume
-	if ([volumeType isEqualToString: ADBDataCDVolumeType] || [workspace isFloppyVolumeAtURL: volumeURL])
+	if ([volumeType isEqualToString: ADBDataCDVolumeType] || (volumeURL && [workspace isFloppyVolumeAtURL: volumeURL]))
 	{
 		return volumeURL;
 	}

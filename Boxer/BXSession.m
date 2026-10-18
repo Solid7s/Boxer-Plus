@@ -1234,7 +1234,7 @@ NSString * const BXGameImportedNotificationType     = @"BXGameImported";
         NSURL *detectionURL = (self.hasGamebox) ? self.gamebox.bundleURL : self.targetURL;
         if (detectionURL)
         {
-            BXGameProfile *detectedProfile = [self.class profileForGameAtURL: self.targetURL];
+            BXGameProfile *detectedProfile = [self.class profileForGameAtURL: detectionURL];
             
             if (detectedProfile)
             {

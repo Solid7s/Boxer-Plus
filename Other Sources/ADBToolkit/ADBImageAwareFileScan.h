@@ -26,6 +26,7 @@
 
 
 #import "ADBFileScan.h"
+#import "ADBFilesystem.h"
 
 typedef NS_ENUM(NSInteger, ADBFileScanEjectionBehaviour) {
     ADBFileScanEjectIfSelfMounted,
@@ -35,7 +36,7 @@ typedef NS_ENUM(NSInteger, ADBFileScanEjectionBehaviour) {
 
 
 /// @c ADBImageAwareFileScan is a @c ADBFileScan subclass that can also scan the
-/// contents of any disk image supported by OS X's hdiutil. File matches
+/// contents of CUE/BIN discs and disk images supported by OS X's hdiutil. File matches
 /// will be returned as a relative path appended to the original image path.
 @interface ADBImageAwareFileScan : ADBFileScan
 {
@@ -47,6 +48,10 @@ typedef NS_ENUM(NSInteger, ADBFileScanEjectionBehaviour) {
 /// The volume path at which the original source disk image is mounted.
 /// Only valid while scanning a disk image.
 @property (copy) NSString *mountedVolumePath;
+
+/// Direct reader for images that cannot be mounted by macOS (CUE/BIN).
+/// Retained with the scan results so callers can resolve and read matched files.
+@property (strong) id <ADBFilesystemPathAccess, ADBFilesystemLogicalURLAccess> imageFilesystem;
 
 /// Whether the file scan operation mounted an image volume itself while scanning.
 /// This will be NO if scanning a regular folder or if the scanned image was

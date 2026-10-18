@@ -349,6 +349,7 @@
 								   @"cdrom",
 								   @"floppy",
 								   @"harddisk",
+                                   @"cue", @"inst", @"iso", @"cdr",
 								   nil];
 	
 	NSString *extension	= filename.pathExtension.lowercaseString;

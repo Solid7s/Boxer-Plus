@@ -7,9 +7,9 @@ source_app="$1"
 label="$2"
 mode="${3:-installer}"
 [[ "$label" =~ ^[a-z0-9-]+$ ]] || exit 1
-[[ "$mode" == installer || "$mode" == preinstalled || "$mode" == iso || "$mode" == windows || "$mode" == windows-auto || "$mode" == windows-scan ]] || exit 1
+[[ "$mode" == installer || "$mode" == preinstalled || "$mode" == iso || "$mode" == disc-installer || "$mode" == windows || "$mode" == windows-auto || "$mode" == windows-scan ]] || exit 1
 iso_path="${4:-}"
-if [[ "$mode" == iso || "$mode" == windows || "$mode" == windows-auto ]]; then test -f "$iso_path"; fi
+if [[ "$mode" == iso || "$mode" == disc-installer || "$mode" == windows || "$mode" == windows-auto ]]; then test -f "$iso_path"; fi
 test_root="$PWD/build/Import-$label"
 test_app="$test_root/Boxer.app"
 test ! -e "$test_root"
@@ -66,9 +66,10 @@ fi
 xcrun clang -fobjc-arc -fmodules -dynamiclib -framework Cocoa -framework MetalKit \
     -I Boxer -I 'Boxer/DOS window' -I Boxer/Rendering -I DOSBox-Staging/include \
     -I 'Other Sources/ADBToolkit' -I 'Other Sources/ADBToolkit/Fullscreen' \
-    Tests/ImportSmoke.m -o build/ImportSmoke.dylib
-BOXER_IMPORT_ROOT="$test_root" BOXER_IMPORT_MODE="$mode" BOXER_IMPORT_ISO="$iso_path" DYLD_INSERT_LIBRARIES="$PWD/build/ImportSmoke.dylib" \
+    Tests/ImportSmoke.m -o "$test_root/ImportSmoke.dylib"
+BOXER_IMPORT_ROOT="$test_root" BOXER_IMPORT_MODE="$mode" BOXER_IMPORT_ISO="$iso_path" DYLD_INSERT_LIBRARIES="$test_root/ImportSmoke.dylib" \
     "$test_app/Contents/MacOS/Boxer" -ApplePersistenceIgnoreState YES -SUEnableAutomaticChecks NO \
     -pauseWhileInactive NO -startupAction 0 > "build/import-$label.log" 2>&1
 rg '^PASS:|^FAIL:|^Import progress:' "build/import-$label.log"
-rg -q '^PASS: completed import closes normally$' "build/import-$label.log"
+rg -q '^PASS: completed import requests application exit$' "build/import-$label.log"
+printf 'PASS: import test process exited successfully\n'

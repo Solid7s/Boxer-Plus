@@ -1,6 +1,11 @@
-# Windows 3.11 runtime files
+# Windows 3.x setup for Xcode builds
 
-For a source build with automatic Windows setup, place your Windows 3.11 C-drive files here:
+Building Boxer+ with Windows 3.x support in Xcode requires your own legally
+obtained copy of Windows 3.x. Windows system files are not included in this
+source repository.
+
+Before building, place the files from your Windows 3.11 installation's C: drive
+in this directory, preserving the folder structure:
 
 ```text
 Resources/Windows311/
@@ -13,6 +18,7 @@ Resources/Windows311/
     ...
 ```
 
-Xcode includes this folder in the app resources. The importer reads `Boxer+.app/Contents/Resources/Windows311` and copies its contents into the new gamebox. Once compiled, the app does not need the project folder.
+The importer checks for `WINDOWS/WIN.COM`. It can also use an existing, closed
+Windows gamebox as the source for a new game's Windows environment.
 
-The v1.1.0 app release includes the local template. Windows system binaries are excluded from this source repository; builds without them offer an existing Windows gamebox as a fallback.
+Windows system files are ignored by Git. Keep them out of source commits.

@@ -74,9 +74,15 @@
         NSSet *executableTypes = [BXFileTypes executableTypes];
         NSSet *macAppTypes = [BXFileTypes macOSAppTypes];
         
-        if ([_workspace file: fullPath matchesTypes: executableTypes])
+        BOOL isExecutable = self.imageFilesystem ?
+            [self.imageFilesystem typeOfFileAtPath:relativePath matchingTypes:executableTypes] != nil :
+            [_workspace file:fullPath matchesTypes:executableTypes];
+        if (isExecutable)
         {
-			if ([BXFileTypes isCompatibleExecutableAtURL: [NSURL fileURLWithPath: fullPath] error: NULL])
+            BOOL compatible = self.imageFilesystem ?
+                [BXFileTypes isCompatibleExecutableAtPath:relativePath filesystem:self.imageFilesystem error:NULL] :
+                [BXFileTypes isCompatibleExecutableAtURL:[NSURL fileURLWithPath:fullPath] error:NULL];
+			if (compatible)
             {
                 [self addDOSExecutable: relativePath];
                 
@@ -97,7 +103,7 @@
                 [self addWindowsExecutable: relativePath];
             }
         }
-        else if ([_workspace file: fullPath matchesTypes: macAppTypes])
+        else if (!self.imageFilesystem && [_workspace file: fullPath matchesTypes: macAppTypes])
         {
             [self addMacOSApp: relativePath];
         }
@@ -145,7 +151,16 @@
 - (void) performScan
 {
     //Detect the game profile before we start.
-    if (!self.detectedProfile)
+    if (!self.detectedProfile && self.imageFilesystem)
+    {
+        id <ADBFilesystemPathEnumeration> paths = [self.imageFilesystem enumeratorAtPath:@"/" options:0 errorHandler:nil];
+        for (BXGameProfile *profile in [BXGameProfile profilesDetectedInContentsOfEnumerator:paths])
+        {
+            if (self.isCancelled) return;
+            if (!self.detectedProfile || profile.priority > self.detectedProfile.priority) self.detectedProfile = profile;
+        }
+    }
+    else if (!self.detectedProfile)
     {
         //If we are scanning a mounted image, scan the mounted volume path for the game profile
         //instead of the base image path. 
@@ -170,8 +185,11 @@
     for (NSString *path in self.windowsExecutables)
     {
         NSString *name = path.lastPathComponent.lowercaseString;
+        BXExecutableType type = self.imageFilesystem ?
+            [BXFileTypes typeOfExecutableAtPath:path filesystem:self.imageFilesystem error:NULL] :
+            [BXFileTypes typeOfExecutableAtURL:[NSURL fileURLWithPath:[self fullPathFromRelativePath:path]] error:NULL];
         if ([BXImportSession isInstallerAtPath:path] && ![name hasPrefix:@"uninst"] &&
-            [BXFileTypes typeOfExecutableAtURL:[NSURL fileURLWithPath:[self fullPathFromRelativePath:path]] error:NULL] == BXExecutableTypeWindows)
+            type == BXExecutableTypeWindows)
             [windowsInstallers addObject:path];
     }
     [windowsInstallers sortUsingSelector:@selector(pathDepthCompare:)];

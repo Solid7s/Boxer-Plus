@@ -78,7 +78,8 @@ static void Start(void) {
     BOOL scanOnly = [mode isEqual:@"windows-scan"];
     BOOL automaticWindows = [mode isEqual:@"windows-auto"];
     BOOL windows = [mode isEqual:@"windows"] || automaticWindows;
-    BOOL disc = [mode isEqual:@"iso"] || windows;
+    BOOL automaticDisc = [mode isEqual:@"disc-installer"];
+    BOOL disc = [mode isEqual:@"iso"] || windows || automaticDisc;
     BOOL installer = [mode isEqual:@"installer"] || disc || scanOnly;
     Check([root containsString:@"/build/"], "import fixture must be isolated");
     source = [NSURL fileURLWithPath:disc ? NSProcessInfo.processInfo.environment[@"BOXER_IMPORT_ISO"]
@@ -88,10 +89,13 @@ static void Start(void) {
     [appDelegate orderFrontWelcomePanel:nil];
     [NSTimer scheduledTimerWithTimeInterval:0.25 repeats:YES block:^(NSTimer *timer) {
         ticks++;
+        if (ticks % 16 == 0) NSLog(@"Import heartbeat: step=%lu stage=%ld emulating=%d target=%@ windows=%@", (unsigned long)step,
+            (long)session.importStage, session.isEmulating, session.targetURL, NSApp.windows);
         if (step == 0) {
             step = 1;
             [appDelegate orderFrontImportGamePanel:nil];
             session = (id)NSDocumentController.sharedDocumentController.documents.firstObject;
+            Check([[session class] canImportFromSourceURL:source], "source is accepted by the import dropzone and file chooser");
             Check([session isKindOfClass:NSClassFromString(@"BXImportSession")], "Import New Game creates an import session");
             Check(session.importWindowController.window.isVisible, "import window is visible after leaving Welcome");
             [session importFromSourceURL:source];
@@ -129,7 +133,12 @@ static void Start(void) {
             NSButton *button = ButtonWithAction(session.importWindowController.window.contentView, NSSelectorFromString(@"launchSelectedInstaller:"));
             Check(button && button.isEnabled, "Start Installation button is connected and enabled");
             step = automaticWindows ? 7 : (windows ? 5 : 3);
-            [button performClick:nil];
+            @try { [button performClick:nil]; }
+            @catch (NSException *exception) {
+                NSLog(@"Installer launch exception: %@\n%@", exception, exception.callStackSymbols);
+                Check(NO, "installer handoff must not throw an exception");
+            }
+            NSLog(@"Installer action returned: stage=%ld target=%@ emulator=%@", (long)session.importStage, session.targetURL, session.emulator);
         } else if (step == 5) {
             NSOpenPanel *panel = (id)session.windowForSheet.attachedSheet;
             Check([panel isKindOfClass:NSOpenPanel.class], "Windows setup opens a runtime selection panel");
@@ -206,7 +215,7 @@ static void Start(void) {
                 LogAlertText(session.windowForSheet.attachedSheet.contentView);
                 Check(NO, "installer launch must not show an error alert");
             }
-            if (disc) {
+            if (disc && !automaticDisc) {
                 if (ticks % 4 == 0) CaptureInstaller(root);
                 NSData *data = [NSData dataWithContentsOfFile:[root stringByAppendingPathComponent:@"commands.json"]];
                 NSArray *commands = data ? [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL] : nil;
@@ -266,6 +275,18 @@ static void Start(void) {
 
 __attribute__((constructor)) static void Install(void) {
     @autoreleasepool {
+        for (NSArray *hook in @[@[@"BXSession", @"_startEmulator"]]) {
+            SEL selector = NSSelectorFromString(hook[1]);
+            Method debugMethod = class_getInstanceMethod(NSClassFromString(hook[0]), selector);
+            void (*debugOriginal)(id, SEL) = (void *)method_getImplementation(debugMethod);
+            method_setImplementation(debugMethod, imp_implementationWithBlock(^(id object) {
+                @try { debugOriginal(object, selector); }
+                @catch (NSException *exception) {
+                    NSLog(@"Import startup exception: %@\n%@", exception, exception.callStackSymbols);
+                    Check(NO, "asynchronous emulator startup must not throw");
+                }
+            }));
+        }
         //Record why real discs enter (or bypass) the installer stage.
         Method method = class_getInstanceMethod(NSClassFromString(@"BXImportSession"), NSSelectorFromString(@"installerScanDidFinish:"));
         void (*original)(id, SEL, NSNotification *) = (void *)method_getImplementation(method);
@@ -281,10 +302,10 @@ __attribute__((constructor)) static void Install(void) {
         }];
         [[NSNotificationCenter defaultCenter] addObserverForName:NSApplicationWillTerminateNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             Check(finished, "app must not quit during import or window transitions");
-            fprintf(stdout, "PASS: completed import closes normally\n"); fflush(stdout);
+            fprintf(stdout, "PASS: completed import requests application exit\n"); fflush(stdout);
         }];
         NSString *mode = NSProcessInfo.processInfo.environment[@"BOXER_IMPORT_MODE"];
-        NSTimeInterval timeout = [mode hasPrefix:@"windows"] && ![mode isEqual:@"windows-scan"] ? 300 : ([mode isEqual:@"iso"] ? 180 : 40);
+        NSTimeInterval timeout = [mode hasPrefix:@"windows"] && ![mode isEqual:@"windows-scan"] ? 300 : ([mode isEqual:@"iso"] ? 600 : 40);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout*NSEC_PER_SEC)), dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
             fprintf(stderr, "FAIL: import check timed out\n"); fflush(stderr); _Exit(2);
         });

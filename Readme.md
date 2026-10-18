@@ -10,12 +10,17 @@ extract it, and move Boxer+.app to Applications. This asset is an Intel x86_64
 Release build, tested on macOS 15.7.4. It is ad-hoc signed and not notarized;
 native Apple Silicon execution is not provided by this binary.
 
-The release app contains the Windows 3.11 template inside its own bundle.
-Source checkouts require your local `Resources/Windows311` files to reproduce
-that bundled-runtime behavior; otherwise the importer asks for an existing
-Windows gamebox. See [release notes](RELEASE-NOTES-v1.1.0.md) for validation and
-known limitations, including the keyboard-hook quit hang and direct CUE/BIN
-import support present in the older repository but absent from this snapshot.
+**Building with Windows 3.x support in Xcode requires your own legally obtained
+copy of Windows 3.x.** Provide the Windows installation files in
+`Resources/Windows311` before building; see the [Windows setup instructions](Resources/Windows311/README.md).
+Windows system files are excluded from this source repository.
+See [release notes](RELEASE-NOTES-v1.1.0.md) for validation and known limitations,
+including the keyboard-hook quit hang.
+
+CUE/BIN importing is supported: select the **.cue** file in Import New Game and
+keep its referenced BIN, ISO and audio files together until importing finishes.
+Boxer scans the disc directly and bundles its tracks into the finished gamebox.
+See [CUE/BIN implementation and test notes](CUE-BIN-IMPORT-2026-10-18.md).
 
 #### Some notes on building Boxer
 
@@ -51,7 +56,7 @@ Run `./build-release.sh` to build and verify an optimized, locally signed app in
 
 The script also removes the retired ordinary-sleep-only core patch from older working trees, restoring DOSBox's original runtime sleep selection. Run `./BuildSupport/apply-core-patches.sh` once before building directly in Xcode. Fresh submodule checkouts already have the correct timing code; `BuildSupport/dosbox-energy.patch` is retained only to recognize and undo that older patch.
 
-**File → Import New Game** offers DOS and Windows setup programs. This local build automatically copies its Windows 3.11 template into a new gamebox when you start a Windows installer. Finish setup, then choose the installed game or shortcut to save. Builds without the template ask for an existing, closed Windows gamebox instead. DOS imports do not copy Windows. This does not add Windows 95/98 emulation. See [automatic Windows setup](WINDOWS-AUTO-IMPORT-2026-10-18.md), [importer details](WINDOWS-IMPORT-FIX-2026-10-18.md), and the earlier [DOS import fixes](IMPORT-FIX-NOTES.md).
+**File → Import New Game** offers DOS and Windows setup programs. Windows imports prepare an independent Windows environment for each new gamebox. Finish setup, then choose the installed game or shortcut to save. The importer can also copy an existing, closed Windows gamebox. DOS imports do not copy Windows. This does not add Windows 95/98 emulation. See [automatic Windows setup](WINDOWS-AUTO-IMPORT-2026-10-18.md), [importer details](WINDOWS-IMPORT-FIX-2026-10-18.md), and the earlier [DOS import fixes](IMPORT-FIX-NOTES.md).
 
 During a game, **Emulation → Max Cycle CPU Usage** offers 50%, 75% and 100% budgets, saved separately for each game. These percentages scale DOSBox's automatic CPU target in Maximum speed mode, not the whole Mac's CPU usage. Use a higher budget if a demanding game slows down; the CPU slider still provides fixed speeds for older games. See [PERFORMANCE-REVIEW.md](PERFORMANCE-REVIEW.md) for implementation and measurement notes.
 

@@ -85,6 +85,7 @@
 - (void)_launchWindowsInstallerAtURL:(NSURL *)URL
                    usingFilesystem:(ADBShadowedFilesystem *)filesystem
                      configuration:(BXEmulatorConfiguration *)configuration;
+- (BXExecutableType)_installerTypeAtURL:(NSURL *)URL;
 
 //Create a new empty game package for our source path.
 - (BOOL) _generateGameboxWithError: (NSError **)error;
@@ -406,9 +407,9 @@
 {
 	static NSSet *types = nil;
     
-    //A subset of our usual mountable types: we only accept regular folders and disk image
-    //formats which can be mounted by hdiutil (so that we can inspect their filesystems)
-	if (!types) types = [[[BXFileTypes OSXMountableImageTypes] setByAddingObject: @"public.folder"] retain];
+    //Regular folders, images mountable by macOS, and directly readable CUE/BIN sets.
+	if (!types) types = [[[BXFileTypes OSXMountableImageTypes] setByAddingObjectsFromArray:
+        @[@"public.folder", BXCuesheetImageType]] retain];
     
     return types;
 }
@@ -699,13 +700,26 @@
 	self.importStage = BXImportSessionWaitingForSource;
 }
 
+- (BXExecutableType)_installerTypeAtURL:(NSURL *)URL
+{
+    if ([self.sourceURL.pathExtension.lowercaseString isEqualToString:@"cue"] ||
+        [self.sourceURL.pathExtension.lowercaseString isEqualToString:@"inst"])
+    {
+        id <ADBFilesystemPathAccess, ADBFilesystemLogicalURLAccess> filesystem =
+            [BXFileTypes filesystemWithContentsOfURL:self.sourceURL error:NULL];
+        NSString *path = [filesystem pathForLogicalURL:URL];
+        return path ? [BXFileTypes typeOfExecutableAtPath:path filesystem:filesystem error:NULL] : BXExecutableTypeUnknown;
+    }
+    return [BXFileTypes typeOfExecutableAtURL:URL error:NULL];
+}
+
 - (void) launchInstallerAtURL: (NSURL *)URL
 {
 	//Sanity checks: if these fail then there is a programming error.
 	NSAssert(URL != nil, @"No URL specified.");
 	NSAssert(self.sourceURL != nil, @"No source URL for the import has been chosen.");
 
-    if ([BXFileTypes typeOfExecutableAtURL:URL error:NULL] == BXExecutableTypeWindows)
+    if ([self _installerTypeAtURL:URL] == BXExecutableTypeWindows)
     {
         NSURL *runtime = [NSBundle.mainBundle URLForResource:@"Windows311" withExtension:nil];
         NSURL *windows = [runtime URLByAppendingPathComponent:@"WINDOWS/WIN.COM"];
@@ -771,7 +785,7 @@
         if ([document isKindOfClass:[BXSession class]] &&
             [document.gamebox.bundleURL.URLByResolvingSymlinksInPath isEqual:gameboxURL.URLByResolvingSymlinksInPath])
             message = NSLocalizedString(@"Close the selected Windows gamebox before copying it, then try again.", nil);
-    if ([BXFileTypes typeOfExecutableAtURL:URL error:NULL] != BXExecutableTypeWindows)
+    if ([self _installerTypeAtURL:URL] != BXExecutableTypeWindows)
         message = NSLocalizedString(@"Choose a Windows setup program from the installation disc.", nil);
     if (message)
     {

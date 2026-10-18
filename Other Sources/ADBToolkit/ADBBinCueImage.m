@@ -147,9 +147,13 @@ NSString * const ADBCueFileDescriptorSyntax = @"FILE\\s+(?:\"(.+)\"|(\\S+))\\s+[
 - (BOOL) _loadImageAtURL: (NSURL *)URL
                    error: (out NSError **)outError
 {
+    NSURL *sourceURL = URL;
     //Load the BIN part of the cuesheet
     if ([self.class isCueAtURL: URL error: outError])
     {
+        //Fail before installation if any data or audio track is unavailable.
+        for (NSURL *resourceURL in [self.class resourceURLsInCueAtURL:URL error:outError])
+            if (![resourceURL checkResourceIsReachableAndReturnError:outError]) return NO;
         //TODO: check the mode from the cue-sheet and populate the sector size and lead-in appropriately
         NSURL *dataURL = [self.class dataImageURLInCueAtURL: URL error: outError];
         if (dataURL)
@@ -162,7 +166,15 @@ NSString * const ADBCueFileDescriptorSyntax = @"FILE\\s+(?:\"(.+)\"|(\\S+))\\s+[
         }
     }
     
-    return [super _loadImageAtURL: URL error: outError];
+    BOOL loaded = [super _loadImageAtURL: URL error: outError];
+    if (loaded)
+    {
+        //Logical paths belong to the cuesheet, not its first data-track file.
+        //Keep the data URL as an alias for existing saved launcher paths.
+        self.baseURL = sourceURL;
+        [self addRepresentedURL:URL];
+    }
+    return loaded;
 }
 
 @end

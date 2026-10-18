@@ -160,7 +160,7 @@ installed files. Guest writes use Boxer's shadow state under the new test UUID.
 See `WINDOWS-IMPORT-AL-UNSER-2026-10-18.md` for the real-disc results.
 
 `./Tests/run-import-check.sh APP LABEL windows ISO WINDOWS_GAMEBOX` exercises
-the fallback importer, excluding the bundled runtime from the disposable app
+the fallback importer, disabling the automatic runtime source for the test
 and using a disposable gamebox template with saved-file/deletion
 markers. It tests runtime-panel cancellation, missing-runtime recovery, hidden
 files, independent identity, and cancellation in the final startup chooser.
@@ -170,10 +170,13 @@ check. `windows-scan` tests Windows-only detection and mixed-media DOS priority
 without requiring Windows or game data. See `WINDOWS-IMPORT-FIX-2026-10-18.md`.
 
 `./Tests/run-import-check.sh APP LABEL windows-auto ISO` exercises the default
-Windows import using the app's bundled `Windows311`. It checks that no runtime
+Windows import with a runtime supplied for the test build. It checks that no runtime
 chooser appears, verifies copied Windows/driver files, and uses the same Al Unser
 installation and finish-program selection checks. DOS modes also verify that
 Windows is not copied into DOS gameboxes.
+
+Windows import tests require a legally obtained copy of Windows 3.x supplied
+by the person building and testing the app.
 
 Do not edit a running shell script, run simultaneous game probes, or compile
 while collecting comparison measurements. Disposable apps/gameboxes and logs

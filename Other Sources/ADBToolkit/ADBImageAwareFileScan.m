@@ -29,6 +29,8 @@
 #import "NSWorkspace+ADBFileTypes.h"
 
 
+#import "ADBBinCueImage.h"
+
 @implementation ADBImageAwareFileScan
 @synthesize mountedVolumePath = _mountedVolumePath;
 @synthesize ejectAfterScanning = _ejectAfterScanning;
@@ -69,13 +71,54 @@
 
 - (void) performScan
 {
-    [super main];
+    if (!self.imageFilesystem) { [super main]; return; }
+
+    [_matchingPaths removeAllObjects];
+    id <ADBFilesystemPathEnumeration> enumerator = [self.imageFilesystem enumeratorAtPath:@"/" options:0
+        errorHandler:^BOOL(NSString *path, NSError *error) {
+            self.error = error;
+            return NO;
+        }];
+    for (NSString *path in enumerator)
+    {
+        if (self.isCancelled || self.error) break;
+        @autoreleasepool {
+            NSString *relativePath = [path hasPrefix:@"/"] ? [path substringFromIndex:1] : path;
+            BOOL isDirectory = NO;
+            [self.imageFilesystem fileExistsAtPath:path isDirectory:&isDirectory];
+            if (isDirectory && ![self shouldScanSubpath:relativePath]) [enumerator skipDescendants];
+            if (![self matchAgainstPath:relativePath]) break;
+        }
+    }
+}
+
+- (BOOL) isMatchingPath: (NSString *)relativePath
+{
+    if (!self.imageFilesystem) return [super isMatchingPath:relativePath];
+    if (self.skipHiddenFiles && [relativePath.lastPathComponent hasPrefix:@"."]) return NO;
+    if (self.predicate && ![self.predicate evaluateWithObject:relativePath]) return NO;
+    return !self.fileTypes || [self.imageFilesystem typeOfFileAtPath:relativePath matchingTypes:self.fileTypes] != nil;
 }
 
 - (void) mountVolumesForScan
 {
     NSString *volumePath = nil;
     _didMountVolume = NO;
+    self.imageFilesystem = nil;
+
+    NSString *extension = self.basePath.pathExtension.lowercaseString;
+    if ([extension isEqualToString:@"cue"] || [extension isEqualToString:@"inst"])
+    {
+        NSError *imageError = nil;
+        self.imageFilesystem = [ADBBinCueImage imageWithContentsOfURL:[NSURL fileURLWithPath:self.basePath] error:&imageError];
+        if (!self.imageFilesystem)
+        {
+            self.error = imageError ?: [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError
+                userInfo:@{NSFilePathErrorKey:self.basePath}];
+            [self cancel];
+        }
+        return;
+    }
     
     //If the target path is on a disk image, then mount the image for scanning
     if ([_workspace file: self.basePath matchesTypes: [NSSet setWithObject: @"public.disk-image"]])
