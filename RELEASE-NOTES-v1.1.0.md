@@ -61,7 +61,7 @@ build; Apple Silicon execution has not been validated.
 - A keyboard event-tap/main-thread shutdown deadlock was observed after a Windows
   launch and one ISO import. Crusader, raw-BIN and Windows fallback CUE tests
   exited normally. The separate shutdown race remains unresolved; see
-  [the recorded sample findings](WINDOWS-AUTO-IMPORT-2026-10-18.md#separate-shutdown-observation).
+  [the recorded sample findings](https://github.com/Solid7s/Boxer-Plus/blob/v1.1.0/WINDOWS-AUTO-IMPORT-2026-10-18.md#separate-shutdown-observation).
 - For a CUE/BIN set, select the `.cue` file and keep every referenced BIN/ISO/audio
   file at the location specified by that cuesheet until importing finishes.
   A standalone BIN without its cuesheet is not offered as an import source.
