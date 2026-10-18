@@ -65,11 +65,6 @@ During a game, **Emulation → Max Cycle CPU Usage** offers 50%, 75% and 100% bu
 
 Closing the last window now quits Boxer. Closing an active game still shows its close confirmation unless you previously disabled that prompt; choosing **Cancel** keeps it running. If another window is open, Boxer stays open until that window is closed.
 
-For compiler comparisons, use `BOXER_LTO=NO` or `BOXER_LTO=YES_THIN` with `./build-release.sh`. Optional positional arguments are the build directory, LTO mode, and cached Swift packages directory, in that order. Keep separately copied apps for A/B measurements.
-
-The [Quiet example](Examples/DOSBox-Quiet.conf) provides a general CPU budget; the [Duke performance profile](Examples/Duke-Performance.conf) adds the tested 100,000-cycle ceiling for 320×200 playback. Active per-game settings live in the gamebox's `DOSBox Preferences.conf` and Boxer's user preferences, so uploading the source does not automatically change another user's games. Select the budget and speed limit from the Emulation menu after launching a game to update both locations.
-
-The [Duke autolaunch example](Examples/Duke-Autolaunch.plist) records `C.harddisk/DUKE3D/DUKE3D.EXE` as the default program. Merge these fields into the gamebox's `Game Info.plist` while Boxer is closed; preserve the existing game identifier and any other launcher entries. This is a partial configuration example, not a replacement for the entire metadata file. A default launcher lets the gamebox start Duke without depending on that Mac's recent-program history.
 
 #### Uploading these changes
 
