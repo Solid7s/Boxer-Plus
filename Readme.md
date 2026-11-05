@@ -86,7 +86,7 @@ OSX 10.5 and PowerPC support has been removed from the Boxer master branch: if y
 
 #### Having trouble?
 
-If you have any problems building the Boxer project, or questions about Boxer's code, please get in touch with me at abestor@boxerapp.com and I'll help out as best I can.
+Please leave comments on https://www.reddit.com/r/macgaming/comments/1x9alty/updated_boxer_app_for_mac_os_supports_both_dos/
 
 #### License
 
